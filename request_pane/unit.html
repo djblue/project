@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unit Tests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" type="text/css" href="unit.css">
+    <!-- -->
+    <style>
+    </style>
+</head>
+<body>
+    <!-- -->
+    <ul id="output"></ul>
+    <!-- -->
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="request.js"></script>
+    <script type="text/javascript" src="list.js"></script>
+    <script type="text/javascript" src="unit.js"></script>
+    <script>
+
+        var output = document.getElementById('output');
+
+        var assert = function (result, description) {
+            var li = document.createElement('li');  
+            li.className = (result)? 'pass' : 'fail';
+            li.appendChild( document.createTextNode(description) );
+            output.appendChild(li);
+        }
+
+        $(function () {
+            $.each(tests, function(i, obj) {
+                assert(obj.test(), obj.description);
+            });
+        });
+
+    </script>
+</body>
+</html>
