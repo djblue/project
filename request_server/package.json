@@ -1,0 +1,11 @@
+{
+    "name": "RequestServer",
+    "version": "0.0.0",
+    "description": "A simple request server.",
+    "dependencies": {
+        "express": "latest",
+        "mongodb": "latest",
+        "socket.io": "latest"
+    },
+    "author": "Abdullah Badahdah"
+}
