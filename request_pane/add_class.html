@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Request</title>
+    <title>Add New Class</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <!-- -->
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src = "validate_form.js"></script>
 </head>
 <body>
     <!-- -->
@@ -13,22 +14,27 @@
         <h1>Tutoring</h1>
     </div>
     <!-- -->
-    <div id="body"> </div>
+    <div id="body"> 
+
+
+    <form name="new_class" action="preview.html" onsubmit="return validateForm()" method="post">
+        <label>Subject:
+        <span class="small">e.g. Math</span>
+        </label>
+        <input type="text" name="subject" id="subject" />
+        <label>Class:
+        <span class="small">e.g. MAT 343</span>
+        </label>
+        <input type="text" name="class" id="class" />
+        <button type="submit">ADD</button>
+        <div class="spacer"></div>
+    </form>
+
+
+    </div>
     <!-- -->
     <div id="footer">
         <h1>Tempe Campus</h1>
     </div>
-
-    <!-- -->
-    <script type="text/javascript" src="jquery.js"></script>
-    <script type="text/javascript" src="request.js"></script>
-    <script type="text/javascript" src="list.js"></script>
-    <script>
-    $(function () { 
-        $('#body').request({
-            list: data,
-        });
-    });
-    </script>
 </body>
 </html>
