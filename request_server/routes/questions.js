@@ -18,6 +18,9 @@ var questions = [/*{{{*/
     {_id: 3, course_id: 4, table: 12}
 ];/*}}}*/
 var id_gen = 4;
+exports.get_questions = function () {
+    return questions;
+};
 exports.get = function(req, res) {/*{{{*/
     res.json(questions); // Return the current question queue.
 };/*}}}*/

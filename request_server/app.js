@@ -2,17 +2,18 @@
  * Module dependencies.
  */
 
-var util = require('util')
-  , express = require('express')
-  , expressValidator = require('express-validator')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , courses = require('./routes/courses')
-  , questions = require('./routes/questions')
-  , http = require('http')
-  , path = require('path');
+var util                = require('util')
+  , express             = require('express')
+  , expressValidator    = require('express-validator')
+  , app                 = express()
+  , server              = require('http').createServer(app)
+  , io                  = require('socket.io').listen(server)
+  , path                = require('path')
 
-var app = express();
+  , routes              = require('./routes')
+  , user                = require('./routes/user')
+  , courses             = require('./routes/courses')
+  , questions           = require('./routes/questions');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -32,16 +33,30 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+io.sockets.on('connection', function (socket) {
+    socket.emit('questions', questions.get_questions());
+});
+
 app.get('/', routes.index);
 app.get('/users', user.list);
+
+app.get('/queue', function (req, res) {
+    res.render("queue");
+});
 
 app.get('/courses', courses.get);
 app.post('/courses', courses.post);
 
 app.get('/questions', questions.get);
-app.post('/questions', questions.post);
-app.delete('/questions/:id', questions.delete);
+app.post('/questions', function (req, res) {
+    questions.post(req, res);
+    io.sockets.emit('questions', questions.get_questions());
+});
+app.delete('/questions/:id', function(req, res) {
+    questions.delete(req, res);
+    io.sockets.emit('questions', questions.get_questions());
+});
 
-http.createServer(app).listen(app.get('port'), function(){
+server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
