@@ -18,6 +18,7 @@ var util                = require('util')
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
+//app.set('view engine', 'jade');
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -37,8 +38,9 @@ io.sockets.on('connection', function (socket) {
     socket.emit('questions', questions.get_questions());
 });
 
-app.get('/', routes.index);
-app.get('/users', user.list);
+app.get('/', function (req, res) {
+    res.render("request");    
+});
 
 app.get('/queue', function (req, res) {
     res.render("queue");
