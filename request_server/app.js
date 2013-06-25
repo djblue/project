@@ -39,7 +39,7 @@ io.sockets.on('connection', function (socket) {
 });
 
 app.get('/', function (req, res) {
-    res.render("request");    
+    res.sendfile(path.join( __dirname, 'views/request.html'));    
 });
 
 app.get('/queue', function (req, res) {

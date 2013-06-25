@@ -4,7 +4,7 @@
     <title>Request</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <!-- -->
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 </head>
 <body>
     <!-- -->
@@ -20,13 +20,14 @@
     </div>
 
     <!-- -->
-    <script type="text/javascript" src="jquery.js"></script>
-    <script type="text/javascript" src="request.js"></script>
-    <script type="text/javascript" src="list.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery.js"></script>
+    <script type="text/javascript" src="/javascripts/request.js"></script>
     <script>
     $(function () { 
-        $('#body').request({
-            list: data,
+        $.getJSON('/courses', function (data) {
+            $('#body').request({
+                list: data,
+            });
         });
     });
     </script>
