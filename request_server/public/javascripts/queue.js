@@ -1,6 +1,6 @@
 window.onload = function() {
 
-    var socket = io.connect('http://localhost:3000');
+    var socket = io.connect(); // Defaults to server
     var content    = document.getElementById("content");
 
     socket.on('questions', function (data) {
