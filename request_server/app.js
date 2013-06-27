@@ -10,8 +10,7 @@ var util                = require('util')
   , io                  = require('socket.io').listen(server)
   , path                = require('path')
 
-  , routes              = require('./routes')
-  , user                = require('./routes/user')
+  , subjects            = require('./routes/subjects')
   , courses             = require('./routes/courses')
   , questions           = require('./routes/questions');
 
@@ -46,6 +45,12 @@ app.get('/queue', function (req, res) {
     res.render("queue");
 });
 
+app.get('/subjects', subjects.findAll);
+app.get('/subjects/:id', subjects.findById);
+app.post('/subjects', subjects.addSubject);
+app.put('/subjects/:id', subjects.updateSubject);
+app.delete('/subjects/:id', subjects.deleteSubject);
+
 app.get('/courses', courses.get);
 app.post('/courses', courses.post);
 
@@ -59,6 +64,6 @@ app.delete('/questions/:id', function(req, res) {
     io.sockets.emit('questions', questions.get_questions());
 });
 
-server.listen(app.get('port'), function(){
+server.listen(80, function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
