@@ -12,10 +12,35 @@
 
  // The question queue; module scope.
 var questions = [/*{{{*/
+    {_id: 0, course_id: 7, table: 12},
+    {_id: 0, course_id: 2, table: 12},
+    {_id: 0, course_id: 8, table: 12},
+    {_id: 0, course_id: 4, table: 12},
     {_id: 0, course_id: 0, table: 12},
-    {_id: 1, course_id: 2, table: 12},
-    {_id: 2, course_id: 1, table: 12},
-    {_id: 3, course_id: 4, table: 12}
+    {_id: 0, course_id: 23, table: 12},
+    {_id: 0, course_id: 8, table: 12},
+    {_id: 0, course_id: 10, table: 12},
+    {_id: 0, course_id: 2, table: 12},
+    {_id: 0, course_id: 1, table: 12},
+    {_id: 0, course_id: 24, table: 12},
+    {_id: 0, course_id: 0, table: 12},
+    {_id: 0, course_id: 2, table: 12},
+    {_id: 0, course_id: 15, table: 12},
+    {_id: 0, course_id: 6, table: 12},
+    {_id: 0, course_id: 21, table: 12},
+    {_id: 0, course_id: 9, table: 12},
+    {_id: 0, course_id: 4, table: 12},
+    {_id: 0, course_id: 0, table: 12},
+    {_id: 0, course_id: 3, table: 12},
+    {_id: 0, course_id: 1, table: 12},
+    {_id: 0, course_id: 0, table: 12},
+    {_id: 0, course_id: 2, table: 12},
+    {_id: 0, course_id: 1, table: 12},
+    {_id: 0, course_id: 14, table: 12},
+    {_id: 0, course_id: 10, table: 12},
+    {_id: 0, course_id: 25, table: 12},
+    {_id: 0, course_id: 24, table: 12},
+    {_id: 0, course_id: 24, table: 12}
 ];/*}}}*/
 var id_gen = 4;
 exports.get_questions = function () {

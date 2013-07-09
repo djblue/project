@@ -1,0 +1,159 @@
+[
+    { 
+        "_id": "0"
+        "subject_id": "51cb732211c522e27c000001", 
+        "number":"243", 
+        "title" :"Discrete Math" 
+    },
+    { 
+        "_id": "1",
+        "subject_id": "51cb732211c522e27c000001", 
+        "number":"343", 
+        "title" :"Linear Algebra" 
+    },
+    { 
+        "_id": "2",
+        "subject_id": "51cb732211c522e27c000001", 
+        "number":"270", 
+        "title" :"Calculus I" 
+    },
+    { 
+        "_id": "3",
+        "subject_id": "51cb732211c522e27c000001", 
+        "number":"270", 
+        "title" :"Calculus I" 
+    },
+    { 
+        "_id": "4",
+        "subject_id": "51cb732211c522e27c000001", 
+        "number":"271", 
+        "title" :"Calculus II" 
+    },
+    { 
+        "_id": "5",
+        "subject_id": "51cb732211c522e27c000001", 
+        "number":"272", 
+        "title" :"Calculus III" 
+    },
+    { 
+        "_id": "6",
+        "subject_id": "51cb732211c522e27c000001", 
+        "number":"275", 
+        "title" :"Differential Equations" 
+    },
+    {
+        "_id": "7",
+        "subject_id": "51cb732211c522e27c000002", 
+        "number":"100", 
+        "title" :"Introduction to Programming with C++" 
+    },
+    { 
+        "_id": "8",
+        "subject_id": "51cb732211c522e27c000002", 
+        "number":"110", 
+        "title" :"Introduction to Programming with Java" 
+    },
+    { 
+        "_id": "9",
+        "subject_id": "51cb732211c522e27c000002", 
+        "number":"120", 
+        "title" :"Introduction to Digital Design Fundamentals" 
+    },
+    { 
+        "_id": "10",
+        "subject_id": "51cb732211c522e27c000002", 
+        "number":"205", 
+        "title" :"Introduction to Object Oriented Programming and Data Structures" 
+    },
+    { 
+        "_id": "11",
+        "subject_id": "51cb732211c522e27c000002", 
+        "number":"230", 
+        "title" :"Computer Organization and Assembly Programming" 
+    },
+    { 
+        "_id": "12",
+        "subject_id": "51cb732211c522e27c000002", 
+        "number":"240", 
+        "title" :"Introduction to Programming Language" 
+    },
+    { 
+        "_id": "13",
+        "subject_id": "51cb732211c522e27c000003", 
+        "number":"212", 
+        "title" :"Engineering Mechanics" 
+    },
+    { 
+        "_id": "14",
+        "subject_id": "51cb732211c522e27c000003", 
+        "number":"213", 
+        "title" :"Solid Mechanics" 
+    },
+    { 
+        "_id": "15",
+        "subject_id": "51cb732211c522e27c000003", 
+        "number":"214", 
+        "title" :"Computer-Aided Engineering I" 
+    },
+    { 
+        "_id": "16",
+        "subject_id": "51cb732211c522e27c000003", 
+        "number":"384", 
+        "title" :"Advanced Mathematical Methods for Engineers" 
+    },
+
+    { 
+        "_id": "17",
+        "subject_id": "51cb732211c522e27c000004", 
+        "number":"120", 
+        "title" :"Digital Design Fundementals" 
+    },
+    { 
+        "_id": "18",
+        "subject_id": "51cb732211c522e27c000004", 
+        "number":"202", 
+        "title" :"Circuits I" 
+    },
+    { 
+        "_id": "19",
+        "subject_id": "51cb732211c522e27c000004", 
+        "number":"334", 
+        "title" :"Circuits II"
+    },
+    { 
+        "_id": "20",
+        "subject_id": "51cb732211c522e27c000005", 
+        "number":"113", 
+        "title" :"General Chemistry I" 
+    },
+    { 
+        "_id": "21",
+        "subject_id": "51cb732211c522e27c000005", 
+        "number":"116", 
+        "title" :"General Chemistry I" 
+    },
+    { 
+        "_id": "22",
+        "subject_id": "51cb732211c522e27c000005", 
+        "number":"233", 
+        "title" :"General Organic Chemistry I" 
+    },
+    { 
+        "_id": "23",
+        "subject_id": "51cb732211c522e27c000005", 
+        "number":"234", 
+        "title" :"General Organic Chemistry II" 
+    },
+    { 
+        "_id": "24",
+        "subject_id": "51cb732211c522e27c000006", 
+        "number":"121", 
+        "title" :"University Physics - Mechanics" 
+    },
+    { 
+        "_id": "25",
+        "subject_id": "51cb732211c522e27c000006", 
+        "number":"131", 
+        "title" :"University Physics - Electricity and Magnetism" 
+    }
+]

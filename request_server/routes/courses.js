@@ -10,7 +10,7 @@
 
 
 exports.get = function(req, res) {
-    res.sendfile('list.json');
+    res.sendfile('courses.json');
 };
 
 exports.post = function(req, res) {
