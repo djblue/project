@@ -9,7 +9,6 @@
 <body>
     <!-- -->
     <div id="header">
-        <!--<img border="0" src="http://upload.wikimedia.org/wikipedia/en/thumb/2/21/Arizona_State_Sun_Devils_trident_logo.png/300px-Arizona_State_Sun_Devils_trident_logo.png" alt="asu" width="50" height="100" align="LEFT">-->
         <h1>Tutoring</h1>
     </div>
     <!-- -->
@@ -19,17 +18,27 @@
         <h1>Tempe Campus</h1>
     </div>
 
+    <script id="main_menu" type="text/template">
+        <% _.each(subjects, function (subject) { %>
+            <div class="subject" data-id="<%= subject.get('_id') %>">
+                <h2><%= subject.get('title') %></h2></div>
+        <% }); %>
+    </script>
+
+    <script id="sub_menu" type="text/template">
+        <ul class="classes" >
+            <li class="back" >Go Back</li> 
+            <% _.each(courses, function (course) { %>
+            <li class="ask" data-id="<%= course.get('_id') %>" ><%= course.get('title') %></li> 
+            <% }); %>
+        </ul>
+    </script>
+
     <!-- -->
     <script type="text/javascript" src="/javascripts/jquery.js"></script>
+    <script type="text/javascript" src="/javascripts/underscore-min.js"></script>
+    <script type="text/javascript" src="/javascripts/backbone-min.js"></script>
     <script type="text/javascript" src="/javascripts/request.js"></script>
-    <script>
-    $(function () { 
-        $.getJSON('/courses', function (data) {
-            $('#body').request({
-                list: data,
-            });
-        });
-    });
-    </script>
+
 </body>
 </html>
