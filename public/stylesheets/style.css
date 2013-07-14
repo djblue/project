@@ -35,7 +35,7 @@ body {
     background: rgb(136, 1, 34);
     border-top: solid rgb(98,1,10) 2px;
 }
-.category {
+.subject {
     height:200px;
     width: 400px;
     text-align: center;
@@ -46,14 +46,14 @@ body {
 li {
     list-style: none; 
 }
-.category h2 {
+.subject h2 {
     display: table-cell;
     vertical-align: middle;
     border-radius: 5px;
     background: rgb(255, 203, 102);
     color: rgb(136,1,34);
 }
-.category h2:hover {
+.subject h2:hover {
     background: rgb(136,1,34);
     color: #FFFFFF;
 }
