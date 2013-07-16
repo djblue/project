@@ -4,7 +4,6 @@
 
 var util                = require('util')
   , express             = require('express')
-  , expressValidator    = require('express-validator')
   , app                 = express()
   , server              = require('http').createServer(app)
   , io                  = require('socket.io').listen(server)
@@ -23,7 +22,6 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 // Validator must be used directly after bodyParser.
-app.use(expressValidator());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));

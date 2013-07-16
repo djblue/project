@@ -4,10 +4,8 @@
     "description": "A simple request server.",
     "dependencies": {
         "express": "latest",
-        "express-validator": "latest",
         "mongodb": "latest",
-        "socket.io": "latest",
-        "jade":"latest"
+        "socket.io": "latest"
     },
     "author": "Abdullah Badahdah"
 }
