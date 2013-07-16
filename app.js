@@ -46,10 +46,12 @@ app.get('/queue', function (req, res) {
 });
 
 app.get('/subjects', subjects.findAll);
+/*
 app.get('/subjects/:id', subjects.findById);
 app.post('/subjects', subjects.addSubject);
 app.put('/subjects/:id', subjects.updateSubject);
 app.delete('/subjects/:id', subjects.deleteSubject);
+*/
 
 app.get('/courses', courses.get);
 app.post('/courses', courses.post);

@@ -31,7 +31,8 @@
             console.log(id);
 
             this.$el.html(this.template({ 
-                courses: this.collection.where({ subject_id: "51cb732211c522e27c000002" }) 
+                courses: this.collection.where({ 
+                    subject_id: String(id) }) 
             }));
         }
     });

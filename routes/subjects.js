@@ -8,6 +8,7 @@
  *
  */
 
+/*
 var mongo  = require('mongodb');
 
 var Server = mongo.Server,
@@ -28,8 +29,14 @@ db.open(function (err, db) {
         });
     }
 });
+*/
 
 
+exports.findAll = function(req, res) {
+    res.sendfile('subjects.json');
+};
+
+/*
 exports.findAll = function (req, res) {
     db.collection('subjects', function(err, collection) {
         collection.find().toArray(function(err, items) {
@@ -37,7 +44,9 @@ exports.findAll = function (req, res) {
         });
     });
 };
+*/
 
+/*
 exports.findById = function (req, res) {
     var id = req.params.id;
     console.log('Retrieving subject: ' + id);
@@ -115,4 +124,4 @@ var populatedb = function () {
         });
     });
 };
-
+*/

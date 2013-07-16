@@ -1,0 +1,32 @@
+[
+    { 
+        "_id": "0",
+        "title": "Math",
+        "prefix": "MAT"
+    },
+    {
+        "_id": "1",
+        "title": "Computer Science",
+        "prefix": "CSE"
+    },
+    {
+        "_id": "2",
+        "title": "Mechanical and Aerospace Engineering",
+        "prefix": "MAE"
+    },
+    {
+        "_id": "3",
+        "title": "Electrical Engineering",
+        "prefix": "EEE"
+    },
+    {
+        "_id": "4",
+        "title": "Chemistry",
+        "prefix": "CHM"
+    },
+    {
+        "_id": "5",
+        "title": "Physics",
+        "prefix": "PHY"
+    }
+]
