@@ -7,7 +7,29 @@
  *
  */
 
-;(function ($, _, Backbone) { // closure start
+requirejs.config({
+    baseUrl: '/',
+    shim: {
+        'backbone': {
+            deps: ['underscore', 'jquery'],
+            exports: 'Backbone'
+        },
+        'underscore': {
+            exports: '_'
+        }
+    },
+    paths: {
+        jquery:     'lib/jquery-2.0.2.min',
+        backbone:   'lib/backbone-min',
+        underscore: 'lib/underscore-min',
+        hammer:     'lib/jquery.hammer.min'
+    }
+
+});
+
+requirejs(['jquery' , 'underscore', 'backbone'],
+
+function ($, _, Backbone) {
 
     var Course = Backbone.Model.extend({
         initialize: function () {
@@ -92,4 +114,4 @@
 
     var main = new MainView();
 
-})(jQuery, _, Backbone); // closure end
+});
