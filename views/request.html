@@ -58,7 +58,8 @@
                 <% _.each(questions, function (question) { %>
                 <li class="question" data-id="<%= question.get('_id') %>" >
                     <div><%= question.get('time') %><br/><%= question.get('label') %></div>
-                    <div><%= question.get('title') %><br/><button data-id="question.get('_id')">Cancel</button></div>
+                    <div><%= question.get('title') %><br/><button
+                    data-id="<%= question.get('_id') %>">Cancel</button></div>
                 </li> 
                 <% }); %>
             </ul>

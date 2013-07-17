@@ -2,18 +2,27 @@ define([ 'jquery', 'underscore', 'backbone', 'hammer'],
 
 function ($, _, Backbone, Hammer) {
 
-    var Question = Backbone.Model.extend(); 
+    var Question = Backbone.Model.extend({
+
+        idAttribute: "_id",
+
+        initialize: function () {
+
+            var date = new Date();
+            this.set('_id', date.getTime());
+        }
+    }); 
 
     var Questions = Backbone.Collection.extend({
         model: Question
     });
 
-    var questions = new Questions();
-
+    /*
     questions.add([
         {time: "10:45 AM", label: "MAT 343", title: "Linear Algebra"},
         {time: "10:55 AM", label: "CSE 205", title: "Introduction to Object Oriented Programming"}
     ]);
+    */
 
     return Backbone.View.extend({
         
@@ -22,7 +31,21 @@ function ($, _, Backbone, Hammer) {
             'drag':      'drag',
             'dragend':   'dragend',
             'completed  .question': 'completed',
-            'click button': 'click'
+            'click button': 'cancel'
+        },
+
+        completed: function (e) {
+            var id = $(e.currentTarget).data(id);
+            this.collection.remove(id);
+        },
+
+        cancel: function (e) {
+
+            var id = $(e.currentTarget).data(id);
+
+            if (confirm("Are you sure you want to remove the question from the queue?")) {
+                this.collection.remove(id);
+            }
         },
 
         dragstart: function (e) {
@@ -35,8 +58,7 @@ function ($, _, Backbone, Hammer) {
             // Prevent default browser response.
             e.gesture.preventDefault();
 
-            if (this.drag_el.html() != e.currentTarget)
-            {
+            if (this.drag_el.html() != e.currentTarget) {
                 if (e.gesture.deltaX > 0) {
                     this.drag_el.offset({
                         left: this.x + e.gesture.deltaX
@@ -67,19 +89,46 @@ function ($, _, Backbone, Hammer) {
         
         template: _.template($('#sidebar').html()),
 
-        collection: questions,
+        collection:  new Questions(),
 
         initialize: function () {
             // Initialize hammer plug-in for gestures.
             this.$el.hammer();
 
             this.render();
+
+            this.collection.on('add',this.render, this);
+            this.collection.on('remove',this.render, this);
         },
 
         render: function () {
             this.$el.html( this.template({
                 questions: this.collection.models
             }));
+            console.log('rendering sidebar');
+        },
+
+        add: function (course, subject) {
+
+            var search = this.collection.where({
+                label: course.get('number') 
+            });
+
+            if (search.length != 0 ) {
+
+               alert('Question Already in Queue!');
+
+            } else if (this.collection.length == 2 ) {
+
+               alert('Maximum Questions Asked!') 
+
+            } else  {
+                this.collection.add({
+                    time: "10:55 AM", 
+                    label: course.get('number'), 
+                    title: course.get('title')
+                });
+            }
         }
 
     });
