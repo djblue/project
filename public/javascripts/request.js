@@ -8,7 +8,7 @@
  */
 
 requirejs.config({
-    baseUrl: '/',
+    baseUrl: '/javascripts',
     shim: {
         'backbone': {
             deps: ['underscore', 'jquery'],
@@ -19,72 +19,26 @@ requirejs.config({
         }
     },
     paths: {
-        jquery:     'lib/jquery-2.0.2.min',
-        backbone:   'lib/backbone-min',
-        underscore: 'lib/underscore-min',
-        hammer:     'lib/jquery.hammer.min'
+        jquery:     '/lib/jquery-2.0.2.min',
+        backbone:   '/lib/backbone-min',
+        underscore: '/lib/underscore-min',
+        hammer:     '/lib/jquery.hammer.min'
     }
 
 });
 
-requirejs(['jquery' , 'underscore', 'backbone'],
+requirejs(['jquery' , 'underscore', 'backbone', 
 
-function ($, _, Backbone) {
+    'views/courses_view', 
+    'views/subjects_view', 
+    'views/sidebar' 
 
-    var Course = Backbone.Model.extend({
-        initialize: function () {
-        }
-    });  
+],
 
-    var Courses = Backbone.Collection.extend({
-        url: '/courses',
-        model: Course
-    });
-
-    var CoursesView = Backbone.View.extend({
-        initialize: function () {
-            this.collection.fetch({ async: false});
-        },
-        collection: new Courses(),
-        el: $('#body'),
-        template: _.template($('#sub_menu').html()),
-        render: function (id) {
-        
-            console.log(id);
-
-            this.$el.html(this.template({ 
-                courses: this.collection.where({ 
-                    subject_id: String(id) }) 
-            }));
-        }
-    });
-
-    var Subject = Backbone.Model.extend({
-        initialize: function () {
-            this.set('link', '#subject/'+this.get('_id'));
-        }
-    });  
-
-    var Subjects = Backbone.Collection.extend({
-        url: '/subjects',
-        model: Subject
-    });
-
-    var SubjectView = Backbone.View.extend({
-        initialize: function () {
-            this.collection.fetch({async: false});
-        },
-        collection: new Subjects(),
-        el: $('#body'),
-        template: _.template($('#main_menu').html()),
-        render: function () {
-            this.$el.html(this.template({ 
-                subjects: this.collection.models 
-            }));
-        }
-    });
+function ($, _, Backbone, CoursesView, SubjectView, Sidebar) {
 
     var MainView = Backbone.View.extend({
+
         el: $('#body'),
 
         events: {
@@ -93,17 +47,36 @@ function ($, _, Backbone) {
             'click .ask': 'enqueue'
         },
         
-        subjects: new SubjectView(),
-        courses: new CoursesView(),
-        
         enqueue: function (e) {
             console.log($(e.currentTarget).data('id'));
             this.subjects.render();
         },
 
         initialize: function () {
+
+            var side  = $('<div id=side>');
+            var menus = $('<div id=menus>');
+            
+            this.$el
+                .append(side)
+                .append(menus);
+
+            this.subjects = new SubjectView({ 
+                el: menus
+            });
+
+            this.courses = new CoursesView({ 
+                el: menus
+            });
+
+             
+            this.sidebar = new Sidebar({
+                el: side
+            });
+
             this.subjects.render();
         },
+
         main_menu: function () {
             this.subjects.render();
         },

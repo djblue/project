@@ -7,16 +7,20 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 </head>
 <body>
-    <!-- -->
+    <!--
     <div id="header">
         <h1>Tutoring</h1>
-    </div>
+    </div> 
+    -->
+
     <!-- -->
     <div id="body"> </div>
-    <!-- -->
+
+    <!--
     <div id="footer">
         <h1>Tempe Campus</h1>
     </div>
+    -->
 
     <script id="main_menu" type="text/template">
         <% _.each(subjects, function (subject) { %>
@@ -30,6 +34,28 @@
             <li class="back" >Go Back</li> 
             <% _.each(courses, function (course) { %>
             <li class="ask" data-id="<%= course.get('_id') %>" ><%= course.get('title') %></li> 
+            <% }); %>
+        </ul>
+    </script>
+
+    <script id="sidebar" type="text/template">
+        <div>
+            <h1>Wednesday</h1>
+            <h2>July 17, 2013</h2>
+            <h3>11:02 AM<h3>
+        </div>
+        <div>
+            <h2>Current Questsion<h2>
+            <p>(2 maximum)</p>
+        </div>
+        <ul class="questions" >
+            <% _.each(questions, function (question) { %>
+            <li class="question" data-id="<%= question.get('_id') %>" >
+                <%= question.get('time') %>
+                <%= question.get('label') %>
+                <%= question.get('title') %>
+                <button data-id="question.get('_id')">Cancel</button>
+            </li> 
             <% }); %>
         </ul>
     </script>
