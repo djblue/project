@@ -3,7 +3,6 @@
     display: none; 
 }
 body {
-    padding: 90px 10px;
     background: rgb(255,255,255); 
 }
 #header {
@@ -18,7 +17,7 @@ body {
     border-bottom: solid rgb(98,1,10) 2px;
 }
 #body {
-    width: 1260px;
+    width: 100%;
     margin: 0 auto;
 }
 #clear {
@@ -35,6 +34,7 @@ body {
     background: rgb(136, 1, 34);
     border-top: solid rgb(98,1,10) 2px;
 }
+/*
 .subject {
     height:200px;
     width: 400px;
@@ -43,9 +43,11 @@ body {
     float: left;
     display: table;
 }
+*/
 li {
     list-style: none; 
 }
+/*
 .subject h2 {
     display: table-cell;
     vertical-align: middle;
@@ -53,11 +55,15 @@ li {
     background: rgb(255, 203, 102);
     color: rgb(136,1,34);
 }
+*/
+/*
 .subject h2:hover {
     background: rgb(136,1,34);
     color: #FFFFFF;
 }
+*/
 
+/*
 .classes li {
     background: rgb(255, 203, 102);
     color: rgb(136,1,34);
@@ -75,6 +81,7 @@ li {
     background: rgb(136,1,34);
     color: #FFFFFF;
 }
+*/
 /*-----------ISMAEL---------*/
 
 
@@ -102,9 +109,9 @@ li {
     margin:2px 0 20px 10px;
 }
 
+/*
 #body button{
     clear:both;
-    border-radius: 14px;
     margin-left:150px;
     width:125px;
     height:31px;
@@ -119,4 +126,5 @@ li {
     background: rgb(136,1,34);
     color: #FFFFFF;
 }
+*/
 

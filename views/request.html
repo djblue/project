@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <!-- -->
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/request.css">
 </head>
 <body>
     <!--
@@ -14,7 +15,7 @@
     -->
 
     <!-- -->
-    <div id="body"> </div>
+    <div id="body"></div>
 
     <!--
     <div id="footer">
@@ -23,10 +24,13 @@
     -->
 
     <script id="main_menu" type="text/template">
-        <% _.each(subjects, function (subject) { %>
-            <div class="subject" data-id="<%= subject.get('_id') %>">
-                <h2><%= subject.get('title') %></h2></div>
-        <% }); %>
+        <div id="menus-inner">
+            <% _.each(subjects, function (subject) { %>
+                <div class="subject" data-id="<%= subject.get('_id') %>">
+                    <h2><%= subject.get('title') %></h2>
+                </div>
+            <% }); %>
+        </div>
     </script>
 
     <script id="sub_menu" type="text/template">
@@ -35,29 +39,30 @@
             <% _.each(courses, function (course) { %>
             <li class="ask" data-id="<%= course.get('_id') %>" ><%= course.get('title') %></li> 
             <% }); %>
+            <li>______</li> 
         </ul>
     </script>
 
     <script id="sidebar" type="text/template">
-        <div>
-            <h1>Wednesday</h1>
-            <h2>July 17, 2013</h2>
-            <h3>11:02 AM<h3>
+        <div class="inner">
+            <div id="date-time">
+                <h1>Wednesday</h1>
+                <h2>July 17, 2013</h2>
+                <h3>11:02 AM<h3>
+            </div>
+            <div>
+                <h2>Current Questsion<h2>
+                <p>(2 maximum)</p>
+            </div>
+            <ul id="questions" >
+                <% _.each(questions, function (question) { %>
+                <li class="question" data-id="<%= question.get('_id') %>" >
+                    <div><%= question.get('time') %><br/><%= question.get('label') %></div>
+                    <div><%= question.get('title') %><br/><button data-id="question.get('_id')">Cancel</button></div>
+                </li> 
+                <% }); %>
+            </ul>
         </div>
-        <div>
-            <h2>Current Questsion<h2>
-            <p>(2 maximum)</p>
-        </div>
-        <ul class="questions" >
-            <% _.each(questions, function (question) { %>
-            <li class="question" data-id="<%= question.get('_id') %>" >
-                <%= question.get('time') %>
-                <%= question.get('label') %>
-                <%= question.get('title') %>
-                <button data-id="question.get('_id')">Cancel</button>
-            </li> 
-            <% }); %>
-        </ul>
     </script>
 
     <!-- -->

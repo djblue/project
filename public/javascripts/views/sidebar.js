@@ -11,8 +11,8 @@ function ($, _, Backbone) {
     var questions = new Questions();
 
     questions.add([
-        {time: new Date(), label: "MAT 343", text: "Linear Algebra"},
-        {time: new Date(), label: "CSE 205", text: "Introduction to Object Oriented Programming"}
+        {time: "10:45 AM", label: "MAT 343", title: "Linear Algebra"},
+        {time: "10:55 AM", label: "CSE 205", title: "Introduction to Object Oriented Programming"}
     ]);
 
     return Backbone.View.extend({
