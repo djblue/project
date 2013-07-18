@@ -17,7 +17,6 @@ var util                = require('util')
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 //app.set('view engine', 'jade');
-app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -39,8 +38,8 @@ app.get('/', function (req, res) {
     res.sendfile(path.join( __dirname, 'views/request.html'));    
 });
 
-app.get('/queue', function (req, res) {
-    res.render("queue");
+app.get('/questions_queue', function (req, res) {
+    res.sendfile(path.join( __dirname, 'views/queue.html'));    
 });
 
 app.get('/subjects', subjects.findAll);

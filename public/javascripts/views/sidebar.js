@@ -6,11 +6,27 @@ function ($, _, Backbone, Hammer) {
 
         idAttribute: "_id",
 
+        urlRoot: 'questions',
+
         initialize: function () {
 
+            /*
             var date = new Date();
             this.set('_id', date.getTime());
+            */
+
+            this.on('remove', function () {
+                this.destroy({
+                    success: function () {
+                        console.log('success');
+                    },
+                    error: function (e) {
+                        console.log('error');
+                    }
+                });
+            }, this);
         }
+
     }); 
 
     var Questions = Backbone.Collection.extend({
@@ -27,11 +43,11 @@ function ($, _, Backbone, Hammer) {
     return Backbone.View.extend({
         
         events: {
-            'dragstart  .question': 'dragstart',
-            'drag':      'drag',
-            'dragend':   'dragend',
-            'completed  .question': 'completed',
-            'click button': 'cancel'
+            'dragstart .question':  'dragstart',
+            'drag':                 'drag',
+            'dragend':              'dragend',
+            'completed .question':  'completed',
+            'click button':         'cancel'
         },
 
         completed: function (e) {
@@ -42,6 +58,7 @@ function ($, _, Backbone, Hammer) {
         cancel: function (e) {
 
             var id = $(e.currentTarget).data(id);
+            console.log(id);
 
             if (confirm("Are you sure you want to remove the question from the queue?")) {
                 this.collection.remove(id);
@@ -85,6 +102,8 @@ function ($, _, Backbone, Hammer) {
                 // Trigger completed event.
                 this.drag_el.trigger('completed'); 
             }
+
+            delete this.drag_el;
         },
         
         template: _.template($('#sidebar').html()),
@@ -123,11 +142,12 @@ function ($, _, Backbone, Hammer) {
                alert('Maximum Questions Asked!') 
 
             } else  {
-                this.collection.add({
-                    time: "10:55 AM", 
+                this.collection.create({
+                    course_id: course.get('_id'),
+                    table: 1, 
                     label: course.get('number'), 
                     title: course.get('title')
-                });
+                }, {wait: true});
             }
         }
 
