@@ -1,3 +1,7 @@
+* {
+    font-size: 24px;
+}
+
 #header {
     width: 100%;
     padding: 10px;
@@ -12,9 +16,31 @@
 }
 
 .question {
+    display: block;
 
+    background: #EEE;
+    margin-bottom: 20px;
+
+    border-radius: 10px;
+    box-shadow: 0 0 5px black;
+}
+
+.question div:first-child, 
+.question div:last-child
+{
+    width: 10%;
+    text-align: center;
+}
+
+
+.question div {
+    display: inline-block;
+    height: 100%;
+    padding: 10px;
+}
+
+.title {
     color: rgb(255, 255, 255);
     background: rgb(136, 1, 34);
-    font-size: 20pt;
-    border-radius: 10px;
+    width: 70%;
 }
