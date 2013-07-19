@@ -68,12 +68,19 @@ function ($, _, Backbone, Hammer) {
         dragstart: function (e) {
             // Begin a dragging event.
             this.drag_el = $(e.currentTarget);
+
+            if (this.drag_el == undefined) return;
+            
             this.x = this.drag_el.offset().left;  
         },
 
         drag: function (e) {
             // Prevent default browser response.
+            if (this.drag_el == undefined) return; 
+            if (e.gesture == undefined) return;
+
             e.gesture.preventDefault();
+
 
             if (this.drag_el.html() != e.currentTarget) {
                 if (e.gesture.deltaX > 0) {
@@ -88,6 +95,9 @@ function ($, _, Backbone, Hammer) {
         },
 
         dragend: function (e) {
+
+            if (this.drag_el == undefined) return;
+            if (e.gesture == undefined) return;
 
             e.gesture.stopDetect();
 
