@@ -5,7 +5,9 @@
     "dependencies": {
         "express": "latest",
         "mongodb": "latest",
-        "socket.io": "latest"
+        "socket.io": "latest",
+        "jasmine-node": "latest",
+        "backbone": "latest"
     },
     "author": "Abdullah Badahdah"
 }
