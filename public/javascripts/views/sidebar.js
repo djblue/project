@@ -120,7 +120,7 @@ function ($, _, Backbone, Hammer, questions) {
                     .fadeIn();
 
             } else  {
-                this.collection.create({ course_id: id });
+                this.collection.create({ course_id: id }, {wait: true});
             }
         }
 
