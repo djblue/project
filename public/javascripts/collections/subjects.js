@@ -2,9 +2,15 @@ define(['backbone', '../models/subject'],
 
 function (Backbone, Subject) {
 
-    return Backbone.Collection.extend({
+    var Subjects = Backbone.Collection.extend({
+        initialize: function () {
+            // Ensure data is avaliable before leaving module.
+            this.fetch({ async: false });
+        },
         url: '/subjects',
         model: Subject
     });
+
+    return new Subjects();
 
 });

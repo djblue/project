@@ -1,12 +1,20 @@
-define(['backbone'], 
+define(['models/base', 'collections/subjects'],
 
-function (Backbone) {
+function (Base, subjects) {
 
-    return Backbone.Model.extend({
-        idAttribute: "_id",
+    return Base.extend({
 
-        initialize: function () {
+        initialize: function () {},
+
+        get_subject: function () {
+            return subjects.get(this.get('subject_id'));
+        },
+
+        get_label: function () {
+            return this.get('subject').get('prefix') + ' ' +
+                this.get('number');
         }
+
     });  
 
 });
