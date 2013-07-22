@@ -99,7 +99,6 @@ function ($, _, Backbone, Hammer, questions) {
             this.$el.html( this.template({
                 questions: this.collection.models
             }));
-            console.log('rendering sidebar');
         },
 
         add: function (id) {
@@ -110,14 +109,18 @@ function ($, _, Backbone, Hammer, questions) {
 
             if (search.length != 0 ) {
 
-               alert('Question Already in Queue!');
+                this.$el.find('[data-id="'+search[0].id+'"]')
+                    .fadeOut()
+                    .fadeIn();
 
             } else if (this.collection.length == 2 ) {
 
-               alert('Maximum Questions Asked!') 
+                this.$el.find('#warn') 
+                    .fadeOut()
+                    .fadeIn();
 
             } else  {
-                this.collection.create({ course_id: id }, {wait: true});
+                this.collection.create({ course_id: id });
             }
         }
 
