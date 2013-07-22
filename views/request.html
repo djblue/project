@@ -37,7 +37,10 @@
         <ul class="classes" >
             <li class="back" >Go Back</li> 
             <% _.each(courses, function (course) { %>
-            <li class="ask" data-id="<%= course.get('_id') %>" ><%= course.get('title') %></li> 
+            <li class="ask" data-id="<%= course.get('_id') %>" >
+                <span class="label"><%= course.get('label') %>: </span>
+                <span class="title"><%= course.get('title') %></span>
+            </li> 
             <% }); %>
             <li>______</li> 
         </ul>
@@ -57,9 +60,10 @@
             <ul id="questions" >
                 <% _.each(questions, function (question) { %>
                 <li class="question" data-id="<%= question.get('_id') %>" >
-                    <div><%= question.get('time') %><br/><%= question.get('label') %></div>
-                    <div><%= question.get('title') %><br/><button
-                    data-id="<%= question.get('_id') %>">Cancel</button></div>
+                    <div>
+                        <span class="label"><%= question.get('label') %></span>
+                        <button data-id="<%= question.get('_id') %>">Cancel</button>
+                    </div>
                 </li> 
                 <% }); %>
             </ul>

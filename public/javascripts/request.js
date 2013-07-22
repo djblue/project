@@ -49,13 +49,8 @@ function ($, _, Backbone, CoursesView, SubjectView, Sidebar) {
         
         enqueue: function (e) {
             var id = $(e.currentTarget).data('id');
-
-            var course = this.courses.collection.get(id);
-            var subject = this.subjects.collection.get(
-                course.get('subject_id')
-            );
-            this.sidebar.add(course, subject);
-            this.subjects.render();
+            this.sidebar.add(id);
+            this.main_menu();
         },
 
         initialize: function () {

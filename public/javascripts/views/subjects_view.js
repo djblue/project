@@ -3,15 +3,14 @@ define(['jquery', 'underscore', 'backbone',
     '../collections/subjects'
 ], 
 
-function ($, _, Backbone, Subjects) {
+function ($, _, Backbone, subjects) {
 
     return Backbone.View.extend({
 
         initialize: function () {
-            this.collection.fetch({async: false});
         },
 
-        collection: new Subjects(),
+        collection: subjects,
 
         template: _.template($('#main_menu').html()),
 

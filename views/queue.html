@@ -24,11 +24,11 @@
     <script id="queue_item" type="text/template">
         <div id="queue-inner">
             <ul id="queue">
-            <% _.each(items, function (item) { %>
+            <% _.each(questions, function (question) { %>
                 <li class="question">
-                    <div><%= courses.get(item.course_id).get('number') %></div>
-                    <div class="title"><%= courses.get(item.course_id).get('title') %></div>
-                    <div><%= courses.get(item.course_id).get('number') %></div>
+                    <div><%= question.get('label') %></div>
+                    <div class="title"><%= question.get('title') %></div>
+                    <div><%= "Table 6" %></div>
                 </li>
             <% }); %>
             </ul>

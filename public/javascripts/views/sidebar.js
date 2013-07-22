@@ -1,44 +1,10 @@
-define([ 'jquery', 'underscore', 'backbone', 'hammer'], 
+define([ 'jquery', 'underscore', 'backbone', 'hammer',
 
-function ($, _, Backbone, Hammer) {
+    'collections/questions',
 
-    var Question = Backbone.Model.extend({
+], 
 
-        idAttribute: "_id",
-
-        urlRoot: 'questions',
-
-        initialize: function () {
-
-            /*
-            var date = new Date();
-            this.set('_id', date.getTime());
-            */
-
-            this.on('remove', function () {
-                this.destroy({
-                    success: function () {
-                        console.log('success');
-                    },
-                    error: function (e) {
-                        console.log('error');
-                    }
-                });
-            }, this);
-        }
-
-    }); 
-
-    var Questions = Backbone.Collection.extend({
-        model: Question
-    });
-
-    /*
-    questions.add([
-        {time: "10:45 AM", label: "MAT 343", title: "Linear Algebra"},
-        {time: "10:55 AM", label: "CSE 205", title: "Introduction to Object Oriented Programming"}
-    ]);
-    */
+function ($, _, Backbone, Hammer, questions) {
 
     return Backbone.View.extend({
         
@@ -81,7 +47,6 @@ function ($, _, Backbone, Hammer) {
 
             e.gesture.preventDefault();
 
-
             if (this.drag_el.html() != e.currentTarget) {
                 if (e.gesture.deltaX > 0) {
                     this.drag_el.offset({
@@ -118,7 +83,7 @@ function ($, _, Backbone, Hammer) {
         
         template: _.template($('#sidebar').html()),
 
-        collection:  new Questions(),
+        collection:  questions,
 
         initialize: function () {
             // Initialize hammer plug-in for gestures.
@@ -137,10 +102,10 @@ function ($, _, Backbone, Hammer) {
             console.log('rendering sidebar');
         },
 
-        add: function (course, subject) {
+        add: function (id) {
 
             var search = this.collection.where({
-                label: course.get('number') 
+                course_id: id 
             });
 
             if (search.length != 0 ) {
@@ -152,12 +117,7 @@ function ($, _, Backbone, Hammer) {
                alert('Maximum Questions Asked!') 
 
             } else  {
-                this.collection.create({
-                    course_id: course.get('_id'),
-                    table: 1, 
-                    label: course.get('number'), 
-                    title: course.get('title')
-                }, {wait: true});
+                this.collection.create({ course_id: id }, {wait: true});
             }
         }
 
