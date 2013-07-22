@@ -20,24 +20,24 @@ requirejs.config({
 
 requirejs(['jquery' , 'underscore', 'backbone', 
 
-    'collections/courses',
+    'collections/questions',
     '/socket.io/socket.io.js'
 
 ],
 
-function ($, _, Backbone, Courses, io) {
+function ($, _, Backbone, questions, io) {
 
 
     var socket   = io.connect(); // Defaults to server
     var template = _.template($('#queue_item').html());
     var body     = $('#body');
 
-    var courses = new Courses();
-    courses.fetch({async: false});
-
     socket.on('questions', function (data) {
-
-        body.html(template({ items: data , courses: courses }));
+        
+        questions.reset();
+        _.each(data, function (question) { questions.add(question); });
+        console.log(questions.models);
+        body.html(template({ questions: questions.models }));
 
     });
 
