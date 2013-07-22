@@ -27,15 +27,25 @@ requirejs.config({
 
 });
 
-requirejs(['jasmine', 'jasmine-html',
-
-    'javascripts/specs/example.js'
-
-], 
-
-function (jasmine) {
+requirejs(['jasmine-html'], function (jasmine) {
 
     jasmine.getEnv().addReporter(new jasmine.HtmlReporter());
-    jasmine.getEnv().execute();
+
+    var specs = []; // An array to of specs to run. 
+
+    // Model specs.
+    specs.push('specs/models/base');
+    specs.push('specs/models/course');
+    specs.push('specs/models/question');
+
+    // Collections specs.
+    specs.push('specs/collections/subjects');
+    specs.push('specs/collections/courses');
+
+    // View specs
+    //specs.push('specs/views/sidebar');
+    
+    // Load the specs and run them.
+    require(specs, function () { jasmine.getEnv().execute(); });
 
 });
