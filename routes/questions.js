@@ -10,10 +10,12 @@
  *
  */
 
+var _ = require('underscore');
+
  // The question queue; module scope.
 var questions = [];
 
-var id_gen = 4;
+var id_gen = 0;
 
 exports.get_questions = function () {
     return questions;
@@ -25,12 +27,23 @@ exports.get = function(req, res) {
 
 };
 
-exports.post = function(req, res) {/*{{{*/
+exports.getBySession = function(req, res) {
+
+    var q = _(questions)
+        .where({ user_id:  req.session.id}) 
+        .map(function (obj) { return _.omit(obj,'user_id') });
+
+    // Return the current question queue.
+    res.json(q); 
+
+};
+
+exports.post = function(req, res) {
 
     questions.push({
         _id: id_gen,
-        course_id:  req.body.course_id,
-        table:      req.body.table
+        user_id: req.session.id, 
+        course_id:  req.body.course_id
     });
 
     res.json({ _id: id_gen });
@@ -38,7 +51,7 @@ exports.post = function(req, res) {/*{{{*/
     id_gen += 1;
 };
 
-exports.delete = function(req, res) {/*{{{*/
+exports.delete = function(req, res) {
 
     var id = req.params.id;
 
@@ -56,4 +69,4 @@ exports.delete = function(req, res) {/*{{{*/
         res.send(obj); // return deleted entry.
     }
 
-};/*}}}*/
+};

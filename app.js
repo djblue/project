@@ -19,9 +19,12 @@ app.set('views', __dirname + '/views');
 //app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
+app.use(express.compress());
 app.use(express.bodyParser());
 // Validator must be used directly after bodyParser.
 app.use(express.methodOverride());
+app.use(express.cookieParser());
+app.use(express.session({secret: '97e0089deda4f396f7e3a85c8aa62e37'}));
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -58,6 +61,7 @@ app.get('/courses', courses.get);
 app.post('/courses', courses.post);
 
 app.get('/questions', questions.get);
+app.get('/squestions', questions.getBySession);
 app.post('/questions', function (req, res) {
     questions.post(req, res);
     io.sockets.emit('questions', questions.get_questions());

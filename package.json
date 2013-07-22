@@ -7,7 +7,7 @@
         "mongodb": "latest",
         "socket.io": "latest",
         "jasmine-node": "latest",
-        "backbone": "latest"
+        "underscore": "latest"
     },
     "author": "Abdullah Badahdah"
 }
