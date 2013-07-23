@@ -24,6 +24,7 @@
     -->
 
     <script id="main_menu" type="text/template">
+        <h1>Please Select Subject</h1>
         <div id="menus-inner">
             <% _.each(subjects, function (subject) { %>
                 <div class="subject" data-id="<%= subject.get('_id') %>">
@@ -34,6 +35,7 @@
     </script>
 
     <script id="sub_menu" type="text/template">
+        <h1>Please Select Course</h1>
         <ul class="classes" >
             <li class="back" >Go Back</li> 
             <% _.each(courses, function (course) { %>
@@ -47,27 +49,17 @@
     </script>
 
     <script id="sidebar" type="text/template">
-        <div class="inner">
-            <div id="date-time">
-                <h1>Wednesday</h1>
-                <h2>July 17, 2013</h2>
-                <h3>11:02 AM<h3>
+        <% _.each(questions, function (question) { %>
+        <li class="question" data-id="<%= question.get('_id') %>" >
+            <div>
+                <span><%= question.get('title') %></span>
             </div>
             <div>
-                <h2>Current Questsion<h2>
-                <p id="warn" >(2 maximum)</p>
+                <span class="label"><%= question.get('label') %></span>
+                <button data-id="<%= question.get('_id') %>">Cancel</button>
             </div>
-            <ul id="questions" >
-                <% _.each(questions, function (question) { %>
-                <li class="question" data-id="<%= question.get('_id') %>" >
-                    <div>
-                        <span class="label"><%= question.get('label') %></span>
-                        <button data-id="<%= question.get('_id') %>">Cancel</button>
-                    </div>
-                </li> 
-                <% }); %>
-            </ul>
-        </div>
+        </li> 
+        <% }); %>
     </script>
 
     <!-- -->

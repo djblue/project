@@ -1,10 +1,11 @@
 define([ 'jquery', 'underscore', 'backbone', 'hammer',
 
-    'collections/questions',
+    'views/time_view',
+    'collections/questions'
 
 ], 
 
-function ($, _, Backbone, Hammer, questions) {
+function ($, _, Backbone, Hammer, TimeView, questions) {
 
     return Backbone.View.extend({
         
@@ -70,7 +71,7 @@ function ($, _, Backbone, Hammer, questions) {
             if (this.drag_el.offset().left < this.drag_el.width()) {
                 
                 // Restore element to its initial position.
-                this.drag_el.animate({left: this.x}, 'fast');
+                this.drag_el.animate({left: 0}, 'fast');
 
             } else {
 
@@ -89,6 +90,19 @@ function ($, _, Backbone, Hammer, questions) {
             // Initialize hammer plug-in for gestures.
             this.$el.hammer();
 
+            var time = $('<div id=date-time>');
+            var warn = $('<div id=warn>')
+                .html('<div>Current Questions</div>')
+                .append('<div>(Maximum 2)</div>');
+            this.questions = $('<ul id=questions>');
+
+            this.$el
+                .append(time)
+                .append(warn)
+                .append(this.questions);
+
+            new TimeView({ el: time });
+
             this.render();
 
             this.collection.on('add',this.render, this);
@@ -96,7 +110,7 @@ function ($, _, Backbone, Hammer, questions) {
         },
 
         render: function () {
-            this.$el.html( this.template({
+            this.questions.html( this.template({
                 questions: this.collection.models
             }));
         },
@@ -115,7 +129,7 @@ function ($, _, Backbone, Hammer, questions) {
 
             } else if (this.collection.length == 2 ) {
 
-                this.$el.find('#warn') 
+                this.$el.find('#warn')
                     .fadeOut()
                     .fadeIn();
 

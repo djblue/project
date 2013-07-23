@@ -2,12 +2,12 @@ html, body {
     height: 100%;
 }
 
-h1 { font-size: 36pt; }
+/*h1 { font-size: 36pt; }*/
 
 #body {
     margin: 0 auto;
     padding: 0px;
-    background-color: pink;
+    background-color: rgb(136, 1, 34); /* maroon */
     height: 100%; 
 }
 
@@ -19,7 +19,6 @@ h1 { font-size: 36pt; }
 
 #side {
     width: 33.33%;
-    background-color: #903;
     color: #EEE;
     text-align: center;
 }
@@ -34,11 +33,21 @@ h1 { font-size: 36pt; }
     margin: 10px;
 }
 
+#date-time #day { font-size: 38pt; }
+#date-time #date { font-size: 14pt; }
+
 #menus {
     width: 66.66%;
     background-color: #EEE;
     overflow-y: scroll;
     box-shadow: -10px 0px 10px rgba(0,0,0,0.5);
+}
+
+#menus h1 {
+    text-align: center;
+    padding-top: 20px;
+    color: #903;
+    text-shadow: 1px 1px 1px black;
 }
 
 #questions {
@@ -51,18 +60,28 @@ h1 { font-size: 36pt; }
     color: #EEE;
     background-color: #903;
     padding: 5px 10px;
+    font-size: 14pt;
+}
+
+#questions .label {
+    font-size: 14pt;
 }
 
 .question {
     background-color: #EEE;
-    margin: 20px 0;
-    font-size: 20pt;
+    margin: 10px 0;
 }
 
 .question div {
     display: inline-block;
     padding: 10px;
-    overflow: hidden;
+    width: 100%;
+}
+
+.question div span {
+    padding: 0 10px;
+    white-space: nowrap;
+    font-size: 12pt;
 }
 
 #menus-inner {
@@ -83,7 +102,7 @@ h1 { font-size: 36pt; }
 
 .subject h2 {
     margin: 10px;
-    padding: 5px; 
+    padding: 10px; 
     display: table-cell;
     vertical-align: middle;
     text-align: center;
