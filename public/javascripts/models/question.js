@@ -10,9 +10,6 @@ function (Base, courses) {
 
         initialize: function () {
 
-            this.on('remove', function () { 
-                this.destroy(); }, this); 
-
             this.course = courses.get(this.get('course_id'));
             this.subject = this.course.get('subject');
 

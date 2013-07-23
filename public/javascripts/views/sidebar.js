@@ -19,16 +19,16 @@ function ($, _, Backbone, Hammer, TimeView, questions) {
 
         completed: function (e) {
             var id = $(e.currentTarget).data(id);
+            this.collection.get(id).save({'completed': true});
             this.collection.remove(id);
         },
 
         cancel: function (e) {
 
             var id = $(e.currentTarget).data(id);
-            console.log(id);
 
             if (confirm("Are you sure you want to remove the question from the queue?")) {
-                this.collection.remove(id);
+                this.collection.get(id).destroy();
             }
         },
 

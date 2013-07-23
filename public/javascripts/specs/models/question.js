@@ -12,7 +12,7 @@ define(['models/question'], function (Question) {
         afterEach(function () { delete model; });
 
         it("should be able get its course", function() {
-            expect(model.get('course')).not.toBe(undefined);
+            expect(model.get('title')).not.toBe(undefined);
         });
 
     });

@@ -66,6 +66,10 @@ app.post('/questions', function (req, res) {
     questions.post(req, res);
     io.sockets.emit('questions', questions.get_questions());
 });
+app.put('/questions/:id', function(req, res) {
+    questions.confirm(req, res);
+    io.sockets.emit('questions', questions.get_questions());
+});
 app.delete('/questions/:id', function(req, res) {
     questions.delete(req, res);
     io.sockets.emit('questions', questions.get_questions());
