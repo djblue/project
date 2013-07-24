@@ -27,6 +27,8 @@ app.use(express.cookieParser());
 app.use(express.session({secret: '97e0089deda4f396f7e3a85c8aa62e37'}));
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'views')));
+
 
 // development only
 if ('development' == app.get('env')) {

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Statistics.t</title>
+<link rel="stylesheet" type="text/css" href="bar.css">
+<link rel="stylesheet" href="stylesheets/statistics.css" />
+<meta charset="UTF-8">
+<!--
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="graphs/barChart.js"></script>
+<script src="graphs/data.js"></script> 
+-->
+ <script data-main="javascripts/statistics.js" src="lib/require.js" > </script>
+
+</head>
+
+<body>
+     <div id="header">
+        <div id="background">
+        </div>
+        <div id="statistics_text">
+        Statistics
+        </div>
+        <div id="dinamic_text">
+        Fall 2013 - Week 3 - Monday
+        </div>
+    </div>
+    
+    <div id="graphs">
+        <div id="pie">
+        </div>
+        <div id="bar">
+            <label><input type="checkbox"> Sort values</label>
+            <script>
+                createBarGraph("#bar","Questions", data, 3, color, "#034769");
+            </script>
+        </div>
+    </div>
+   
+    <div id="table">
+        <div id="t_backG">
+        </div>
+    </div>
+</body>
+
+</html>
