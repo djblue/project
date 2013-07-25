@@ -32,13 +32,15 @@ requirejs.config({
 requirejs(['jquery' , 'underscore', 'backbone',
 
     'views/barChart',
-    'views/data'
+    'views/data',
+    'views/pieChart'
 
 
 ],
 
-function ($, _, Backbone, barChart, data) {
+function ($, _, Backbone, barChart, data, pieChart) {
     barChart
-    .createBarGraph("#bar","Questions", data.data, 3, data.color, "#034769");
-
+    .createBarGraph("#bar","Questions", data.barData, 3, data.color, "#034769");
+    pieChart
+    .drawPie("Pie1", data.pieData, "#pie", data.color1, 10, 100, 5, 0);
 });

@@ -1,6 +1,6 @@
 define([], function () {
 
-var data = [
+var barData = [
     {label:'Day1',  level_1:10,  level_2:5,  level_3:3, link: "0.html"},
     {label:'A',     level_1:5,   level_2:0,  level_3:0, link: "1.html"},
     {label:'B',     level_1:1,   level_2:0,  level_3:0, link: "2.html"},
@@ -35,7 +35,7 @@ var data = [
     {label:'F5',    level_1:8,   level_2:4,  level_3:2, link: "6.html"}
   ];
 
-  var dataForDay = [
+  var pieData = [
     {legendLabel: "CSE", magnitude: 10, link: "../preview.html"},
     {legendLabel: "MAT", magnitude: 20, link: "Mat.html"},
     {legendLabel: "1", magnitude: 20, link: "1.html"},
@@ -52,8 +52,8 @@ var color2 = ["#3F8FD2","#33CCCC","#36D792","#39E639","#8EF13C","#B6F63E","#D8FA
 
 return {
         color: color,
-        data: data,
-        dataForDay: dataForDay,
+        barData: barData,
+        pieData: pieData,
         color1: color1,
         color2: color2
     };
