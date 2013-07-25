@@ -115,7 +115,7 @@ function ($, _, Backbone, Hammer, TimeView, questions) {
             }));
         },
 
-        add: function (id) {
+        add: function (id, table_id) {
 
             var search = this.collection.where({
                 course_id: id 
@@ -134,7 +134,7 @@ function ($, _, Backbone, Hammer, TimeView, questions) {
                     .fadeIn();
 
             } else  {
-                this.collection.create({ course_id: id }, {wait: true});
+                this.collection.create({ course_id: id, table_id: table_id }, {wait: true});
             }
         }
 

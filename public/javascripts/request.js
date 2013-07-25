@@ -44,12 +44,19 @@ function ($, _, Backbone, CoursesView, SubjectView, Sidebar) {
         events: {
             'click .subject': 'view_subject',
             'click .back': 'main_menu',
-            'click .ask': 'enqueue'
+            'click .ask': 'enqueue',
+            'change input': 'register'
+        },
+
+        register: function (e) {
+            this.table_id = $(e.currentTarget).val();
+            console.log(this.table_id);
+            this.main_menu();
         },
         
         enqueue: function (e) {
             var id = $(e.currentTarget).data('id');
-            this.sidebar.add(id);
+            this.sidebar.add(id, this.table_id);
             this.main_menu();
         },
 
@@ -75,7 +82,8 @@ function ($, _, Backbone, CoursesView, SubjectView, Sidebar) {
                 el: side
             });
 
-            this.subjects.render();
+            //this.subjects.render();
+            menus.html('Please Enter Table Number <input />');
         },
 
         main_menu: function () {

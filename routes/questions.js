@@ -47,6 +47,7 @@ exports.post = function(req, res) {
         _id: id_gen,
         user_id: req.session.id, 
         course_id:  req.body.course_id,
+        table_id:  req.body.table_id,
         begin: date.getTime()
     });
 
