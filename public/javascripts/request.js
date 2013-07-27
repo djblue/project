@@ -27,7 +27,7 @@ requirejs.config({
 
 });
 
-requirejs(['jquery' , 'underscore', 'backbone', 
+requirejs(['jquery' , 'underscore', 'backbone', 'hammer',
 
     'views/courses_view', 
     'views/subjects_view', 
@@ -35,17 +35,28 @@ requirejs(['jquery' , 'underscore', 'backbone',
 
 ],
 
-function ($, _, Backbone, CoursesView, SubjectView, Sidebar) {
+function ($, _, Backbone, hammer, CoursesView, SubjectView, Sidebar) {
 
     var MainView = Backbone.View.extend({
 
         el: $('#body'),
 
         events: {
-            'click .subject': 'view_subject',
-            'click .back': 'main_menu',
-            'click .ask': 'enqueue',
+            'touch   .subject': 'start_subject',
+            'release .subject': 'end_subject',
+
+            'tap .back': 'main_menu',
+            'tap .ask': 'enqueue',
             'change input': 'register'
+        },
+
+        start_subject: function (e) {
+            $(e.currentTarget).find('h2').attr('id','subject-active');
+            $(e.currentTarget).css('box-shadow','none');
+        },
+         
+        end_subject: function (e) {
+            this.courses.render($(e.currentTarget).data('id'))
         },
 
         register: function (e) {
@@ -61,6 +72,8 @@ function ($, _, Backbone, CoursesView, SubjectView, Sidebar) {
         },
 
         initialize: function () {
+            
+            this.$el.hammer();
 
             var side  = $('<div id=side>');
             var menus = $('<div id=menus>');
@@ -82,15 +95,25 @@ function ($, _, Backbone, CoursesView, SubjectView, Sidebar) {
                 el: side
             });
 
-            //this.subjects.render();
-            menus.html('Please Enter Table Number <input />');
+            this.subjects.render();
+            //menus.html('Please Enter Table Number <input />');
         },
 
         main_menu: function () {
             this.subjects.render();
         },
         view_subject: function (e) {
-            this.courses.render($(e.currentTarget).data('id'))
+            /*
+            e.stopPropagation()
+            $(e.currentTarget).find('h2').attr('id','subject-active');
+            $(e.currentTarget).css('box-shadow','none');
+            var self = this;
+            setTimeout((function (e) {
+                return function () {
+                    self.courses.render($(e.currentTarget).data('id'))
+                };
+            })(e), '1000');
+            */
         },
     });
 
