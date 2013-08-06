@@ -27,7 +27,7 @@ requirejs.config({
 
 });
 
-requirejs(['jquery' , 'underscore', 'backbone', 
+requirejs(['jquery' , 'underscore', 'backbone', 'hammer',
 
     'views/courses_view', 
     'views/subjects_view', 
@@ -35,25 +35,45 @@ requirejs(['jquery' , 'underscore', 'backbone',
 
 ],
 
-function ($, _, Backbone, CoursesView, SubjectView, Sidebar) {
+function ($, _, Backbone, hammer, CoursesView, SubjectView, Sidebar) {
 
     var MainView = Backbone.View.extend({
 
         el: $('#body'),
 
         events: {
-            'click .subject': 'view_subject',
-            'click .back': 'main_menu',
-            'click .ask': 'enqueue'
+            'touch   .subject': 'start_subject',
+            'release .subject': 'end_subject',
+
+            'tap .back': 'main_menu',
+            'tap .ask': 'enqueue',
+            'change input': 'register'
+        },
+
+        start_subject: function (e) {
+            $(e.currentTarget).find('h2').attr('id','subject-active');
+            $(e.currentTarget).css('box-shadow','none');
+        },
+         
+        end_subject: function (e) {
+            this.courses.render($(e.currentTarget).data('id'))
+        },
+
+        register: function (e) {
+            this.table_id = $(e.currentTarget).val();
+            console.log(this.table_id);
+            this.main_menu();
         },
         
         enqueue: function (e) {
             var id = $(e.currentTarget).data('id');
-            this.sidebar.add(id);
+            this.sidebar.add(id, this.table_id);
             this.main_menu();
         },
 
         initialize: function () {
+            
+            this.$el.hammer();
 
             var side  = $('<div id=side>');
             var menus = $('<div id=menus>');
@@ -76,13 +96,24 @@ function ($, _, Backbone, CoursesView, SubjectView, Sidebar) {
             });
 
             this.subjects.render();
+            //menus.html('Please Enter Table Number <input />');
         },
 
         main_menu: function () {
             this.subjects.render();
         },
         view_subject: function (e) {
-            this.courses.render($(e.currentTarget).data('id'))
+            /*
+            e.stopPropagation()
+            $(e.currentTarget).find('h2').attr('id','subject-active');
+            $(e.currentTarget).css('box-shadow','none');
+            var self = this;
+            setTimeout((function (e) {
+                return function () {
+                    self.courses.render($(e.currentTarget).data('id'))
+                };
+            })(e), '1000');
+            */
         },
     });
 
