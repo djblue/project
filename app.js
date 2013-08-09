@@ -11,7 +11,8 @@ var util                = require('util')
 
   , subjects            = require('./routes/subjects')
   , courses             = require('./routes/courses')
-  , questions           = require('./routes/questions');
+  , questions           = require('./routes/questions')
+  , statistics          = require('./routes/statistics');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -62,6 +63,7 @@ app.delete('/subjects/:id', subjects.deleteSubject);
 app.get('/courses', courses.get);
 app.post('/courses', courses.post);
 
+app.get('/statistics', statistics.get);
 app.get('/questions', questions.get);
 app.get('/squestions', questions.getBySession);
 app.post('/questions', function (req, res) {
