@@ -37,7 +37,7 @@ if ('development' == app.get('env')) {
 }
 
 io.sockets.on('connection', function (socket) {
-    socket.emit('questions', questions.get_questions());
+    socket.emit('questions', questions.getQueue());
 });
 
 app.get('/', function (req, res) {
@@ -53,30 +53,23 @@ app.get('/tests', function (req, res) {
 });
 
 app.get('/subjects', subjects.findAll);
-/*
-app.get('/subjects/:id', subjects.findById);
-app.post('/subjects', subjects.addSubject);
-app.put('/subjects/:id', subjects.updateSubject);
-app.delete('/subjects/:id', subjects.deleteSubject);
-*/
 
 app.get('/courses', courses.get);
 app.post('/courses', courses.post);
 
 app.get('/statistics', statistics.get);
-app.get('/questions', questions.get);
 app.get('/squestions', questions.getBySession);
 app.post('/questions', function (req, res) {
-    questions.post(req, res);
-    io.sockets.emit('questions', questions.get_questions());
+    questions.add(req, res);
+    io.sockets.emit('questions', questions.getQueue());
 });
 app.put('/questions/:id', function(req, res) {
     questions.confirm(req, res);
-    io.sockets.emit('questions', questions.get_questions());
+    io.sockets.emit('questions', questions.getQueue());
 });
 app.delete('/questions/:id', function(req, res) {
     questions.delete(req, res);
-    io.sockets.emit('questions', questions.get_questions());
+    io.sockets.emit('questions', questions.getQueue());
 });
 
 server.listen(3000, function(){
