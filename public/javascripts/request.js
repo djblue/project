@@ -22,7 +22,8 @@ requirejs.config({
         jquery:     '/lib/jquery-2.0.2.min',
         backbone:   '/lib/backbone-min',
         underscore: '/lib/underscore-min',
-        hammer:     '/lib/jquery.hammer.min'
+        hammer:     '/lib/jquery.hammer.min',
+        text:       '/lib/text'
     }
 
 });
@@ -42,21 +43,20 @@ function ($, _, Backbone, hammer, CoursesView, SubjectView, Sidebar) {
         el: $('#body'),
 
         events: {
-            'touch   .subject': 'start_subject',
-            'release .subject': 'end_subject',
 
-            'tap .back': 'main_menu',
-            'tap .ask': 'enqueue',
+            'tap .back':    'main_menu',
+            'tap .ask':     'enqueue',
+            'tap .subject': 'view_subject',
             'change input': 'register'
         },
 
         start_subject: function (e) {
-            $(e.currentTarget).find('h2').attr('id','subject-active');
             $(e.currentTarget).css('box-shadow','none');
         },
          
         end_subject: function (e) {
-            this.courses.render($(e.currentTarget).data('id'))
+            $(e.currentTarget).find('h2').attr('id','subject-active');
+            this.courses.render($(e.currentTarget).data('id'));
         },
 
         register: function (e) {
@@ -66,8 +66,7 @@ function ($, _, Backbone, hammer, CoursesView, SubjectView, Sidebar) {
         },
         
         enqueue: function (e) {
-            var id = $(e.currentTarget).data('id');
-            this.sidebar.add(id, this.table_id);
+            this.sidebar.add(e);
             this.main_menu();
         },
 
@@ -76,18 +75,18 @@ function ($, _, Backbone, hammer, CoursesView, SubjectView, Sidebar) {
             this.$el.hammer();
 
             var side  = $('<div id=side>');
-            var menus = $('<div id=menus>');
+            this.menus = $('<div id=menus>');
             
             this.$el
                 .append(side)
-                .append(menus);
+                .append(this.menus);
 
             this.subjects = new SubjectView({ 
-                el: menus
+                el: this.menus
             });
 
             this.courses = new CoursesView({ 
-                el: menus
+                el: this.menus
             });
 
              
@@ -103,8 +102,8 @@ function ($, _, Backbone, hammer, CoursesView, SubjectView, Sidebar) {
             this.subjects.render();
         },
         view_subject: function (e) {
-            /*
-            e.stopPropagation()
+            //this.menus.scrollTop(0);
+            e.stopPropagation();
             $(e.currentTarget).find('h2').attr('id','subject-active');
             $(e.currentTarget).css('box-shadow','none');
             var self = this;
@@ -112,9 +111,8 @@ function ($, _, Backbone, hammer, CoursesView, SubjectView, Sidebar) {
                 return function () {
                     self.courses.render($(e.currentTarget).data('id'))
                 };
-            })(e), '1000');
-            */
-        },
+            })(e), '100');
+        }
     });
 
     var main = new MainView();
