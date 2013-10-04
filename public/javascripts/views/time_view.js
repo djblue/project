@@ -6,14 +6,14 @@ function ($, Backbone) {
 
         initialize: function () {
 
-            this.day  = $('<div id=day>');
-            this.date = $('<div id=date>');
-            this.time = $('<div id=time>');
+            this.day  = $('<h1 id=day>');
+            this.date = $('<h2 id=date>');
+            //this.time = $('<div id=time>');
 
             this.$el
                 .append(this.day)
-                .append(this.date)
-                .append(this.time);
+                .append(this.date);
+                //.append(this.time);
 
             this.update();
 
@@ -51,9 +51,9 @@ function ($, Backbone) {
             ];
 
             var date = new Date();
-            this.time.html(date.toLocaleTimeString());
+            //this.time.html(date.toLocaleTimeString());
             this.date.html(months[date.getMonth()] +' '+ date.getDate() +
-            ', ' + date.getYear());
+            ', ' + date.getFullYear());
             this.day.html(days[date.getDay()]);
         }
 
