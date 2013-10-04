@@ -1,11 +1,10 @@
 define(['d3'], function (d3) {
 
-var drawPie = function( pieName, dataSet, selectString, colors, margin, outerRadius, innerRadius, sortArcs ) {
 
+var drawPie = function( pieName, dataSet, colors, margin, outerRadius, innerRadius, sortArcs ) {
+  //From D3js modified to our needs.
 	// pieName => A unique drawing identifier that has no spaces, no "." and no "#" characters.
 	// dataSet => Input Data for the chart, itself.
-	// selectString => String that allows you to pass in
-	//           a D3 select string.
 	// colors => String to set color scale.  Values can be...
 	//           => "colorScale10"
 	//           => "colorScale20"
@@ -19,18 +18,16 @@ var drawPie = function( pieName, dataSet, selectString, colors, margin, outerRad
 	//              1 = Sort by arc value size.
 
 	// Color Scale Handling...
-        var colorScale = colors;
+  var colorScale = colors;
 
-
-
-        var canvasWidth = 700;
-	var pieWidthTotal = outerRadius * 2;;
+  var canvasWidth = 500;
+	var pieWidthTotal = outerRadius + 15;
 	var pieCenterX = outerRadius + margin/2;
 	var pieCenterY = outerRadius + margin/2;
-        var legendBulletOffset = 30;
-        var legendVerticalOffset = outerRadius - margin;
-        var legendTextOffset = 20;
-        var textVerticalSpace = 20;
+  var legendBulletOffset = 1;
+  var legendVerticalOffset = outerRadius - margin;
+  var legendTextOffset = 15;
+  var textVerticalSpace = 15;
 
 	var canvasHeight = 0;
         var pieDrivenHeight = outerRadius*2 + margin*2;
@@ -94,13 +91,14 @@ var drawPie = function( pieName, dataSet, selectString, colors, margin, outerRad
         }
 
         // Create a drawing canvas...
-        var canvas = d3.select(selectString)
+        var div = document.createElement('div');
+        var canvas = d3.select(div)
           .append("svg:svg") //create the SVG element inside the <body>
             .data([dataSet]) //associate our data with the document
             .attr("width", canvasWidth) //set the width of the canvas
             .attr("height", canvasHeight) //set the height of the canvas
             .append("svg:g") //make a group to hold our pie chart
-              .attr("transform", "translate(" + pieCenterX + "," + pieCenterY + ")") // Set center of pie
+            .attr("transform", "translate(" + pieCenterX + "," + pieCenterY + ")") // Set center of pie
 
 	// Define an arc generator. This will create <path> elements for using arc data.
         var arc = d3.svg.arc()
@@ -123,30 +121,34 @@ var drawPie = function( pieName, dataSet, selectString, colors, margin, outerRad
           // with a selection. The result is creating a <g> for every object in the data array
           // Create a group to hold each slice (we will have a <path> and a <text>      // element associated with each slice)
 	  .enter().append("svg:a")
-            .attr("xlink:href", function(d) { return d.data.link; })
+            //.attr("xlink:href", function(d,i) {return d.data.link})
             .append("svg:g")
-              .attr("class", "slice")    //allow us to style things in the slices (like text)
-              // Set the color for each slice to be chosen from the color function defined above
-              // This creates the actual SVG path using the associated data (pie) with the arc drawing function
-              .style("stroke", "White" )
-              .attr("d", arc);
+            .attr("class", "slice")    //allow us to style things in the slices (like text)
+            // Set the color for each slice to be chosen from the color function defined above
+            // This creates the actual SVG path using the associated data (pie) with the arc drawing function
+            
+
+            .attr("data-obj", function (d,i) { return JSON.stringify({mark : d.data.mark, color : colors[i]}); })
+            .style("stroke", "White" )
+            .attr("d", arc);
 
         arcs.append("svg:path")
           // Set the color for each slice to be chosen from the color function defined above
           // This creates the actual SVG path using the associated data (pie) with the arc drawing function
           .attr("fill", function(d, i) { return colorScale[i]; } )
-          .attr("color_value", function(d, i) { return colorScale[i]; }) // Bar fill color...
-          .attr("index_value", function(d, i) { return "index-" + i; })
+          .attr("color_value", function(d, i) { return colorScale[i] }) // Bar fill color...
+          .attr("index_value", function(d, i) { return "index-" + i })
           .attr("class", function(d, i) { return "pie-" + pieName + "-arc-index-" + i; })
           .style("stroke", "White" )
           .attr("d", arc)
           .on('mouseover', synchronizedMouseOver)
           .on("mouseout", synchronizedMouseOut)
           .transition()
-            .ease("bounce")
-            .duration(2000)
-            .delay(function(d, i) { return i * 50; })
-            .attrTween("d", tweenPie);
+          .ease("bounce")
+          .duration(0)
+          .delay(function(d, i) { return 0; })
+          .attrTween("d", tweenPie);
+
 
         // Add a magnitude value to the larger arcs, translated to the arc centroid and rotated.
         arcs.filter(function(d) { return d.endAngle - d.startAngle > .2; }).append("svg:text")
@@ -160,7 +162,7 @@ var drawPie = function( pieName, dataSet, selectString, colors, margin, outerRad
             return "translate(" + arc.centroid(d) + ")rotate(" + angle(d) + ")";
           })
           .style("fill", "White")
-          .style("font", "normal 12px Arial")
+          .style("font", "normal 10px")
           .text(function(d) { return d.data.magnitude; });
 
         // Computes the angle of an arc, converting from radians to degrees.
@@ -172,8 +174,9 @@ var drawPie = function( pieName, dataSet, selectString, colors, margin, outerRad
         // Plot the bullet circles...
         canvas.selectAll("circle")
           .data(dataSet).enter().append("svg:circle") // Append circle elements
+          //.append(document.createElement('div').attr("class", 'bulletP').attr("data-obj", function (d,i) { return JSON.stringify({legendLabel: d.legendLabel, color:colors[i]});}))
           .attr("cx", pieWidthTotal + legendBulletOffset)
-          .attr("cy", function(d, i) { return i*textVerticalSpace - legendVerticalOffset; } )
+          .attr("cy", function(d, i) { return i * textVerticalSpace - legendVerticalOffset; } )
           .attr("stroke-width", ".5")
           .style("fill", function(d, i) { return colorScale[i]; }) // Bullet fill color
           .attr("r", 5)
@@ -183,28 +186,34 @@ var drawPie = function( pieName, dataSet, selectString, colors, margin, outerRad
           .on('mouseover', synchronizedMouseOver)
           .on("mouseout", synchronizedMouseOut);
 
+
+
+
         // Create hyper linked text at right that acts as label key...
         canvas.selectAll("a.legend_link")
           .data(dataSet) // Instruct to bind dataSet to text elements
           .enter().append("svg:a") // Append legend elements
-            .attr("xlink:href", function(d) { return d.link; })
+            //.attr("xlink:href", function(d,i) { return d.link; })
             .append("text")
               .attr("text-anchor", "center")
               .attr("x", pieWidthTotal + legendBulletOffset + legendTextOffset)
               //.attr("y", function(d, i) { return legendOffset + i*20 - 10; })
           //.attr("cy", function(d, i) {    return i*textVerticalSpace - legendVerticalOffset; } )
-              .attr("y", function(d, i) { return i*textVerticalSpace - legendVerticalOffset; } )
+              .attr("y", function(d, i) { return i*textVerticalSpace - legendVerticalOffset; })
               .attr("dx", 0)
               .attr("dy", "5px") // Controls padding to place text in alignment with bullets
-              .text(function(d) { return d.legendLabel;})
+              .text(function(d) { return d.legendLabel +"  "+ d.magnitude+" %";})
               .attr("color_value", function(d, i) { return colorScale[i]; }) // Bar fill color...
               .attr("index_value", function(d, i) { return "index-" + i; })
-              .attr("class", function(d, i) { return "pie-" + pieName + "-legendText-index-" + i; })
+              //.attr("class", function(d, i) { return "pie-" + pieName + "-legendText-index-" + i; })
+              .attr("class","link")
+              .attr("data-obj", function (d,i) { return JSON.stringify({"mark" : d.mark, color : colors[i]}); })
               .style("fill", "Blue")
-              .style("font", "normal 1.5em Arial")
+              .style("font", "normal 12px Arial")
               .on('mouseover', synchronizedMouseOver)
               .on("mouseout", synchronizedMouseOut);
 
+        return div;
       };
 
       return {

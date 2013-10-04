@@ -1,64 +1,234 @@
 
 body {
-    width: 100%;
-    padding: 90px 10px;
-    background: rgb(255,255,255); 
+    width      : 100%;
+    padding    : 50px 0px;
+    background : rgb(255,255,255); 
+    
+    /////////overflow   : hidden;
 }
 
-#table
-{
+.statistics{
 }
-#graphs
-{
+.tableTitle{
+    position   : relative;
+    height     : 35px;   
+    width      : 100%; 
 }
-#header
-{
+
+.tableTitle p:first-child{
+    position      : relative;
+    float         : left;
+    width         : 97.2%;
+    font-family   : arial;
+    color         : white;
+    font-size     : 25px;
+    margin-top    : 3px;
+    margin-bottom : 3px;
 }
-#t_backG
+
+/*Icons properties*/
+.icon_backgound{
+
+    fill              : #ffffff;
+    stroke            : #000000;
+    stroke-width      : 1.43752396;
+    stroke-miterlimit : 4;
+    stroke-opacity    : 1;
+    stroke-dasharray  : none;
+    display           : inline;
+
+}
+.minimize{
+    position   : relative;
+    top        : 2px;
+}
+.minimize:hover .icon_backgound {
+    fill              : rgb(255, 255, 146);
+    stroke            : rgb(168, 112, 0);
+    stroke-width      : 3;
+    stroke-miterlimit : 4;
+    stroke-opacity    : 1;
+    stroke-dasharray  : none;
+    display           : inline;
+
+}
+.minimize:hover .icon1 {
+    fill       : #000000;
+    stroke     : rgb(168, 112, 0);
+}
+.maximize{
+    position   : relative;
+    top        : 2px;
+}
+.maximize:hover .icon_backgound {
+    fill              : rgb(255, 255, 146);
+    stroke            : rgb(168, 112, 0);
+    stroke-width      : 3;
+    stroke-miterlimit : 4;
+    stroke-opacity    : 1;
+    stroke-dasharray  : none;
+    display           : inline;
+
+}
+.maximize:hover .icon1 {
+    fill       : #000000;
+    stroke     : rgb(168, 112, 0);
+}
+/* minimize icon*/
+.icon1{
+    fill       : #000000;
+    stroke     : #1a1a1a;
+}
+
+/* end of Icons*/
+
+
+/*/////////////////////////////////////////////////////*/
+
+.bar2{
+    position   : relative;   
+    width      : 100%;
+    height     : 225px;
+    overflow   : auto;
+    background : rgb(255, 255, 255);
+    padding : 0px; 
+}
+
+
+.axis text {
+  font: 9px sans-serif;
+
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.bars{}
+
+.y{
+    position : absolute;
+}
+.bar_text {
+  /*stroke: black;*/
+  fill: #000;
+}
+
+.x.axis path {
+  display: none;
+}
+
+
+label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/*/////////////////////////////////////////////////////*/
+.header
 {
+    position   : absolute;
+    left       : -0px;
+    width      : 100%;
+    top        : -0px;
+    height     : 50px;
+    background : rgb(109, 0, 0);
+    border     : none;
+    -webkit-box-shadow : 0px 1px 5px 0 rgba(0, 0, 0, 0.704);
+       -moz-box-shadow : 0px 1px 5px 0 rgba(0, 0, 0, 0.704);
+            box-shadow : 0px 1px 5px 0 rgba(0, 0, 0, 0.704);  
+}
+svg{
+
+}
+.graphs
+{
+    position   : relative;
+    width      : 100%;
+    height     : 225px;
+    background : rgb(255, 255, 255);
+    border     : 0px solid rgb(0, 0, 0);
+}
+.bar
+{
+    position   : relative;   
+    width      : 70%;
+}
+.pie
+{
+    position   : relative;
+    left       : 73%;
+    width      : 200px;
+    top        : -220px;
+    height     : 200px;
+    background : rgb(255, 255, 255);
+    border     : 0px solid rgb(0, 0, 0);
+}
+
+.tStyle, th, td{
+    white-space: nowrap;
+    background-color:white;
+    border-collapse:collapse;
+    border: 1px solid rgb(109, 0, 0);
+    width: 100%;
+}
+
+.tableL, .tableR {
+    width: 15%;
+    float: left;
+}
+
+.alignRight{
+    text-align:right;
+}
+
+.alignCenter{
+    text-align:center;
+}
+
+.alignLeft{
+    text-align: left;
+}
+.alignLeft tr:first-child, .alignLeft tr:last-child{
+    text-align:center;
+}
+
+.tableC{
+    width: 70%;
+    float:left;
+    overflow: auto;
+}
+
+
+.dataTable{
+    position: relative;
+    width: 100%;
+}
+
+.table
+{
+    position   : relative;
+    width      : 98.8%; 
+    top        : 14px;
+    background : rgb(109, 0, 0);
+    border     : none;
+}
+
+.sort_space{
     position: absolute;
-    left: 21px;
-    width: 1250px;
-    top: 300px;
-    height: 439px;
-    background: rgb(109, 0, 0);
-    border: none;
-    -webkit-box-shadow: 6px 7px 9px 0 rgba(0, 0, 0, 0.862);
-       -moz-box-shadow: 6px 7px 9px 0 rgba(0, 0, 0, 0.862);
-            box-shadow: 6px 7px 9px 0 rgba(0, 0, 0, 0.862);
+    left: 750px;
+    width: 185px;
+    top: 50px;
+    height: 19px;
 }
-#pie
-{
-    position: absolute;
-    left: 1050px;
-    width: 200px;
-    top: 70px;
-    height: 200px;
-    background: rgb(255, 255, 255);
-    border: 1px solid rgb(0, 0, 0);
-}
-#bar
-{
-    position: absolute;
-    left: 22px;
-    width: 960px;
-    top: 70px;
-    height: 200px;
-    background: rgb(255, 255, 255);
-    border: 0px solid rgb(0, 0, 0);
-}
+
+
 #background
 {
-    position: absolute;
-    left: -0px;
-    width: 100%;
-    top: -0px;
-    height: 50px;
-    background: rgb(109, 0, 0);
-    border: none;
-    -webkit-box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.704);
-       -moz-box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.704);
-            box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.704);
+   
 }
 #statistics_text
 {
@@ -90,3 +260,44 @@ body {
     font-family: Arial-BoldMT, Arial, "Helvetica Neue", Helvetica, sans-serif;
     color: rgb(255, 255, 255);
 }
+
+
+/* Navigator */
+.nav{
+    position   : relative;
+    height     : 35px;   
+    width      : 99%;
+    background : rgb(109, 0, 0);
+}
+
+.span{
+    position: relative;
+}
+
+.spanButtons{
+    position:relative;
+}
+
+.ToggleOff{
+    position:relative;
+    fill       : #000000;
+    stroke     : #1a1a1a;
+}
+
+
+
+
+
+/*
+position: relative;
+    fill:url(#linearGradient6326);
+    fill-opacity:1;
+    fill-rule:nonzero;
+    stroke:#999999;
+    stroke-width:0.49999988;
+    stroke-miterlimit:4;
+    stroke-opacity:1;
+    stroke-dasharray:none;  
+
+*/
+

@@ -7,7 +7,8 @@ define(['jquery','d3'], function (d3) {
     var el = $('<div>');
     
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
-        width = 960 - margin.left - margin.right,
+        //width = 960 - margin.left - margin.right,
+        width = 2000 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
@@ -33,7 +34,7 @@ define(['jquery','d3'], function (d3) {
       for(var i = 0; i < data.length; i++)
         data[i].index = i; 
       
-      x.domain(data.map(function(d) { return d.letter; }));
+      x.domain(data.map(function(d) { return d.label; }));
       y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
 
       svg.append("g")
