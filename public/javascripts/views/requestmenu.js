@@ -4,11 +4,12 @@
 define(['jquery' , 'underscore', 'backbone', 'hammer', 
 
     'text!templates/subjects.html',
-    'text!templates/courses.html'
+    'text!templates/courses.html',
+    'text!templates/help.html'
 
 ],
 
-function ($, _, Backbone, hammer, subjects, courses) {
+function ($, _, Backbone, hammer, subjects, courses, helptext) {
 
     return Backbone.View.extend({
 
@@ -42,12 +43,16 @@ function ($, _, Backbone, hammer, subjects, courses) {
 
             // render the subjects menu
             this.rendersubjects();
+
+            // help menu state
+            this.helpstate = false;
         },
 
         events: {
             'tap .back':    'rendersubjects',
             'tap .subject': 'rendercourses',
-            'tap .ask':     'ask'
+            'tap .ask':     'ask',
+            'tap #help':    'help'
         },
 
         // render the subjects
@@ -79,7 +84,18 @@ function ($, _, Backbone, hammer, subjects, courses) {
 
             // render the subjects menu
             this.rendersubjects();
+        },
+
+        help: function (e) {
+            if (!this.helpstate) {
+                $(e.currentTarget).append(helptext);
+                this.helpstate = true;
+            } else {
+                $(e.currentTarget).html("?");
+                this.helpstate = false;
+            }
         }
+
     });
 
 });
