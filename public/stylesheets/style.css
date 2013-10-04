@@ -5,6 +5,9 @@
 body {
     background: rgb(255,255,255); 
 }
+button {
+    cursor: pointer;
+}
 #body {
     width: 100%;
     margin: 0 auto;

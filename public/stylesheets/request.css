@@ -1,13 +1,18 @@
 html, body {
+    font-family: sans-serif;
     height: 100%;
+    overflow: hidden;
 }
 
-/*h1 { font-size: 36pt; }*/
+h1, h2, h3 { font-family: serif; }
+
+h1 { font-size: 34px; }
+h2 { font-size: 20px; }
 
 #body {
     margin: 0 auto;
     padding: 0px;
-    background-color: rgb(136, 1, 34); /* maroon */
+    background-color: maroon;
     height: 100%; 
 }
 
@@ -19,7 +24,7 @@ html, body {
 
 #side {
     width: 33.33%;
-    color: #EEE;
+    color: #ffffff;
     text-align: center;
 }
 
@@ -33,42 +38,41 @@ html, body {
     margin: 10px;
 }
 
-#date-time #day { font-size: 38pt; }
-#date-time #date { font-size: 14pt; }
-
 #menus {
     width: 66.66%;
-    background-color: #EEE;
+    background-color: #ffffff;
     overflow-y: scroll;
-    box-shadow: -10px 0px 10px rgba(0,0,0,0.5);
+    box-shadow: -5px 0px 15px rgba(0,0,0,0.5);
 }
 
 #menus h1 {
     text-align: center;
-    padding-top: 20px;
-    color: #903;
-    text-shadow: 1px 1px 1px black;
+    padding: 20px;
+    color: maroon;
+    border-bottom: 2px maroon solid;
+    position: fixed;
+    left: 33.33%;
+    right: 0;
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 5px 5px -5px black;
 }
 
 #questions {
-    color: #903;
+    color: maroon;
     margin: 20px -10px;
 }
 
 #questions button {
+    border-radius: 5px;
     border: 0;
-    color: #EEE;
-    background-color: #903;
+    color: #ffffff;
+    background-color: maroon;
     padding: 5px 10px;
     font-size: 14pt;
 }
 
-#questions .label {
-    font-size: 14pt;
-}
-
 .question {
-    background-color: #EEE;
+    background-color: #ffffff;
     margin: 10px 0;
 }
 
@@ -86,11 +90,10 @@ html, body {
 
 #menus-inner {
     padding: 10px;
-    width: 80%;
-    height: 80%;
+    width: 600px;
     margin: 20px auto;
-    padding-right: -10px;
-    overflow: auto;
+    padding-right: -20px;
+    margin-top: 100px;
 }
 
 .subject {
@@ -99,58 +102,78 @@ html, body {
     height:150px;
     width: 45%;
     margin:0px;
-    margin-bottom: 15px;
-    margin-left: 15px;
+    margin-bottom: 25px;
+    margin-left: 25px;
 }
 
 #subject-active {
-    background-color: rgb(136, 1, 34); /* maroon */
-    color: #EEE;
-    box-shadow:         inset 1px 1px 10px #000000;
+    background-color:maroon;
+    color: #ffffff;
+    box-shadow: inset 1px 1px 10px #000000;
 }
 
 .subject h2 {
-    border-top: 1px white solid;
-    border-left: 1px white solid;
+    //border-top: 1px white solid;
+    //border-left: 1px white solid;
+    border: 2px solid #aaa;
     margin: 10px;
     padding: 10px; 
     display: table-cell;
     vertical-align: middle;
     text-align: center;
     border-radius: 10px;
-    color: #903;
-    box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
+    color: maroon;
+    //box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+    cursor: pointer;
 }
 
 .classes {
-    width: 80%;
     margin: 20px auto;
-    border-radius: 20px;
-    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.5);
+    border-radius: 10px;
+    //box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.5);
 }
 
 .classes li {
-    color: #903;
+    color: maroon;
     padding: 10px;
     font-size: 18pt;
-    border: 1px solid #903;
+    border: 1px solid maroon;
     border-top: 0;
+    cursor: pointer;
 }
 
 .classes li:first-child {
     text-align: center;
-    background: #903;
-    color: #EEE;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    background: maroon;
+    color: #ffffff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     border: 0px;
 }
 
 .classes li:last-child {
     text-align: center;
-    background: #903;
-    color: #EEE;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    background: maroon;
+    color: #ffffff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     border: 0px;
+}
+
+.recent { 
+    padding: 5px 10px; 
+    background: #ffffff;
+    color: rgb(136, 1, 34); 
+    margin: 5px 25px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.fixed-bottom { 
+    text-align: left;
+    margin-left: 2.5%;
+    width: 95%; 
+    position: absolute; 
+    bottom: 10px;
 }
