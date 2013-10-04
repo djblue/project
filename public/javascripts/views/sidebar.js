@@ -9,6 +9,8 @@ define([ 'jquery', 'underscore', 'backbone', 'hammer',
 function ($, _, Backbone, Hammer, TimeView, questions, template) {
 
     return Backbone.View.extend({
+
+        id: 'side',
         
         events: {
             'dragstart .question':  'dragstart',
@@ -45,15 +47,15 @@ function ($, _, Backbone, Hammer, TimeView, questions, template) {
             // Begin a dragging event.
             this.drag_el = $(e.currentTarget);
 
-            if (this.drag_el == undefined) return;
+            if (this.drag_el === undefined) return;
             
             this.x = this.drag_el.offset().left;  
         },
 
         drag: function (e) {
             // Prevent default browser response.
-            if (this.drag_el == undefined) return; 
-            if (e.gesture == undefined) return;
+            if (this.drag_el === undefined) return; 
+            if (e.gesture === undefined) return;
 
             e.gesture.preventDefault();
 
@@ -71,8 +73,8 @@ function ($, _, Backbone, Hammer, TimeView, questions, template) {
 
         dragend: function (e) {
 
-            if (this.drag_el == undefined) return;
-            if (e.gesture == undefined) return;
+            if (this.drag_el === undefined) return;
+            if (e.gesture === undefined) return;
 
             e.gesture.stopDetect();
 
@@ -104,13 +106,15 @@ function ($, _, Backbone, Hammer, TimeView, questions, template) {
 
             this.$el
                 .append((new TimeView()).$el)
-                .append(this.area)
+                .append(this.area);
 
 
             this.render();
 
             this.collection.on('add',this.render, this);
             this.collection.on('remove',this.render, this);
+
+            _.bindAll(this, 'add');
         },
 
         render: function () {
@@ -120,15 +124,14 @@ function ($, _, Backbone, Hammer, TimeView, questions, template) {
             }));
         },
 
-        add: function (e) {
+        add: function (id) {
 
-            var id = $(e.currentTarget).data('id');
 
             var search = this.collection.where({
                 course_id: id
             });
 
-            if (search.length != 0 ) {
+            if (search.length !== 0 ) {
 
                 this.$el.find('[data-id="'+search[0].id+'"]')
                     .fadeOut()

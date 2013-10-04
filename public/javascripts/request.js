@@ -32,93 +32,25 @@ requirejs.config({
 
 });
 
-requirejs(['jquery' , 'underscore', 'backbone', 'hammer',
+requirejs([
 
-    'views/courses_view', 
-    'views/subjects_view', 
+    'collections/subjects',
+    'collections/courses',
+    'views/requestmenu',
     'views/sidebar' 
 
 ],
 
-function ($, _, Backbone, hammer, CoursesView, SubjectView, Sidebar) {
+function (subjects, courses, RequestMenu, Sidebar) {
 
-    var MainView = Backbone.View.extend({
+    var side = new Sidebar();
 
-        el: $('#body'),
-
-        events: {
-
-            'tap .back':    'main_menu',
-            'tap .ask':     'enqueue',
-            'tap .subject': 'view_subject',
-            'change input': 'register'
-        },
-
-        start_subject: function (e) {
-            $(e.currentTarget).css('box-shadow','none');
-        },
-         
-        end_subject: function (e) {
-            $(e.currentTarget).find('h2').attr('id','subject-active');
-            this.courses.render($(e.currentTarget).data('id'));
-        },
-
-        register: function (e) {
-            this.table_id = $(e.currentTarget).val();
-            console.log(this.table_id);
-            this.main_menu();
-        },
-        
-        enqueue: function (e) {
-            this.sidebar.add(e);
-            this.main_menu();
-        },
-
-        initialize: function () {
-            
-            this.$el.hammer();
-
-            var side  = $('<div id=side>');
-            this.menus = $('<div id=menus>');
-            
-            this.$el
-                .append(side)
-                .append(this.menus);
-
-            this.subjects = new SubjectView({ 
-                el: this.menus
-            });
-
-            this.courses = new CoursesView({ 
-                el: this.menus
-            });
-
-             
-            this.sidebar = new Sidebar({
-                el: side
-            });
-
-            this.subjects.render();
-            //menus.html('Please Enter Table Number <input />');
-        },
-
-        main_menu: function () {
-            this.subjects.render();
-        },
-        view_subject: function (e) {
-            //this.menus.scrollTop(0);
-            e.stopPropagation();
-            $(e.currentTarget).find('h2').attr('id','subject-active');
-            $(e.currentTarget).css('box-shadow','none');
-            var self = this;
-            setTimeout((function (e) {
-                return function () {
-                    self.courses.render($(e.currentTarget).data('id'))
-                };
-            })(e), '100');
-        }
-    });
-
-    var main = new MainView();
+    $('#body')
+        .append(side.$el)
+        .append(new RequestMenu({
+            subjects: subjects, 
+            courses: courses,
+            onAsk: side.add
+        }).$el);
 
 });
