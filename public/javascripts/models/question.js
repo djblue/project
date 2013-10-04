@@ -24,6 +24,17 @@ function (Base, courses) {
         get_label: function () {
 
             return  this.course.get('label');
+        },
+
+        isEqual: function (question) {
+
+            if (!!question) {
+                if (question.get('course_id') == this.get('course_id')) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
     }); 
