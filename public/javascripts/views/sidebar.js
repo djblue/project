@@ -1,11 +1,12 @@
 define([ 'jquery', 'underscore', 'backbone', 'hammer',
 
     'views/time_view',
-    'collections/questions'
+    'collections/questions',
+    'text!templates/sidebar.html'
 
 ], 
 
-function ($, _, Backbone, Hammer, TimeView, questions) {
+function ($, _, Backbone, Hammer, TimeView, questions, template) {
 
     return Backbone.View.extend({
         
@@ -14,12 +15,20 @@ function ($, _, Backbone, Hammer, TimeView, questions) {
             'drag':                 'drag',
             'dragend':              'dragend',
             'completed .question':  'completed',
-            'click button':         'cancel'
+            'click button':         'cancel',
+            'click .recent':        'add'
         },
 
         completed: function (e) {
-            var id = $(e.currentTarget).data(id);
-            this.collection.get(id).save({'completed': true});
+            var id = $(e.currentTarget).data(id)
+              , q  = this.collection.get(id);
+
+            q.save({'completed': true});
+
+            if ( !q.isEqual(this.recent[0]) ) {
+                this.recent[1] = this.recent[0];
+                this.recent[0] = q;
+            }
             this.collection.remove(id);
         },
 
@@ -82,7 +91,7 @@ function ($, _, Backbone, Hammer, TimeView, questions) {
             delete this.drag_el;
         },
         
-        template: _.template($('#sidebar').html()),
+        template: _.template(template),
 
         collection:  questions,
 
@@ -90,18 +99,13 @@ function ($, _, Backbone, Hammer, TimeView, questions) {
             // Initialize hammer plug-in for gestures.
             this.$el.hammer();
 
-            var time = $('<div id=date-time>');
-            var warn = $('<div id=warn>')
-                .html('<div>Current Questions</div>')
-                .append('<div>(Maximum 2)</div>');
-            this.questions = $('<ul id=questions>');
+            this.area = $('<div>');
+            this.recent = [];
 
             this.$el
-                .append(time)
-                .append(warn)
-                .append(this.questions);
+                .append((new TimeView()).$el)
+                .append(this.area)
 
-            new TimeView({ el: time });
 
             this.render();
 
@@ -110,15 +114,18 @@ function ($, _, Backbone, Hammer, TimeView, questions) {
         },
 
         render: function () {
-            this.questions.html( this.template({
-                questions: this.collection.models
+            this.area.html( this.template({
+                questions: this.collection.models,
+                recent: this.recent
             }));
         },
 
-        add: function (id, table_id) {
+        add: function (e) {
+
+            var id = $(e.currentTarget).data('id');
 
             var search = this.collection.where({
-                course_id: id 
+                course_id: id
             });
 
             if (search.length != 0 ) {
@@ -134,7 +141,7 @@ function ($, _, Backbone, Hammer, TimeView, questions) {
                     .fadeIn();
 
             } else  {
-                this.collection.create({ course_id: id, table_id: table_id }, {wait: true});
+                this.collection.create({ course_id: id, table_id: "test" }, {wait: true});
             }
         }
 

@@ -1,0 +1,26 @@
+<h2 id=warn>Current Questions (2 max)</h2>
+<ul id="questions">
+<% _.each(questions, function (question) { %>
+<li class="question" data-id="<%= question.get('_id') %>" >
+    <div>
+        <span><%= question.get('title') %></span>
+    </div>
+    <div>
+        <span class="label"><%= question.get('label') %></span>
+        <button data-id="<%= question.get('_id') %>">Cancel</button>
+    </div>
+</li> 
+<% }); %>
+</ul>
+<div class="fixed-bottom">
+<% if (!!recent[0]) { %><h2>Recently Asked<h2><% } %>
+<% _.each(recent, function (q) { %>
+    <% if (!!q) { %>
+    <li class="recent" data-id="<%= q.get('course_id') %>" >
+        <span><%= q.get('label') %></span>
+    </li> 
+    <% } %>
+<% }); %>
+<h2>Engineering Tutoring Center<h2>
+</div>
+
