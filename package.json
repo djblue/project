@@ -1,13 +1,19 @@
 {
-    "name": "RequestServer",
-    "version": "0.0.0",
-    "description": "A simple request server.",
-    "dependencies": {
-        "express": "latest",
-        "mongodb": "latest",
-        "socket.io": "latest",
-        "jasmine-node": "latest",
-        "underscore": "latest"
-    },
-    "author": "Abdullah Badahdah"
+  "name": "RequestServer",
+  "version": "0.1.0",
+  "description": "A simple request server.",
+  "dependencies": {
+    "express": "latest",
+    "mongodb": "latest",
+    "socket.io": "latest",
+    "underscore": "latest"
+  },
+  "devDependencies": {
+    "jasmine-node": "latest",
+    "grunt": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-express-server": "~0.4.4",
+    "grunt-contrib-watch": "~0.5.3"
+  },
+  "author": "Abdullah Badahdah"
 }
