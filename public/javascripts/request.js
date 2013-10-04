@@ -16,6 +16,10 @@ requirejs.config({
         },
         'underscore': {
             exports: '_'
+        },
+        'hammer': {
+            deps: ['jquery'],
+            exports: 'hammer'
         }
     },
     paths: {
