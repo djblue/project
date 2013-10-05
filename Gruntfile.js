@@ -26,7 +26,8 @@ module.exports = function(grunt) {
                 options: {
                     script: 'app.js',
                     node_env: 'production',
-                    debug: true 
+                    background: false,
+                    debug: false
                 }
             }
         },
@@ -48,6 +49,29 @@ module.exports = function(grunt) {
                      livereload: true
                 }
             }
+        },
+        cssmin: {
+            production: {
+                expand: true,
+                cwd: 'css',
+                src: ['public/stylesheets/*.css'],
+                dest: 'public/build'
+            }
+        },
+        requirejs: {
+            request: {
+                options: {
+                    almond: true,
+                    include: "lib/almond",
+                    name: "request",
+                    baseUrl: "public/javascripts/",
+                    mainConfigFile: "public/javascripts/request.js",
+                    out: "public/javascripts/build/request.js",
+                    optimize: "uglify2",
+                    generateSourceMaps: true,
+                    preserveLicenseComments: false
+                }
+            }
         }
     });
 
@@ -58,9 +82,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     // Grunt task for running an Express Server
     grunt.loadNpmTasks('grunt-express-server');
+    // Grunt task for minimizing css 
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    // Grunt task for minimizing js 
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
+
 
     // register all of the grunt tasks
-    grunt.registerTask('default', ['jshint']); // default task
-    grunt.registerTask('server', [ 'express:dev', 'watch' ]);
+    grunt.registerTask('default', ['requirejs:request','express:prod']);
+    grunt.registerTask('server', ['express:dev', 'watch']);
+    grunt.registerTask('deploy', ['requirejs:request']);
 
 };

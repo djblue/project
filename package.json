@@ -6,7 +6,8 @@
     "express": "latest",
     "mongodb": "latest",
     "socket.io": "latest",
-    "underscore": "latest"
+    "underscore": "latest",
+    "ejs": "~0.8.4"
   },
   "devDependencies": {
     "jasmine-node": "latest",

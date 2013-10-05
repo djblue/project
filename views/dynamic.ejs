@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <!-- -->
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/<%= style %>.css">
+    <% if (!production) { %>
+    <script src="//localhost:35729/livereload.js"></script>
+    <% } %>
+</head>
+<body>
+    <div id="body"></div>
+    <% if (production) { %>
+    <script data-main="javascripts/<%= main %>.js" src="javascripts/lib/require.js"></script>
+    <script src="javascripts/build/<%= main %>.js"></script>
+    <% } else { %>
+    <script data-main="javascripts/<%= main %>.js" src="javascripts/lib/require.js"></script>
+    <% } %>
+</body>
+</html>

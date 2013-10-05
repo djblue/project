@@ -8,6 +8,7 @@ var util                = require('util')
   , server              = require('http').createServer(app)
   , io                  = require('socket.io').listen(server)
   , path                = require('path')
+  , ejs                 = require('ejs')
 
   , subjects            = require('./routes/subjects')
   , courses             = require('./routes/courses')
@@ -17,7 +18,7 @@ var util                = require('util')
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
-//app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.compress());
@@ -41,7 +42,13 @@ io.sockets.on('connection', function (socket) {
 });
 
 app.get('/', function (req, res) {
-    res.sendfile(path.join( __dirname, 'views/request.html'));    
+    //res.sendfile(path.join( __dirname, 'views/request.html'));    
+    res.render('dynamic', {
+        title: 'Request',
+        style: 'request',
+        production: 'production' === app.get('env'),
+        main: 'request'
+    });
 });
 
 app.get('/questions_queue', function (req, res) {
