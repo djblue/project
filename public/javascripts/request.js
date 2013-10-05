@@ -23,11 +23,11 @@ requirejs.config({
         }
     },
     paths: {
-        jquery:     '/lib/jquery-2.0.2.min',
-        backbone:   '/lib/backbone-min',
-        underscore: '/lib/underscore-min',
-        hammer:     '/lib/jquery.hammer.min',
-        text:       '/lib/text'
+        jquery:     'lib/jquery-2.0.2.min',
+        backbone:   'lib/backbone-min',
+        underscore: 'lib/underscore-min',
+        hammer:     'lib/jquery.hammer.min',
+        text:       'lib/text'
     }
 
 });
