@@ -10,12 +10,16 @@ requirejs.config({
         },
         'underscore': {
             exports: '_'
+        },
+        'chart': {
+            exports: 'Chart'
         }
     },
     paths: {
         jquery:     'lib/jquery-2.0.2.min',
         backbone:   'lib/backbone-min',
         underscore: 'lib/underscore-min',
+        chart:      'lib/Chart.min',
         text:       'lib/text'
     }
 });
@@ -56,6 +60,7 @@ function ($, Backbone, Stats, StatsView, help) {
                     data: obj,
                     success: function () {
                         cache[JSON.stringify(obj)] = new StatsView({
+                            url: obj,
                             collection: stats
                         });
                         body.html(cache[JSON.stringify(obj)].$el);

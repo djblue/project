@@ -1,0 +1,18 @@
+<h1>Statistics <a id="dl">Download</a></h1>
+<canvas id="line-chart" width="1280" height="350"></canvas>
+<table class="stats-table">
+    <tr>
+        <th></th>
+        <% _.each(subjects, function (subject) { %> 
+        <th><%= subject.get('prefix') %></th>
+        <% }); %>
+    </tr>
+    <% _.each (data, function (row) { %> 
+    <tr onclick="document.location = window.location.hash+'/<%= row.get('label') %>';" >
+        <th><%= row.get('label') %></th>
+        <% _.each(row.get('subjects'), function (input) { %> 
+        <td><%= input %></td>
+        <% }); %>
+    </tr>
+    <% });%>
+</table>
