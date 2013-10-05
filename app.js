@@ -59,6 +59,15 @@ app.get('/stats', function (req, res) {
     });
 });
 
+app.get('/queue', function (req, res) {
+    res.render('dynamic', {
+        title: 'Question Queue',
+        style: 'queue',
+        production: 'production' === app.get('env'),
+        main: 'queue'
+    });
+});
+
 app.get('/questions_queue', function (req, res) {
     res.sendfile(path.join( __dirname, 'views/queue.html'));    
 });
