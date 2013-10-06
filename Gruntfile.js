@@ -72,6 +72,10 @@ module.exports = function(grunt) {
                     preserveLicenseComments: false
                 }
             }
+        },
+        open: {
+            req:   { path: 'http://127.0.0.1:3000' },
+            stats: { path: 'http://127.0.0.1:3000/stats' }
         }
     });
 
@@ -86,11 +90,16 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     // Grunt task for minimizing js 
     grunt.loadNpmTasks('grunt-contrib-requirejs');
-
+    // Grunt task to open things like a web browser
+    grunt.loadNpmTasks('grunt-open');
 
     // register all of the grunt tasks
     grunt.registerTask('default', ['requirejs:request','express:prod']);
+<<<<<<< Updated upstream
     grunt.registerTask('server', ['express:dev', 'watch']);
+=======
+    grunt.registerTask('server', ['shell:mongo','express:dev', 'open:req','open:stats','watch']);
+>>>>>>> Stashed changes
     grunt.registerTask('deploy', ['requirejs:request']);
 
 };
