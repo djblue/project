@@ -46,8 +46,9 @@ function ($, Backbone, Stats, StatsView, help) {
             body.html(help);
         },
         viewstats: function (term, week, day) {
+
             var obj = {
-                term: term,
+                term: (!!term)? term : "FA2013",
                 week: week,
                 day:  day
             }; 
@@ -55,7 +56,18 @@ function ($, Backbone, Stats, StatsView, help) {
             if (!!cache[JSON.stringify(obj)]) {
                 body.html(cache[JSON.stringify(obj)].$el);
             } else {
-                var stats = new Stats(); 
+
+                var span = 'weekly';
+                if (!!obj.term) {
+                    if (!!obj.week) {
+                        span = 'daily';
+                        if (!!obj.day) {
+                            span = 'hourly';
+                        }
+                    }
+                }
+
+                var stats = new Stats[span](); 
                 stats.fetch({ 
                     data: obj,
                     success: function () {

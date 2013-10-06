@@ -2,13 +2,14 @@ html,body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background: maroon;
+    //background: maroon;
 }
 
 h1 {
     font-size: 32pt;
     padding: 25px 0;
     color:maroon;
+    margin-bottom: 20px;
 }
 
 #dl {
@@ -23,8 +24,8 @@ h1 {
 }
 
 #body {
-    width: 1280px;
-    box-shadow: 0 0 3px black;
+    width: 1080px;
+    //box-shadow: 0 0 3px black;
     padding: 0 30px;
     padding-bottom: 20px;
     background: #ffffff;
@@ -74,8 +75,11 @@ h1 {
 
 .stats-table th, 
 .stats-table td {
-    border: 1px solid #eee;
     padding: 12px 15px;
+}
+
+.stats-table td {
+    text-align: right;
 }
 
 .stats-table th {

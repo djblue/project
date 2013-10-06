@@ -1,5 +1,5 @@
 <h1>Statistics <a id="dl">Download</a></h1>
-<canvas id="line-chart" width="1280" height="350"></canvas>
+<canvas id="line-chart" width="1080" height="350"></canvas>
 <table class="stats-table">
     <tr>
         <th></th>
@@ -8,8 +8,8 @@
         <% }); %>
     </tr>
     <% _.each (data, function (row) { %> 
-    <tr onclick="document.location = window.location.hash+'/<%= row.get('label') %>';" >
-        <th><%= row.get('label') %></th>
+    <tr onclick="document.location = '#<%= current %><%= row.get('label') %>';" >
+        <th><%= row.get('formatted') %></th>
         <% _.each(row.get('subjects'), function (input) { %> 
         <td><%= input %></td>
         <% }); %>

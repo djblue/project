@@ -5,9 +5,7 @@ define(['backbone',
 
 function (Backbone, Stat) {
 
-    return Backbone.Collection.extend({
-
-        model: Stat,
+    var BaseStatistics = Backbone.Collection.extend({
 
         initialize: function () {
         },
@@ -23,5 +21,17 @@ function (Backbone, Stat) {
 
         url: 'statistics'
     });
+
+    return {
+        weekly: BaseStatistics.extend({
+            model: Stat['weekly']
+        }),
+        daily: BaseStatistics.extend({
+            model: Stat['daily']
+        }),
+        hourly: BaseStatistics.extend({
+            model: Stat['hourly']
+        }),
+    }
 
 });

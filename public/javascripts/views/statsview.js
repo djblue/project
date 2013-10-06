@@ -16,6 +16,7 @@ function ($, _, Backbone, Chart, subjects, table) {
         initialize: function () {
 
             this.$el.html(_.template(table, {
+                current: _.values(this.options.url).filter(function(n){return n}).join('/')+"/",
                 subjects: subjects.models,
                 data: this.collection.models
             }));
@@ -24,7 +25,7 @@ function ($, _, Backbone, Chart, subjects, table) {
 
             data = {
                 labels: _.map(this.collection.models, function(obj) {
-                    return obj.get('label');
+                    return obj.get('formatted');
                 }),
                 datasets: [
                     {
@@ -39,7 +40,7 @@ function ($, _, Backbone, Chart, subjects, table) {
                 ]
             };
                 
-            new Chart(bar).Line(data);
+            new Chart(bar).Bar(data);
         }
 
     });

@@ -6,8 +6,9 @@ define(['models/base',
 
 function (Base, subjects, courses) {
 
-    return Base.extend({
+    var BaseStatistic = Base.extend({
         idAttribute: "_id",
+
         initialize: function () {
         },
 
@@ -21,7 +22,41 @@ function (Base, subjects, courses) {
                     } else { return memo; }
                 }, 0);
             });
-        }
+        },
     });  
+
+    return {
+        weekly: BaseStatistic.extend({
+            get_formatted: function () {
+                return "Week " + this.attributes.label;
+            },
+        }),
+        daily: BaseStatistic.extend({
+            get_formatted: function () {
+                var days = [
+                    'Sunday',
+                    'Monday',
+                    'Tuesday',
+                    'Wednesday',
+                    'Thursday',
+                    'Friday',
+                    'Saturday'
+                ];
+                return days[this.attributes.label];
+            }
+        }),
+        hourly: BaseStatistic.extend({
+            get_formatted: function () {
+                if (Number(this.attributes.label) > 12) {
+                    return (Number(this.attributes.label) - 12 ) + " P.M.";
+                } else {
+                    return this.attributes.label + " A.M."
+                }
+            },
+            get_label: function () {
+                return null;
+            }
+        })
+    }
 
 });
