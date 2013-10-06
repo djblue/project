@@ -1,0 +1,90 @@
+html,body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    //background: maroon;
+}
+
+h1 {
+    font-size: 32pt;
+    padding: 25px 0;
+    color:maroon;
+    margin-bottom: 20px;
+}
+
+#dl {
+    display: inline-block;
+    font-size: 18pt;
+    float: right;
+    padding: 12px;
+    color: #ffffff;
+    background: maroon;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#body {
+    width: 1080px;
+    //box-shadow: 0 0 3px black;
+    padding: 0 30px;
+    padding-bottom: 20px;
+    background: #ffffff;
+
+}
+
+#stats-right {
+    float: right;
+    width: 380px;
+    height: 250px;
+}
+
+#stats-right > div{
+    padding: 20px;
+}
+
+#stats-left {
+    float: left;
+    width: 380px;
+    height: 250px;
+}
+
+#stats-left > div{
+    padding: 20px;
+}
+
+#pie-chart {
+    margin-left:80px;
+}
+
+.stats-table 
+{
+    width: 100%;
+    font-family: 'Arial';
+    margin: 15px auto;
+    border-collapse: collapse;
+    box-shadow: 0 0px 2px black;
+}
+  
+.stats-table tr:hover {
+    background: #f4f4f4;
+    cursor: pointer;
+}
+.stats-table tr:hover td {
+    color: #555555;
+}
+
+.stats-table th, 
+.stats-table td {
+    padding: 12px 15px;
+}
+
+.stats-table td {
+    text-align: right;
+}
+
+.stats-table th {
+    background: maroon;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 12px;
+}

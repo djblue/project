@@ -42,12 +42,29 @@ io.sockets.on('connection', function (socket) {
 });
 
 app.get('/', function (req, res) {
-    //res.sendfile(path.join( __dirname, 'views/request.html'));    
     res.render('dynamic', {
         title: 'Request',
         style: 'request',
         production: 'production' === app.get('env'),
         main: 'request'
+    });
+});
+
+app.get('/stats', function (req, res) {
+    res.render('dynamic', {
+        title: 'Statistics',
+        style: 'stats',
+        production: 'production' === app.get('env'),
+        main: 'stats'
+    });
+});
+
+app.get('/queue', function (req, res) {
+    res.render('dynamic', {
+        title: 'Question Queue',
+        style: 'queue',
+        production: 'production' === app.get('env'),
+        main: 'queue'
     });
 });
 

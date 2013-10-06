@@ -31,6 +31,19 @@ module.exports = function(grunt) {
                 }
             }
         },
+        shell: {
+            mongo: {
+                command: 'mongod --smallfiles',
+                options: {
+                    async: true,
+                }
+            },
+            options: {
+                stdout: true,
+                stderr: true,
+                failOnError: true
+            }
+        },
         watch: {
             express: {
                 files: ['routes/*.js'],
@@ -86,6 +99,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     // Grunt task for running an Express Server
     grunt.loadNpmTasks('grunt-express-server');
+    // Grunt task for running mongod
+    grunt.loadNpmTasks('grunt-shell-spawn');
     // Grunt task for minimizing css 
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     // Grunt task for minimizing js 
@@ -95,11 +110,7 @@ module.exports = function(grunt) {
 
     // register all of the grunt tasks
     grunt.registerTask('default', ['requirejs:request','express:prod']);
-<<<<<<< Updated upstream
-    grunt.registerTask('server', ['express:dev', 'watch']);
-=======
     grunt.registerTask('server', ['shell:mongo','express:dev', 'open:req','open:stats','watch']);
->>>>>>> Stashed changes
     grunt.registerTask('deploy', ['requirejs:request']);
 
 };
