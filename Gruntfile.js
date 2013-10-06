@@ -77,7 +77,7 @@ module.exports = function(grunt) {
                 include: "lib/almond",
                 optimize: "uglify2",
                 generateSourceMaps: true,
-                baseUrl: "public/javascripts/",
+                baseUrl: "./public/javascripts/",
                 preserveLicenseComments: false
             },
             request: {
@@ -105,6 +105,48 @@ module.exports = function(grunt) {
         open: {
             req:   { path: 'http://127.0.0.1:3000' },
             stats: { path: 'http://127.0.0.1:3000/stats' }
+        },
+        connect: {
+            test: {
+                port: 8000
+            }
+        },
+        jasmine: {
+            browser: {
+                //vender: './public/javascripts/lib',
+                options: {
+                    
+                    specs: './public/javascripts/specs/example.js',
+                    host: 'http://127.0.0.1:8000/',
+                    template: require('grunt-template-jasmine-requirejs'),
+                    templateOptions: {
+                        requireConfig: {
+                            baseUrl: './public/javascripts/',
+                            shim: {
+                                'backbone': {
+                                    deps: ['underscore', 'jquery'],
+                                    exports: 'Backbone'
+                                },
+                                'underscore': {
+                                    exports: '_'
+                                },
+                                'hammer': {
+                                    deps: ['jquery'],
+                                    exports: 'hammer'
+                                }
+                            },
+                            paths: {
+                                jquery:     'lib/jquery-2.0.2.min',
+                                backbone:   'lib/backbone-min',
+                                underscore: 'lib/underscore-min',
+                                hammer:     'lib/jquery.hammer.min',
+                                d3:         'lib/d3.v3.min',
+                                text:       'lib/text'
+                            }
+                        }
+                    }
+                }
+            }
         }
     });
 
@@ -124,9 +166,15 @@ module.exports = function(grunt) {
     // Grunt task to open things like a web browser
     grunt.loadNpmTasks('grunt-open');
 
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-contrib-connect');
+
+
     // register all of the grunt tasks
     grunt.registerTask('default', ['shell:mongo','express:prod']);
     grunt.registerTask('server', ['shell:mongo','express:dev', 'open:req','open:stats','watch']);
     grunt.registerTask('build', ['requirejs:request', 'requirejs:stats', 'requirejs:queue']);
+    grunt.registerTask('test', ['connect:test', 'jasmine:browser']);
+
 
 };
