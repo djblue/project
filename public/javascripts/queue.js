@@ -23,11 +23,10 @@ requirejs(['jquery' , 'underscore', 'backbone',
 
     'collections/questions',
     'text!templates/queue.ejs',
-    '/socket.io/socket.io.js'
 
 ],
 
-function ($, _, Backbone, questions, queue, io) {
+function ($, _, Backbone, questions, queue) {
 
 
     var socket   = io.connect(); // Defaults to server

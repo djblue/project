@@ -61,6 +61,7 @@ app.get('/stats', function (req, res) {
 
 app.get('/queue', function (req, res) {
     res.render('dynamic', {
+        socket: true,
         title: 'Question Queue',
         style: 'queue',
         production: 'production' === app.get('env'),

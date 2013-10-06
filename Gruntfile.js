@@ -72,17 +72,33 @@ module.exports = function(grunt) {
             }
         },
         requirejs: {
+            options: {
+                almond: true,
+                include: "lib/almond",
+                optimize: "uglify2",
+                generateSourceMaps: true,
+                baseUrl: "public/javascripts/",
+                preserveLicenseComments: false
+            },
             request: {
                 options: {
-                    almond: true,
-                    include: "lib/almond",
                     name: "request",
-                    baseUrl: "public/javascripts/",
                     mainConfigFile: "public/javascripts/request.js",
                     out: "public/javascripts/build/request.js",
-                    optimize: "uglify2",
-                    generateSourceMaps: true,
-                    preserveLicenseComments: false
+                }
+            },
+            stats: {
+                options: {
+                    name: "stats",
+                    mainConfigFile: "public/javascripts/stats.js",
+                    out: "public/javascripts/build/stats.js",
+                }
+            },
+            queue: {
+                options: {
+                    name: "queue",
+                    mainConfigFile: "public/javascripts/queue.js",
+                    out: "public/javascripts/build/queue.js",
                 }
             }
         },
@@ -109,8 +125,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-open');
 
     // register all of the grunt tasks
-    grunt.registerTask('default', ['requirejs:request','express:prod']);
+    grunt.registerTask('default', ['shell:mongo','express:prod']);
     grunt.registerTask('server', ['shell:mongo','express:dev', 'open:req','open:stats','watch']);
-    grunt.registerTask('deploy', ['requirejs:request']);
+    grunt.registerTask('build', ['requirejs:request', 'requirejs:stats', 'requirejs:queue']);
 
 };
