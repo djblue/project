@@ -17,12 +17,13 @@ requirejs.config({
         }
     },
     paths: {
-        'jquery':       '/lib/jquery-2.0.2.min',
-        'underscore':   '/lib/underscore-min',
-        'backbone':     '/lib/backbone-min',
-        'hammer':       '/lib/jquery.hammer.min',
-        'jasmine':      '/lib/jasmine',
-        'jasmine-html': '/lib/jasmine-html'
+        'jquery':       'lib/jquery-2.0.2.min',
+        'underscore':   'lib/underscore-min',
+        'backbone':     'lib/backbone-min',
+        'hammer':       'lib/jquery.hammer.min',
+        'text':         'lib/text',
+        'jasmine':      'lib/jasmine',
+        'jasmine-html': 'lib/jasmine-html'
     }
 
 });
