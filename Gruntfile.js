@@ -38,6 +38,9 @@ module.exports = function(grunt) {
                     async: true,
                 }
             },
+            deploy: {
+                command: 'rsync -vcrz --progress ./build/* djblue.us.to:/home/chris/project'
+            },
             options: {
                 stdout: true,
                 stderr: true,
@@ -56,7 +59,9 @@ module.exports = function(grunt) {
                 files: [
                     'public/stylesheets/*.css',
                     'public/javascripts/*.js',
-                    'public/javascripts/**/*.js'
+                    'public/javascripts/**/*.js',
+                    'public/javascripts/**/*.ejs',
+                    'public/javascripts/**/*.html'
                 ],   
                 options: {
                      livereload: true
@@ -64,11 +69,24 @@ module.exports = function(grunt) {
             }
         },
         cssmin: {
-            production: {
+            request: {
                 expand: true,
-                cwd: 'css',
-                src: ['public/stylesheets/*.css'],
-                dest: 'public/build'
+                cwd: 'public/stylesheets',
+                src: ['*.css', '!jasmine.css'],
+                dest: 'build/public/stylesheets'
+            }
+        },
+        htmlmin: {
+            prod: {
+                options: {
+                    removeComments: true,
+                    collapseWhitespace: true,
+                    removeRedundantAttributes: true,
+                    removeAttributeQuotes: true
+                },
+                files: {
+                    'build/views/dynamic.ejs': 'views/dynamic.ejs',
+                }
             }
         },
         requirejs: {
@@ -76,7 +94,7 @@ module.exports = function(grunt) {
                 almond: true,
                 include: "lib/almond",
                 optimize: "uglify2",
-                generateSourceMaps: true,
+                generateSourceMaps: false,
                 baseUrl: "./public/javascripts/",
                 preserveLicenseComments: false
             },
@@ -84,21 +102,21 @@ module.exports = function(grunt) {
                 options: {
                     name: "request",
                     mainConfigFile: "public/javascripts/request.js",
-                    out: "public/javascripts/build/request.js",
+                    out: "build/public/javascripts/request.js",
                 }
             },
             stats: {
                 options: {
                     name: "stats",
                     mainConfigFile: "public/javascripts/stats.js",
-                    out: "public/javascripts/build/stats.js",
+                    out: "build/public/javascripts/stats.js",
                 }
             },
             queue: {
                 options: {
                     name: "queue",
                     mainConfigFile: "public/javascripts/queue.js",
-                    out: "public/javascripts/build/queue.js",
+                    out: "build/public/javascripts/queue.js",
                 }
             }
         },
@@ -147,6 +165,19 @@ module.exports = function(grunt) {
                     }
                 }
             }
+        },
+        copy: {
+            build: {
+                cwd: '.',
+                src: ['app.js', 'routes/*.js', 'views/*.html', '*.json'],
+                dest: 'build',
+                expand: true
+            }
+        },
+        clean: {
+            build: {
+                src: ['build']
+            }
         }
     });
 
@@ -160,7 +191,10 @@ module.exports = function(grunt) {
     // Grunt task for running mongod
     grunt.loadNpmTasks('grunt-shell-spawn');
     // Grunt task for minimizing css 
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     // Grunt task for minimizing js 
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     // Grunt task to open things like a web browser
@@ -173,7 +207,11 @@ module.exports = function(grunt) {
     // register all of the grunt tasks
     grunt.registerTask('default', ['shell:mongo','express:prod']);
     grunt.registerTask('server', ['shell:mongo','express:dev', 'open:req','open:stats','watch']);
-    grunt.registerTask('build', ['requirejs:request', 'requirejs:stats', 'requirejs:queue']);
+    grunt.registerTask('deploy', [
+        'clean', 'copy', 'cssmin', 'htmlmin',
+        'requirejs:request', 'requirejs:stats', 'requirejs:queue',
+        'shell:deploy'
+    ]);
     grunt.registerTask('test', ['connect:test', 'jasmine:browser']);
 
 

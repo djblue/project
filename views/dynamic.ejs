@@ -16,7 +16,7 @@
 <body>
     <div id="body"></div>
     <% if (production) { %>
-    <script src="javascripts/build/<%= main %>.js"></script>
+    <script src="javascripts/<%= main %>.js"></script>
     <% } else { %>
     <script data-main="javascripts/<%= main %>.js" src="javascripts/lib/require.js"></script>
     <% } %>
