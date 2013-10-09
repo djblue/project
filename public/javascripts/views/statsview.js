@@ -14,11 +14,13 @@ function ($, _, Backbone, Chart, subjects, table) {
     return Backbone.View.extend({
 
         initialize: function () {
+            var path = _.values(this.options.url).filter(function(n){return n});
 
             this.$el.html(_.template(table, {
-                current: _.values(this.options.url).filter(function(n){return n}).join('/')+"/",
+                path: path,
+                current: path.join('/')+"/",
                 subjects: subjects.models,
-                data: this.collection.models
+                data: this.collection
             }));
 
             var bar = this.$el.children('canvas').get(0).getContext("2d");

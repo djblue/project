@@ -8,8 +8,36 @@ html,body {
 h1 {
     font-size: 32pt;
     padding: 25px 0;
+}
+
+h1,h2 {
     color:maroon;
     margin-bottom: 20px;
+}
+
+#popular ol li {
+    list-style: decimal;
+    margin-left: 24px;
+}
+
+#popular, #metrics {
+    font-size: 12pt;
+    float: left;
+    margin: 35px;
+    font-weight: normal;
+}
+
+#popular { width: 55%; }
+#metrics { width: 20%; }
+
+#popular .number {
+    float: right;
+}
+
+.label {
+    display: inline-block;
+    color: #999999;
+    width: 110px;
 }
 
 #dl {
@@ -36,6 +64,29 @@ h1 {
     float: right;
     width: 380px;
     height: 250px;
+}
+
+#breadcrumbs {
+    display: inline-block;
+    font-size: 18pt;
+    color: #999999;
+    line-height: 32px;
+    vertical-align: middle;
+}
+
+#breadcrumbs li {
+    float: left;
+}
+
+#breadcrumbs li:before {
+    content: "»";
+    padding: 0 9px;
+    color: maroon;
+
+}
+
+#breadcrumbs li:first-child:before {
+    content: "";
 }
 
 #stats-right > div{
