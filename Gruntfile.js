@@ -169,7 +169,7 @@ module.exports = function(grunt) {
         copy: {
             build: {
                 cwd: '.',
-                src: ['app.js', 'routes/*.js', 'views/*.html', '*.json'],
+                src: ['app.js', 'routes/*.js', 'views/*.html', '*.json', 'public/images/*'],
                 dest: 'build',
                 expand: true
             }
