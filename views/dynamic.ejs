@@ -18,7 +18,8 @@
     <% if (production) { %>
     <script src="javascripts/<%= main %>.js"></script>
     <% } else { %>
-    <script data-main="javascripts/<%= main %>.js" src="javascripts/lib/require.js"></script>
+    <script data-main="javascripts/<%= main %>.js"
+    src="javascripts/components/requirejs/require.js"></script>
     <% } %>
 </body>
 </html>

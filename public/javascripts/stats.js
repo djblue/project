@@ -16,11 +16,11 @@ requirejs.config({
         }
     },
     paths: {
-        jquery:     'lib/jquery-2.0.2.min',
-        backbone:   'lib/backbone-min',
-        underscore: 'lib/underscore-min',
-        chart:      'lib/Chart.min',
-        text:       'lib/text'
+        jquery:     'components/jquery/jquery',
+        backbone:   'components/backbone/backbone',
+        underscore: 'components/underscore/underscore',
+        text:       'components/text/text',
+        chart:      'components/nnnick-chartjs/Chart'
     }
 });
 

@@ -23,17 +23,17 @@ requirejs.config({
         }
     },
     paths: {
-        jquery:     'lib/jquery-2.0.2.min',
-        backbone:   'lib/backbone-min',
-        underscore: 'lib/underscore-min',
-        hammer:     'lib/jquery.hammer.min',
-        text:       'lib/text'
+        jquery:     'components/jquery/jquery',
+        backbone:   'components/backbone/backbone',
+        underscore: 'components/underscore/underscore',
+        hammer:     'components/hammerjs/dist/jquery.hammer',
+        text:       'components/text/text'
     }
-
 });
 
 requirejs([
 
+    'jquery',
     'collections/subjects',
     'collections/courses',
     'views/requestmenu',
@@ -41,7 +41,7 @@ requirejs([
 
 ],
 
-function (subjects, courses, RequestMenu, Sidebar) {
+function ($, subjects, courses, RequestMenu, Sidebar) {
 
     var side = new Sidebar();
 

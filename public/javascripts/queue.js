@@ -10,13 +10,11 @@ requirejs.config({
         }
     },
     paths: {
-        jquery:     'lib/jquery-2.0.2.min',
-        backbone:   'lib/backbone-min',
-        underscore: 'lib/underscore-min',
-        text:       'lib/text',
-        hammer:     'lib/jquery.hammer.min'
+        jquery:     'components/jquery/jquery',
+        backbone:   'components/backbone/backbone',
+        underscore: 'components/underscore/underscore',
+        text:       'components/text/text'
     }
-
 });
 
 requirejs(['jquery' , 'underscore', 'backbone', 

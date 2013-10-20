@@ -1,0 +1,28 @@
+{
+  "name": "javascripts",
+  "version": "0.0.0",
+  "homepage": "https://github.com/djblue/project",
+  "authors": [
+    "Chris Badahdah <a.s.badahdah@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "~2.0.3",
+    "underscore": "~1.5.2",
+    "backbone": "~1.0.0",
+    "almond": "~0.2.6",
+    "jasmine": "~1.3.1",
+    "requirejs": "~2.1.9",
+    "text": "~2.0.10",
+    "hammerjs": "~1.0.5",
+    "nnnick-chartjs": "*"
+  }
+}
