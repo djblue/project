@@ -1,92 +1,73 @@
 // A widget for monitoring student system statistics. Users will be able
 // to navigate different stats with respect to time and subject.
 
-requirejs.config({
-    baseUrl: '/javascripts',
-    shim: {
-        'backbone': {
-            deps: ['underscore', 'jquery'],
-            exports: 'Backbone'
-        },
-        'underscore': {
-            exports: '_'
-        },
-        'chart': {
-            exports: 'Chart'
-        }
-    },
-    paths: {
-        jquery:     'components/jquery/jquery',
-        backbone:   'components/backbone/backbone',
-        underscore: 'components/underscore/underscore',
-        text:       'components/text/text',
-        chart:      'components/nnnick-chartjs/Chart'
-    }
-});
+require(['/javascripts/config.js'], function () {
 
-requirejs(['jquery', 'backbone',
-
+    require([
+        'jquery',
+        'backbone',
         'collections/stats',
         'views/statsview',
         'text!templates/statshelp.ejs'
-],
+    ],
 
-function ($, Backbone, Stats, StatsView, help) {
+    function ($, Backbone, Stats, StatsView, help) {
 
-    var cache = []
-      , body  = $('#body');
+        var cache = []
+          , body  = $('#body');
 
-    // main application router
-    var StatsRoutes = Backbone.Router.extend({
-        routes: {
-            'help':                         'showhelp',
-            '(:term)(/)(:week)(/)(:day)':   'viewstats'
-        },
-        showhelp: function () {
-            body.html(help);
-        },
-        viewstats: function (term, week, day) {
+        // main application router
+        var StatsRoutes = Backbone.Router.extend({
+            routes: {
+                'help':                         'showhelp',
+                '(:term)(/)(:week)(/)(:day)':   'viewstats'
+            },
+            showhelp: function () {
+                body.html(help);
+            },
+            viewstats: function (term, week, day) {
 
-            var obj = {
-                term: (!!term)? term : "FA2013",
-                week: week,
-                day:  day
-            }; 
+                var obj = {
+                    term: (!!term)? term : "FA2013",
+                    week: week,
+                    day:  day
+                }; 
 
-            if (!!cache[JSON.stringify(obj)]) {
-                body.html(cache[JSON.stringify(obj)].$el);
-            } else {
+                if (!!cache[JSON.stringify(obj)]) {
+                    body.html(cache[JSON.stringify(obj)].$el);
+                } else {
 
-                var span = 'weekly';
-                if (!!obj.term) {
-                    if (!!obj.week) {
-                        span = 'daily';
-                        if (!!obj.day) {
-                            span = 'hourly';
+                    var span = 'weekly';
+                    if (!!obj.term) {
+                        if (!!obj.week) {
+                            span = 'daily';
+                            if (!!obj.day) {
+                                span = 'hourly';
+                            }
                         }
                     }
+
+                    var stats = new Stats[span](); 
+                    stats.fetch({ 
+                        data: obj,
+                        success: function () {
+                            cache[JSON.stringify(obj)] = new StatsView({
+                                url: obj,
+                                collection: stats
+                            });
+                            body.html(cache[JSON.stringify(obj)].$el);
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
                 }
-
-                var stats = new Stats[span](); 
-                stats.fetch({ 
-                    data: obj,
-                    success: function () {
-                        cache[JSON.stringify(obj)] = new StatsView({
-                            url: obj,
-                            collection: stats
-                        });
-                        body.html(cache[JSON.stringify(obj)].$el);
-                    },
-                    error: function (err) {
-                        console.log(err);
-                    }
-                });
             }
-        }
+        });
+
+        new StatsRoutes();
+
+        Backbone.history.start();
+
     });
-
-    new StatsRoutes();
-
-    Backbone.history.start();
-
 });

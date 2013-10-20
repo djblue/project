@@ -6,51 +6,27 @@
  * Email:  abadahda@asu.edu
  *
  */
+require(['/javascripts/config.js'], function () {
 
-requirejs.config({
-    baseUrl: '/javascripts',
-    shim: {
-        'backbone': {
-            deps: ['underscore', 'jquery'],
-            exports: 'Backbone'
-        },
-        'underscore': {
-            exports: '_'
-        },
-        'hammer': {
-            deps: ['jquery'],
-            exports: 'hammer'
-        }
-    },
-    paths: {
-        jquery:     'components/jquery/jquery',
-        backbone:   'components/backbone/backbone',
-        underscore: 'components/underscore/underscore',
-        hammer:     'components/hammerjs/dist/jquery.hammer',
-        text:       'components/text/text'
-    }
-});
+    require([
+        'jquery',
+        'collections/subjects',
+        'collections/courses',
+        'views/requestmenu',
+        'views/sidebar' 
+    ],
 
-requirejs([
+    function ($, subjects, courses, RequestMenu, Sidebar) {
 
-    'jquery',
-    'collections/subjects',
-    'collections/courses',
-    'views/requestmenu',
-    'views/sidebar' 
+        var side = new Sidebar();
 
-],
+        $('#body')
+            .append(side.$el)
+            .append(new RequestMenu({
+                subjects: subjects, 
+                courses: courses,
+                onAsk: side.add
+            }).$el);
 
-function ($, subjects, courses, RequestMenu, Sidebar) {
-
-    var side = new Sidebar();
-
-    $('#body')
-        .append(side.$el)
-        .append(new RequestMenu({
-            subjects: subjects, 
-            courses: courses,
-            onAsk: side.add
-        }).$el);
-
+    });
 });
