@@ -92,7 +92,7 @@ module.exports = function(grunt) {
         requirejs: {
             options: {
                 almond: true,
-                include: "lib/almond",
+                include: "components/almond/almond",
                 optimize: "uglify2",
                 generateSourceMaps: false,
                 baseUrl: "./public/javascripts/",
