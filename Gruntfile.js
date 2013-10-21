@@ -5,13 +5,17 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         jshint: {
             files: [
+                'app.js',
                 'Gruntfile.js',
                 'public/javascripts/*.js', 
                 'public/javascripts/**/*.js',
                 'routes/*.js'
             ],
             options: {
-                laxcomma: true
+                laxcomma: true,
+                ignores: [
+                    'public/javascripts/components/**/*.js'
+                ]
             }
         },
         express: {
@@ -126,50 +130,40 @@ module.exports = function(grunt) {
         },
         connect: {
             test: {
-                port: 8000
+                port: 8000,
+                options: {
+                    base: [".", "public"]
+                }
             }
         },
         jasmine: {
             browser: {
-                //vender: './public/javascripts/lib',
                 options: {
-                    
                     specs: './public/javascripts/specs/example.js',
                     host: 'http://127.0.0.1:8000/',
                     template: require('grunt-template-jasmine-requirejs'),
                     templateOptions: {
-                        requireConfig: {
-                            baseUrl: './public/javascripts/',
-                            shim: {
-                                'backbone': {
-                                    deps: ['underscore', 'jquery'],
-                                    exports: 'Backbone'
-                                },
-                                'underscore': {
-                                    exports: '_'
-                                },
-                                'hammer': {
-                                    deps: ['jquery'],
-                                    exports: 'hammer'
-                                }
-                            },
-                            paths: {
-                                jquery:     'lib/jquery-2.0.2.min',
-                                backbone:   'lib/backbone-min',
-                                underscore: 'lib/underscore-min',
-                                hammer:     'lib/jquery.hammer.min',
-                                d3:         'lib/d3.v3.min',
-                                text:       'lib/text'
-                            }
-                        }
+                        requireConfigFile: 'public/javascripts/config.js'
                     }
                 }
             }
         },
+        jasmine_node: {
+            projectRoot: "./routes/specs",
+            specNameMatcher: "*",
+            forceExit: true,
+            verbose: false
+        },
         copy: {
             build: {
                 cwd: '.',
-                src: ['app.js', 'routes/*.js', 'views/*.html', '*.json', 'public/images/*'],
+                src: [
+                    'app.js', 
+                    'routes/*.js', 
+                    'views/*.html', 
+                    '*.json', 
+                    'public/images/*'
+                ],
                 dest: 'build',
                 expand: true
             }
@@ -202,17 +196,15 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-connect');
-
+    grunt.loadNpmTasks('grunt-jasmine-node');
 
     // register all of the grunt tasks
     grunt.registerTask('default', ['shell:mongo','express:prod']);
-    grunt.registerTask('server', ['shell:mongo','express:dev', 'open:req','open:stats','watch']);
-    grunt.registerTask('deploy', [
-        'clean', 'copy', 'cssmin', 'htmlmin',
+    grunt.registerTask('server', [ 'shell:mongo','express:dev',
+        'open:req','open:stats','watch']);
+    grunt.registerTask('deploy', [ 'clean', 'copy', 'cssmin', 'htmlmin',
         'requirejs:request', 'requirejs:stats', 'requirejs:queue',
-        'shell:deploy'
-    ]);
-    grunt.registerTask('test', ['connect:test', 'jasmine:browser']);
-
-
+        'shell:deploy' ]);
+    grunt.registerTask('test', [
+        'jasmine_node', 'connect:test', 'jasmine:browser', 'jshint']);
 };

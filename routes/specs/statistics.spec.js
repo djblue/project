@@ -1,4 +1,4 @@
-var q = require('../statitics.js'); 
+var q = require('../statistics.js'); 
 
 describe("The statistics route", function () {
 
