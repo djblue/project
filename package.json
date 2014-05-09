@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A simple request server.",
   "dependencies": {
-    "express": "latest",
+    "express": "~3.x",
     "mongodb": "latest",
     "socket.io": "latest",
     "underscore": "latest",
