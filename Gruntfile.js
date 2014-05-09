@@ -37,7 +37,7 @@ module.exports = function(grunt) {
         },
         shell: {
             mongo: {
-                command: 'mongod --smallfiles',
+                command: 'killall mongod; mkdir ./db; mongod --smallfiles --dbpath ./db > ./db/mongod.log',
                 options: {
                     async: true,
                 }
