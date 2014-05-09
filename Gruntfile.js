@@ -37,7 +37,7 @@ module.exports = function(grunt) {
         },
         shell: {
             mongo: {
-                command: 'killall mongod; mkdir ./db; mongod --smallfiles --dbpath ./db > ./db/mongod.log',
+                command: './shell/db.sh',
                 options: {
                     async: true,
                 }
@@ -200,8 +200,7 @@ module.exports = function(grunt) {
 
     // register all of the grunt tasks
     grunt.registerTask('default', ['shell:mongo','express:prod']);
-    grunt.registerTask('server', [ 'shell:mongo','express:dev',
-        'open:req','open:stats','watch']);
+    grunt.registerTask('server', [ 'shell:mongo','express:dev', 'watch']);
     grunt.registerTask('deploy', [ 'clean', 'copy', 'cssmin', 'htmlmin',
         'requirejs:request', 'requirejs:stats', 'requirejs:queue',
         'shell:deploy' ]);

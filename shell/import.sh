@@ -23,8 +23,7 @@ file=$1
 # The mongo database to use
 database=statistics
 # The mongo collection to use
-collection=weeks
+collection=`echo $1 | sed s/.json//`
 
 # Importing into database
-cat $file | tr -d ' ' | mongoimport --db $database --collection $collection -
-
+cat $file | mongoimport --jsonArray --db $database --collection $collection -

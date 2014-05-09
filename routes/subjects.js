@@ -33,7 +33,7 @@ db.open(function (err, db) {
 
 
 exports.findAll = function(req, res) {
-    res.sendfile('subjects.json');
+    res.sendfile('./data/subjects.json');
 };
 
 /*

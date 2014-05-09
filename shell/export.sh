@@ -15,7 +15,7 @@ file=$1
 # The mongo database to use
 database=statistics
 # The mongo collection to use
-collection=weeks
+collection=`echo $1 | sed s/.json//`
 
 # Exporting from database
-mongoexport --db $database --collection $collection | python -mjson.tool >> $1 
+mongoexport --db $database --jsonArray --collection $collection | python -mjson.tool >> $1 
