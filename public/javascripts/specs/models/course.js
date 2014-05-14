@@ -8,9 +8,7 @@ define(['models/course'], function (Course) {
             model = new Course({ subject_id: 0 });
         });
 
-        afterEach(function () {
-            delete model;
-        });
+        afterEach(function () { model = null; });
 
         it("should be able get the subject", function() {
             expect(model.get('subject')).not.toBe(undefined);

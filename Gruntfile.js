@@ -7,7 +7,7 @@ module.exports = function(grunt) {
             files: [
                 'app.js',
                 'Gruntfile.js',
-                'public/javascripts/*.js', 
+                'public/javascripts/*.js',
                 'public/javascripts/**/*.js',
                 'routes/*.js'
             ],
@@ -66,7 +66,7 @@ module.exports = function(grunt) {
                     'public/javascripts/**/*.js',
                     'public/javascripts/**/*.ejs',
                     'public/javascripts/**/*.html'
-                ],   
+                ],
                 options: {
                      livereload: true
                 }
@@ -139,7 +139,7 @@ module.exports = function(grunt) {
         jasmine: {
             browser: {
                 options: {
-                    specs: './public/javascripts/specs/example.js',
+                    specs: './public/javascripts/specs/**/*.js',
                     host: 'http://127.0.0.1:8000/',
                     template: require('grunt-template-jasmine-requirejs'),
                     templateOptions: {
@@ -158,10 +158,10 @@ module.exports = function(grunt) {
             build: {
                 cwd: '.',
                 src: [
-                    'app.js', 
-                    'routes/*.js', 
-                    'views/*.html', 
-                    '*.json', 
+                    'app.js',
+                    'routes/*.js',
+                    'views/*.html',
+                    '*.json',
                     'public/images/*'
                 ],
                 dest: 'build',
@@ -175,7 +175,7 @@ module.exports = function(grunt) {
         }
     });
 
-    // Load the plugins 
+    // Load the plugins
     // validate files with JSHint.
     grunt.loadNpmTasks('grunt-contrib-jshint');
     // Run tasks whenever watched files change
@@ -184,12 +184,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-express-server');
     // Grunt task for running mongod
     grunt.loadNpmTasks('grunt-shell-spawn');
-    // Grunt task for minimizing css 
+    // Grunt task for minimizing css
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
-    // Grunt task for minimizing js 
+    // Grunt task for minimizing js
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     // Grunt task to open things like a web browser
     grunt.loadNpmTasks('grunt-open');
@@ -199,11 +199,32 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jasmine-node');
 
     // register all of the grunt tasks
-    grunt.registerTask('default', ['shell:mongo','express:prod']);
-    grunt.registerTask('server', [ 'shell:mongo','express:dev', 'watch']);
-    grunt.registerTask('deploy', [ 'clean', 'copy', 'cssmin', 'htmlmin',
-        'requirejs:request', 'requirejs:stats', 'requirejs:queue',
-        'shell:deploy' ]);
+    grunt.registerTask('default', [
+        'shell:mongo',
+        'express:prod'
+    ]);
+
+    grunt.registerTask('server', [
+        'shell:mongo',
+        'express:dev',
+        'watch'
+    ]);
+
+    grunt.registerTask('deploy', [
+        'clean',
+        'copy',
+        'cssmin',
+        'htmlmin',
+        'requirejs:request',
+        'requirejs:stats',
+        'requirejs:queue',
+        'shell:deploy'
+    ]);
+
     grunt.registerTask('test', [
-        'jasmine_node', 'connect:test', 'jasmine:browser', 'jshint']);
+        'jshint',
+        'jasmine_node',
+        'connect:test',
+        'jasmine:browser'
+    ]);
 };

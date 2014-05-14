@@ -50,13 +50,13 @@ function (Base, subjects, courses) {
                 if (Number(this.attributes.label) > 12) {
                     return (Number(this.attributes.label) - 12 ) + " P.M.";
                 } else {
-                    return this.attributes.label + " A.M."
+                    return this.attributes.label + " A.M.";
                 }
             },
             get_label: function () {
                 return null;
             }
         })
-    }
+    };
 
 });

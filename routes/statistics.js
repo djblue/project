@@ -24,7 +24,7 @@ client.open(function(err, client) {
 Date.prototype.getWeek = function () {
     var onejan = new Date(this.getFullYear(),0,1);
     return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
-} 
+};
 
 // function to approximate the current semester
 Date.prototype.getSemester = function () {
@@ -41,27 +41,29 @@ Date.prototype.getSemester = function () {
 
     // append the year to approximated term
     return semester + this.getFullYear();
-}
+};
 
 // save update to database
 var save = function (span, id, update) {
     
     // connect to collection to make appropriate updates
-    !!db && db.collection(span, function (err, collection) {
-        
-        // find the collection and upsert the updates
-        collection.update( { _id: id },
+    if (!!db) {
+         db.collection(span, function (err, collection) {
+            
+            // find the collection and upsert the updates
+            collection.update( { _id: id },
 
-            { $inc: update }, {upsert: true}, 
-                function (err, result) {
-                    if (!err) { 
-                        console.log('SUCCESS: updated '+id); 
-                    } else { 
-                        console.log('ERROR: unable to update '+id); 
+                { $inc: update }, {upsert: true}, 
+                    function (err, result) {
+                        if (!err) { 
+                            console.log('SUCCESS: updated '+id); 
+                        } else { 
+                            console.log('ERROR: unable to update '+id); 
+                        }
                     }
-                }
-        );
-    });
+            );
+        });
+    }
 };
 
 // update statistical data
@@ -100,9 +102,9 @@ var update = function (span, question) {
 // update statistics questions with respect to all time spans
 exports.update = function (question, status) {
     update('days', question);
-    update('weeks', question)
+    update('weeks', question);
     update('semesters', question);
-}
+};
 
 // allows users to query statistics database by time spans
 exports.get = function(req, res) {
@@ -121,13 +123,13 @@ exports.get = function(req, res) {
     // validate constraints
     if (!!q.term) {
         constraints += "," + q.term;
-        collection = spans["weekly"];
+        collection = spans.weekly;
         if (!!q.week) {
             constraints += "," + q.week;
-            collection = spans["daily"]
+            collection = spans.daily;
             if (!!q.day) {
                 constraints += "," + q.day;
-                collection = spans["hourly"];
+                collection = spans.hourly;
             }
         }
 

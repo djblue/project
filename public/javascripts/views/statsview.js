@@ -14,7 +14,8 @@ function ($, _, Backbone, Chart, subjects, table) {
     return Backbone.View.extend({
 
         initialize: function () {
-            var path = _.values(this.options.url).filter(function(n){return n});
+            var path = _.values(this.options.url)
+                .filter(function (n) { return n; });
 
             this.$el.html(_.template(table, {
                 path: path,

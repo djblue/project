@@ -9,7 +9,7 @@ define(['models/question'], function (Question) {
             model = new Question({ course_id: 0 });
         });
 
-        afterEach(function () { delete model; });
+        afterEach(function () { model = null; });
 
         it("should be able get its course", function() {
             expect(model.get('title')).not.toBe(undefined);

@@ -49,7 +49,7 @@ function (Backbone, Stat, courses) {
                         memo[i] = obj.get('questions')[i];
                 });
                 return memo;
-            }, {})
+            }, {});
             
             list = _.map(list, function (value, key) {
                 var course = courses.findWhere({"_id": key});
@@ -84,14 +84,14 @@ function (Backbone, Stat, courses) {
 
     return {
         weekly: BaseStatistics.extend({
-            model: Stat['weekly']
+            model: Stat.weekly
         }),
         daily: BaseStatistics.extend({
-            model: Stat['daily']
+            model: Stat.daily
         }),
         hourly: BaseStatistics.extend({
-            model: Stat['hourly']
+            model: Stat.hourly
         }),
-    }
+    };
 
 });

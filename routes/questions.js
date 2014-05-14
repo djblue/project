@@ -21,7 +21,7 @@ exports.getBySession = function (req, res) {
     // search questions queue by id
     var q = _(questions)
         .where({ user_id:  req.session.id }) 
-        .map(function (obj) { return _.omit(obj,'user_id', 'begin') });
+        .map(function (obj) { return _.omit(obj,'user_id', 'begin'); });
 
     // send questions
     res.json(q); 
@@ -74,7 +74,7 @@ exports.confirm = function (req, res) {
 exports.delete = function (req, res) {
 
     var q = _(questions).findWhere({ _id: Number(req.params.id) })
-      , i = questions.indexOf(q)
+      , i = questions.indexOf(q);
 
     if (i == -1) { 
         res.send(404);

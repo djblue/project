@@ -6,10 +6,10 @@ define(['models/base'], function (Base) {
         
         beforeEach(function () {
             model = new Base();
-            model.get_attr = function () { return true; }
+            model.get_attr = function () { return true; };
         });
 
-        afterEach(function () { delete model; });
+        afterEach(function () { model = null; });
 
         it("should have dynamic getters", function() {
             expect(model.get('attr')).toBe(true);
