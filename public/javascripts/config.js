@@ -20,7 +20,7 @@ requirejs.config({
         jquery:     'components/jquery/jquery',
         backbone:   'components/backbone/backbone',
         underscore: 'components/underscore/underscore',
-        hammer:     'components/hammerjs/dist/jquery.hammer',
+        hammer:     'components/jquery-hammerjs/jquery.hammer-full.min',
         chart:      'components/nnnick-chartjs/Chart',
         text:       'components/text/text'
     }
