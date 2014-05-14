@@ -69,14 +69,6 @@ app.get('/queue', function (req, res) {
     });
 });
 
-app.get('/questions_queue', function (req, res) {
-    res.sendfile(path.join( __dirname, 'views/queue.html'));    
-});
-
-app.get('/tests', function (req, res) {
-    res.sendfile(path.join( __dirname, 'views/tests.html'));    
-});
-
 app.get('/subjects', subjects.findAll);
 
 app.get('/courses', courses.get);
