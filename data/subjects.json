@@ -2,56 +2,67 @@
     { 
         "_id": "0",
         "title": "Mechanical and Aerospace Engineering",
-        "prefix": "MAE"
+        "prefix": "MAE",
+        "color": "#d3d7cf"
     },
     {
         "_id": "1",
         "title": " Electrical Engineering",
-        "prefix": "EEE"
+        "prefix": "EEE",
+        "color": "#cc0000"
     },
     {
         "_id": "2",
         "title": "Biomedical Engineering",
-        "prefix": "BME"
+        "prefix": "BME",
+        "color": "#ef2929"
     },
     {
         "_id": "3",
         "title": " Biology",
-        "prefix": "BIO"
+        "prefix": "BIO",
+        "color": "#ef2929"
     },
     {
         "_id": "4",
         "title": " Civil Engineering",
-        "prefix": "CEE"
+        "prefix": "CEE",
+        "color": "#2e3436"
     },
     {
         "_id": "5",
         "title": "Math",
-        "prefix": "MAT"
+        "prefix": "MAT",
+        "color": "#3465a4"
     },
     {
         "_id": "6",
         "title": "Physics",
-        "prefix": "PHY"
+        "prefix": "PHY",
+        "color": "#f57900"
     },
     {
         "_id": "7",
         "title": "Chemical Engineering",
-        "prefix": "CHM"
+        "prefix": "CHM",
+        "color": "#4e9a06"
     },
      {
         "_id": "8",
         "title": "Chemistry",
-        "prefix": "CHE"
+        "prefix": "CHE",
+        "color": "#73d216"
     },
     {
         "_id": "9",
         "title": "Industrial Engineering",
-        "prefix": "IEE"
+        "prefix": "IEE",
+        "color": "#75507b"
     },
     {
         "_id": "10",
         "title": "Materials Science and Engineering",
-        "prefix": "MSE"
+        "prefix": "MSE",
+        "color": "#e9b96e"
     }
 ]

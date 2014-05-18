@@ -14,13 +14,9 @@ requirejs(['/javascripts/config.js'], function () {
         var body     = $('#body');
 
         socket.on('questions', function (data) {
-            
-            console.log(data);
             questions.reset();
             _.each(data, function (question) { questions.add(question); });
-            console.log(questions.models);
             body.html(template({ questions: questions.models }));
-
         });
 
     });

@@ -1,14 +1,25 @@
 <div id="header">
-    <h1>Question Queue</h1>
+    <h1>Question Queue <small>(<%= questions.length %>)</small></h1>
 </div> 
 <div id="queue-inner">
-    <ul id="queue">
-    <% _.each(questions, function (question) { %>
-        <li class="question">
-            <div><%= question.get('label') %></div>
-            <div class="title"><%= question.get('title') %></div>
-            <div><%= question.get('table_id') %></div>
-        </li>
-    <% }); %>
-    </ul>
+    <% for (var col = 0; col < 3; col++) { %>
+        <ul id="queue">
+        <% for (var i = 5*col; i < questions.length && i < 5*(col+1); i++) { %>
+            <li class="question">
+                <div class="question-inner">
+                    <div class="number"><%= i + 1  %></div>
+                    <div class="group">
+                        <div style="background: <%= questions[i].get('color') %>;" class="color"></div>
+                        <div class="label"><%= questions[i].get('label') %></div>
+                        <div class="title"><%= questions[i].get('title') %></div>
+                    </div>
+                    <div>
+                        <div>Table:</div>
+                        <div class="table"><%= questions[i].get('table_id') %></div>
+                    </div>
+                </div>
+            </li>
+        <% } %>
+        </ul>
+    <% } %>
 </div>
