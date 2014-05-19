@@ -89,6 +89,6 @@ app.delete('/questions/:id', function(req, res) {
     io.sockets.emit('questions', questions.getQueue());
 });
 
-server.listen(3000, function(){
+server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
