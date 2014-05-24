@@ -29,7 +29,6 @@ app.use(express.cookieParser());
 app.use(express.session({secret: '97e0089deda4f396f7e3a85c8aa62e37'}));
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'views')));
 
 
 // development only
@@ -37,18 +36,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-io.sockets.on('connection', function (socket) {
-    socket.emit('questions', questions.getQueue());
-});
-
-app.get('/', function (req, res) {
-    res.render('dynamic', {
-        title: 'Request',
-        style: 'request',
-        production: 'production' === app.get('env'),
-        main: 'request'
-    });
-});
+questions.mount(app, io);
 
 app.get('/stats', function (req, res) {
     res.render('dynamic', {
@@ -75,19 +63,6 @@ app.get('/courses', courses.get);
 app.post('/courses', courses.post);
 
 app.get('/statistics', statistics.get);
-app.get('/squestions', questions.getBySession);
-app.post('/questions', function (req, res) {
-    questions.add(req, res);
-    io.sockets.emit('questions', questions.getQueue());
-});
-app.put('/questions/:id', function(req, res) {
-    questions.confirm(req, res);
-    io.sockets.emit('questions', questions.getQueue());
-});
-app.delete('/questions/:id', function(req, res) {
-    questions.delete(req, res);
-    io.sockets.emit('questions', questions.getQueue());
-});
 
 server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
