@@ -1,4 +1,4 @@
-define(['backbone', '../models/course'], 
+define(['backbone', 'js/models/course'], 
 
 function (Backbone, Course) {
 

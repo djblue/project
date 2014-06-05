@@ -1,7 +1,7 @@
 define(['backbone', 
 
-    'models/stat',
-    'collections/courses'
+    'js/models/stat',
+    'js/collections/courses'
 ], 
 
 function (Backbone, Stat, courses) {

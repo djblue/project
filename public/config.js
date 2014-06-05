@@ -1,5 +1,5 @@
 requirejs.config({
-    baseUrl: '/javascripts',
+    baseUrl: '/',
     shim: {
         'backbone': {
             deps: ['underscore', 'jquery'],
@@ -17,11 +17,11 @@ requirejs.config({
         }
     },
     paths: {
-        jquery:     'components/jquery/jquery',
-        backbone:   'components/backbone/backbone',
-        underscore: 'components/underscore/underscore',
-        hammer:     'components/jquery-hammerjs/jquery.hammer-full.min',
-        chart:      'components/nnnick-chartjs/Chart',
-        text:       'components/text/text'
+        jquery:     'lib/jquery/jquery',
+        backbone:   'lib/backbone/backbone',
+        underscore: 'lib/underscore/underscore',
+        hammer:     'lib/jquery-hammerjs/jquery.hammer-full.min',
+        chart:      'lib/nnnick-chartjs/Chart',
+        text:       'lib/text/text'
     }
 });

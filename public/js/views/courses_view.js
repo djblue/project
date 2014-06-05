@@ -1,6 +1,6 @@
 define(['jquery', 'underscore', 'backbone', 
 
-    '../collections/courses'
+    'js/collections/courses'
 ], 
 
 function ($, _, Backbone, courses, main_menu, sub_menu) {

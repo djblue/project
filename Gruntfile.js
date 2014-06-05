@@ -7,14 +7,14 @@ module.exports = function(grunt) {
             files: [
                 'app.js',
                 'Gruntfile.js',
-                'public/javascripts/*.js',
+                'public/js/*.js',
                 'public/javascripts/**/*.js',
                 'routes/*.js'
             ],
             options: {
                 laxcomma: true,
                 ignores: [
-                    'public/javascripts/components/**/*.js'
+                    'public/js/lib/**/*.js'
                 ]
             }
         },
@@ -62,10 +62,9 @@ module.exports = function(grunt) {
             reload: {
                 files: [
                     'public/stylesheets/*.css',
-                    'public/javascripts/*.js',
-                    'public/javascripts/**/*.js',
-                    'public/javascripts/**/*.ejs',
-                    'public/javascripts/**/*.html'
+                    'public/js/**/*.js',
+                    'public/js/**/*.ejs',
+                    'public/js/**/*.html'
                 ],
                 options: {
                      livereload: true
@@ -75,9 +74,9 @@ module.exports = function(grunt) {
         cssmin: {
             request: {
                 expand: true,
-                cwd: 'public/stylesheets',
+                cwd: 'public/css',
                 src: ['*.css', '!jasmine.css'],
-                dest: 'build/public/stylesheets'
+                dest: 'build/public/css'
             }
         },
         htmlmin: {
@@ -90,37 +89,37 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'build/views/dynamic.ejs': 'views/dynamic.ejs',
+                    'build/views/login.ejs': 'views/login.ejs'
                 }
             }
         },
         requirejs: {
             options: {
                 almond: true,
-                include: "components/almond/almond",
+                include: "lib/almond/almond",
                 optimize: "uglify2",
                 generateSourceMaps: false,
-                baseUrl: "./public/javascripts/",
-                preserveLicenseComments: false
+                baseUrl: "./public/",
+                preserveLicenseComments: false,
+                findNestedDependencies: true,
+                mainConfigFile: "public/config.js"
             },
             request: {
                 options: {
-                    name: "request",
-                    mainConfigFile: "public/javascripts/request.js",
-                    out: "build/public/javascripts/request.js",
+                    name: "js/request",
+                    out: "build/public/js/request.js",
                 }
             },
             stats: {
                 options: {
-                    name: "stats",
-                    mainConfigFile: "public/javascripts/stats.js",
-                    out: "build/public/javascripts/stats.js",
+                    name: "js/stats",
+                    out: "build/public/js/stats.js",
                 }
             },
             queue: {
                 options: {
-                    name: "queue",
-                    mainConfigFile: "public/javascripts/queue.js",
-                    out: "build/public/javascripts/queue.js",
+                    name: "js/queue",
+                    out: "build/public/js/queue.js",
                 }
             }
         },
@@ -139,11 +138,11 @@ module.exports = function(grunt) {
         jasmine: {
             browser: {
                 options: {
-                    specs: './public/javascripts/specs/**/*.js',
+                    specs: './public/js/specs/**/*.js',
                     host: 'http://127.0.0.1:8000/',
                     template: require('grunt-template-jasmine-requirejs'),
                     templateOptions: {
-                        requireConfigFile: 'public/javascripts/config.js'
+                        requireConfigFile: 'public/config.js'
                     }
                 }
             }
@@ -160,8 +159,7 @@ module.exports = function(grunt) {
                 src: [
                     'app.js',
                     'routes/*.js',
-                    'views/*.html',
-                    '*.json',
+                    'data/*.json',
                     'public/images/*'
                 ],
                 dest: 'build',
@@ -210,15 +208,14 @@ module.exports = function(grunt) {
         'watch'
     ]);
 
-    grunt.registerTask('deploy', [
+    grunt.registerTask('build', [
         'clean',
         'copy',
         'cssmin',
         'htmlmin',
         'requirejs:request',
         'requirejs:stats',
-        'requirejs:queue',
-        'shell:deploy'
+        'requirejs:queue'
     ]);
 
     grunt.registerTask('test', [

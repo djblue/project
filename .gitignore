@@ -1,5 +1,5 @@
 node_modules/
 *.DS_Store
-db/*
-build
-public/javascripts/components/*
+db/
+build/
+public/lib/

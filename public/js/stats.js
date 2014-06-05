@@ -1,13 +1,13 @@
 // A widget for monitoring student system statistics. Users will be able
 // to navigate different stats with respect to time and subject.
 
-require(['/javascripts/config.js'], function () {
+require(['/config.js'], function () {
 
     require([
         'jquery',
         'backbone',
-        'collections/stats',
-        'views/statsview',
+        'js/collections/stats',
+        'js/views/statsview',
         'text!templates/statshelp.ejs'
     ],
 

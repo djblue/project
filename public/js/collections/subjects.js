@@ -1,4 +1,4 @@
-define(['backbone', '../models/subject'], 
+define(['backbone', 'js/models/subject'], 
 
 function (Backbone, Subject) {
 

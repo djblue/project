@@ -3,7 +3,7 @@
 
 define(['jquery' , 'underscore', 'backbone', 'chart',
 
-        'collections/subjects',
+        'js/collections/subjects',
         'text!templates/statstable.ejs'
 
 ],

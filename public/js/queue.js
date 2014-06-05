@@ -1,7 +1,7 @@
-requirejs(['/javascripts/config.js'], function () {
+requirejs(['/config.js'], function () {
     requirejs(['jquery' , 'underscore', 'backbone', 
 
-        'collections/questions',
+        'js/collections/questions',
         'text!templates/queue.ejs',
 
     ],

@@ -6,14 +6,14 @@
  * Email:  abadahda@asu.edu
  *
  */
-require(['/javascripts/config.js'], function () {
+require(['/config.js'], function () {
 
     require([
         'jquery',
-        'collections/subjects',
-        'collections/courses',
-        'views/requestmenu',
-        'views/sidebar' 
+        'js/collections/subjects',
+        'js/collections/courses',
+        'js/views/requestmenu',
+        'js/views/sidebar' 
     ],
 
     function ($, subjects, courses, RequestMenu, Sidebar) {

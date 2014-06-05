@@ -1,4 +1,4 @@
-define(['models/base', 'collections/courses'], 
+define(['js/models/base', 'js/collections/courses'], 
 
 function (Base, courses) {
 

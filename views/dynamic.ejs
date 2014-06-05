@@ -4,8 +4,8 @@
     <title><%= title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <!-- -->
-    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/<%= style %>.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/<%= style %>.css">
     <% if (!production) { %>
     <script src="//localhost:35729/livereload.js"></script>
     <% } %>
@@ -16,10 +16,10 @@
 <body>
     <div id="body"></div>
     <% if (production) { %>
-    <script src="javascripts/<%= main %>.js"></script>
+    <script src="/js/<%= main %>.js"></script>
     <% } else { %>
-    <script data-main="javascripts/<%= main %>.js"
-    src="javascripts/components/requirejs/require.js"></script>
+    <script data-main="/js/<%= main %>.js"
+    src="/lib/requirejs/require.js"></script>
     <% } %>
 </body>
 </html>

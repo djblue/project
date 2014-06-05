@@ -1,7 +1,7 @@
 define([ 'jquery', 'underscore', 'backbone', 'hammer',
 
-    'views/time_view',
-    'collections/questions',
+    'js/views/time_view',
+    'js/collections/questions',
     'text!templates/sidebar.html'
 
 ], 
