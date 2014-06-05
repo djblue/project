@@ -1,7 +1,6 @@
 # The Project
 
-[![Build
-Status](http://scheduler.fulton.asu.edu:8080/buildStatus/icon?job=tutor-questions-github)](http://scheduler.fulton.asu.edu:8080/job/tutor-questions-github/)
+<a href='http://scheduler.fulton.asu.edu:8080/job/tutor-questions-github/'><img src='http://scheduler.fulton.asu.edu:8080/job/tutor-questions-github/badge/icon'></a> 
 
 A simple software system to increase the efficiency of a tutoring center
 by allowing students to queue up their questions and allow tutors to react
