@@ -137,7 +137,7 @@ function ($, _, Backbone, Hammer, TimeView, questions, template) {
                     .fadeOut()
                     .fadeIn();
 
-            } else if (this.collection.length == 2 ) {
+            } else if (this.collection.length == 3 ) {
 
                 this.$el.find('#warn')
                     .fadeOut()
