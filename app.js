@@ -20,7 +20,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon(__dirname+'/public/images/favicon.ico'));
-app.use(express.logger('dev'));
+app.use(express.logger('tiny'));
 app.use(express.compress());
 app.use(express.bodyParser());
 // Validator must be used directly after bodyParser.
