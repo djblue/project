@@ -1,94 +1,122 @@
 /** { font-size: 24px; }*/
-* { margin: 0; padding: 0; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 #body {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 #header {
-    width: 100%;
-    height: 10%;
-    text-align: center;
-    color: #fff;
-    background: maroon;
-    display: table;
+  width: 100%;
+  height: 10%;
+  text-align: center;
+  color: #fff;
+  background: maroon;
+  display: table;
+  border-bottom: 2px solid #ffc425;
+  box-shadow: 0 0 3px black;
 }
 
 #header h1 {
-    display: table-cell;
-    vertical-align: middle;
-    font-size: 300%;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 300%;
 }
 
 #header small {
-    font-size: 50%;
+  font-size: 50%;
 }
 
-#queue-inner {
-    width: 100%;
-    height: 90%;
+.questions {
+  height: 90%;
+
+  /* spacing */
+  padding-right: 30px;
+  padding-bottom: 30px;
 }
 
-#queue {
-    width: 33.32%;
-    display: block;
-    vertical-align: text-top; 
-    height: 100%;
-    float: left;
+.column {
+  position: relative;
+  font-size: 0;
+  display: inline-block;
+  width: 33%;
+  height: 100%;
 }
 
-.question {
-    width: 100%;
-    height: 20%;
-    display: table;
+.tab {
+  /* spacing */
+  padding-top: 30px;
+  padding-left: 30px;
+
+  /* get rid of annoying white space */
+  font-size: 0;
+  height: 20%;
 }
 
-.question-inner {
-    display: table-cell;
-    vertical-align: middle;
+.tab-inner {
+  box-shadow: 0 0 3px black;
+  height: 100%;
+  width: 100%;
+  display: table;
 }
 
-.question-inner > div {
-    float: left;
+.tab-inner > * {
+  display: inline-block;
+  font-size: 20px;
 }
 
-.question .number {
-    width: 10%;
+.tab:after {
+  content: '';
+  clear: both;
 }
 
-.question .group {
-    background: #fff;
-    width: 75%;
-    position: relative;
-    padding-left: 5%;
-    box-shadow: 0 0 2px 1px #666;
+.tab .order {
+  color: white;
+  font-weight: bold;
 }
 
-.question .color {
-    position: absolute;
-    left: 0;
-    width: 5%;
-    height: 100%;
+.tab .class-info {
+  color: maroon;
+  background: white;
 }
 
-.question .number,
-.question .label
-{
-    font-size: 400%;
-    text-align: center;
+.class-info .prefix {
+  font-weight: bold;
 }
 
-.question .label {
-    color: maroon;
+.tab .table {
+  color: #3d3d3d;
+  background: #babdb6;
+  font-weight: bold;
 }
 
-.question .title {
-    text-align: center;
-    padding-bottom: 12px;
+.tab .class-info {
+  width: 70%;
 }
 
-.question .table {
-    width: 10%;
+.tab .number {
+  font-size: 300%;
+}
+
+.class-info .prefix {
+  font-size: 300%;
+}
+
+.tab .order,
+.tab .table {
+  width: 15%;
+}
+
+.tab .order,
+.tab .table,
+.tab .class-info {
+  height: 100%;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
 }
