@@ -1,7 +1,8 @@
 <h2 id=warn>Current Questions (3 max)</h2>
 <ul id="questions">
 <% _.each(questions, function (question) { %>
-<li class="question" data-id="<%= question.get('_id') %>" >
+<li sytle="border-left: 6px solid <%= question.get('color')%>"
+    class="question" data-id="<%= question.get('_id') %>" >
     <div>
         <span><%= question.get('title') %></span>
     </div>
@@ -16,7 +17,7 @@
 <% if (!!recent[0]) { %><h2>Recently Asked<h2><% } %>
 <% _.each(recent, function (q) { %>
     <% if (!!q) { %>
-    <li class="recent" data-id="<%= q.get('course_id') %>" >
+    <li class="recent" data-id="<%= q.get('course') %>" >
         <span><%= q.get('label') %></span>
     </li> 
     <% } %>

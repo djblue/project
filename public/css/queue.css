@@ -120,3 +120,20 @@
   display: table-cell;
   vertical-align: middle;
 }
+
+.location-menu {
+  width: 600px;
+  margin: 60px auto;
+  font-size: 170%;
+}
+
+.location-menu li {
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.location-menu li:hover {
+  color: maroon;
+  text-decoration: underline;
+}

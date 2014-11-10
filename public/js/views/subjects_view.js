@@ -1,28 +1,28 @@
 define(['jquery', 'underscore', 'backbone', 
 
-    'js/collections/subjects'
+    'js/subjects'
 ], 
 
 function ($, _, Backbone, subjects) {
 
-    return Backbone.View.extend({
+  return Backbone.View.extend({
 
-        initialize: function () {
-        },
+    initialize: function () {
+    },
 
-        collection: subjects,
+    collection: subjects,
 
-        template: _.template($('#main_menu').html()),
+    template: _.template($('#main_menu').html()),
 
-        render: function () {
+    render: function () {
 
-            this.$el.html(this.template({ 
+      this.$el.html(this.template({ 
 
-                subjects: this.collection.models 
+        subjects: this.collection.models 
 
-            }));
-        }
+      }));
+    }
 
-    });
+  });
 
 });

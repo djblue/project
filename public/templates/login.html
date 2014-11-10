@@ -1,0 +1,40 @@
+<div class="modal">
+<div class="modal-inner">
+<div class="slidedown slim-panel">
+  <div id="message"><%= message %></div>
+  <div class="login">
+    <table class="wide-table">
+      <tr>
+        <th>Password:</th>
+        <td><input placeholder="password" type="password" id="password" /></td>
+      </tr>
+      <tr>
+        <th>Location</th>
+        <td>
+        <select id="location">
+          <% for (var i = 0; i < locations.length; i++) { %>
+          <option value="<%= locations[i]._id %>" ><%= locations[i].title %></option>
+          <% } %>
+        </select>
+        </td>
+      </tr>
+      <tr>
+        <th>Table #:</th>
+        <td>
+        <select id="table">
+          <% for (var i in available) { %>
+          <option value="<%= available[i] %>" ><%= available[i] %></option>
+          <% } %>
+        </select>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <button class="register" >Register</button>
+        </td>
+      </tr>
+    </table>
+</div>
+</div>
+</div>

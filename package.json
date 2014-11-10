@@ -3,11 +3,18 @@
   "version": "0.1.0",
   "description": "A simple request server.",
   "dependencies": {
-    "express": "~3.x",
+    "body-parser": "^1.9.2",
+    "compression": "^1.2.0",
+    "ejs": "~0.8.4",
+    "express": "^4.10.1",
+    "express-session": "^1.9.1",
+    "moment": "^2.8.3",
     "mongodb": "latest",
-    "socket.io": "latest",
-    "underscore": "latest",
-    "ejs": "~0.8.4"
+    "mongoose": "^3.8.18",
+    "morgan": "^1.5.0",
+    "request": "^2.47.0",
+    "socket.io": "^1.2.0",
+    "underscore": "latest"
   },
   "devDependencies": {
     "grunt": "latest",

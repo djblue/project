@@ -13,18 +13,18 @@
       <div class="tab-inner">
 
         <div class="order"
-             style="background: <%= questions[i].get('color') %>;" >
+             style="background: <%= questions[i].color || 'maroon' %>;" >
           <div class="number"><%= i + 1  %></div>
           <div class="label">ORDER</div>
         </div>
 
         <div class="class-info">
-          <div class="prefix"><%= questions[i].get('label') %></div>
-          <div class="title"><%= questions[i].get('title') %></div>
+          <div class="prefix"><%= questions[i].label %></div>
+          <div class="title"><%= questions[i].title %></div>
         </div>
 
         <div class="table">
-          <div class="number"><%= questions[i].get('table_id') %></div>
+          <div class="number"><%= questions[i].table %></div>
           <div class="label">TABLE</div>
         </div>
 

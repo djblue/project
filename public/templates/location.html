@@ -1,0 +1,8 @@
+<div id="header">
+  <h1>Select Location</h1>
+</div> 
+<ul class="location-menu">
+<% locations.forEach(function (location) { %>
+  <li class="location" data-id="<%= location._id %>" ><%= location.title %></li>
+<% }); %>
+</ul>

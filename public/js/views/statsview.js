@@ -3,49 +3,48 @@
 
 define(['jquery' , 'underscore', 'backbone', 'chart',
 
-        'js/collections/subjects',
-        'text!templates/statstable.ejs'
+  'js/collections',
+  'text!templates/statstable.html'
 
 ],
 
-function ($, _, Backbone, Chart, subjects, table) {
+function ($, _, Backbone, Chart, collections, table) {
 
+  return Backbone.View.extend({
 
-    return Backbone.View.extend({
+    initialize: function () {
+      var path = _.values(this.options.url)
+        .filter(function (n) { return n; });
 
-        initialize: function () {
-            var path = _.values(this.options.url)
-                .filter(function (n) { return n; });
+      this.$el.html(_.template(table, {
+        path: path,
+        current: path.join('/')+"/",
+        subjects: collections.subjects.models,
+        data: this.collection
+      }));
 
-            this.$el.html(_.template(table, {
-                path: path,
-                current: path.join('/')+"/",
-                subjects: subjects.models,
-                data: this.collection
-            }));
+      var bar = this.$el.children('canvas').get(0).getContext("2d");
 
-            var bar = this.$el.children('canvas').get(0).getContext("2d");
+      data = {
+        labels: _.map(this.collection.models, function(obj) {
+          return obj.get('formatted');
+        }),
+        datasets: [
+          {
+            fillColor : "rgba(220,220,220,0.5)",
+            strokeColor : "maroon",
+            pointColor : "rgba(220,220,220,1)",
+            pointStrokeColor : "#fff",
+            data : _.map(this.collection.models, function(obj) {
+              return obj.get('total');
+            })
+          }
+        ]
+      };
+          
+      new Chart(bar).Bar(data);
+    }
 
-            data = {
-                labels: _.map(this.collection.models, function(obj) {
-                    return obj.get('formatted');
-                }),
-                datasets: [
-                    {
-                        fillColor : "rgba(220,220,220,0.5)",
-                        strokeColor : "maroon",
-                        pointColor : "rgba(220,220,220,1)",
-                        pointStrokeColor : "#fff",
-                        data : _.map(this.collection.models, function(obj) {
-                            return obj.get('total');
-                        })
-                    }
-                ]
-            };
-                
-            new Chart(bar).Bar(data);
-        }
-
-    });
+  });
 
 });

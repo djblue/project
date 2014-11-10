@@ -1,29 +1,25 @@
 define(['jquery', 'underscore', 'backbone', 
 
-    'js/collections/courses'
+  'js/courses'
 ], 
 
 function ($, _, Backbone, courses, main_menu, sub_menu) {
 
-    return Backbone.View.extend({
+  return Backbone.View.extend({
 
-        initialize: function () {
-        },
+    initialize: function () {
+    },
 
-        collection: courses,
+    collection: courses,
 
-        template: _.template($('#sub_menu').html()),
+    template: _.template($('#sub_menu').html()),
 
-        render: function (id) {
-        
-            console.log(id);
+    render: function (id) {
+      this.$el.html(this.template({ 
+        courses: this.collection.where({ subject: String(id) }) 
+      }));
+    }
 
-            this.$el.html(this.template({ 
-                courses: this.collection.where({ 
-                    subject_id: String(id) }) 
-            }));
-        }
-
-    });
+  });
 
 });

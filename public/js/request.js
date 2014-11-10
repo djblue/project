@@ -1,32 +1,21 @@
-/**
- * A basic widget for managing student requests.  Users will be able to
- * navigate different subjects and request aid for specific classes.
- *
- * Author: Abdullah Badahdah
- * Email:  abadahda@asu.edu
- *
- */
+// A basic widget for managing student requests. Users 
+// will be able to navigate different subjects and request aid 
+// for specific classes.
 require(['/config.js'], function () {
 
-    require([
-        'jquery',
-        'js/collections/subjects',
-        'js/collections/courses',
-        'js/views/requestmenu',
-        'js/views/sidebar' 
-    ],
+  require([
+    'jquery',
+    'js/views/navmenu',
+    'js/views/sidebar',
+    'js/views/login'
+  ],
 
-    function ($, subjects, courses, RequestMenu, Sidebar) {
+  function ($, Menu, Sidebar, Login) {
+    $('#body')
+      .append(new Sidebar().$el)
+      .append(new Menu().$el)
+      .append(new Login().$el)
+      ;
+  });
 
-        var side = new Sidebar();
-
-        $('#body')
-            .append(side.$el)
-            .append(new RequestMenu({
-                subjects: subjects, 
-                courses: courses,
-                onAsk: side.add
-            }).$el);
-
-    });
 });
