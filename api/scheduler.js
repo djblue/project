@@ -2,7 +2,7 @@
 // helps with integration!
 
 var request = require('request')
-  , SCHEDULER_API = 'http://scheduler.fulton.asu.edu/api/'
+  , SCHEDULER_API = 'https://scheduler.fulton.asu.edu/api/'
   ;
 
 // async api request method
@@ -11,6 +11,7 @@ var apiRequest = function (name) {
     request(SCHEDULER_API + name, function (err, resp, body) {
       // there was an error make the request to the api server
       if (err) {
+        console.log('ERROR: issue connecting to scheduler api - ' + err.message);
         done(err);
       } else {
         done(null, JSON.parse(body));

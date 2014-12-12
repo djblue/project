@@ -45,7 +45,7 @@ var Question = exports.Question = mongoose.model('Question', {
 
 
 exports.clear = function () {
-  questions = []; 
+  questions = [];
   idGen = 0;
 };
 
@@ -91,7 +91,7 @@ var add = function (req, res, next) {
       }
     });
 
-  } else { 
+  } else {
     res.status(403).json({
       message: "please authenticate"
     });
@@ -162,19 +162,24 @@ exports.setup = function (app, io) {
   app.delete('/api/questions/:id', sessions.auth, del, sockets);
 
   scheduler.getLocations(function (err, locations) {
-    locations.forEach(function (location) {
-      // create a room for each location (for the queue)
-      var ns = io.of('/' + location._id);
-      ns.on('connection', function (socket) {
-        Question.find({
-          location: location,
-          end: { $exists: false }
-        }, function (err, questions) {
-          console.log(questions)
-          ns.emit('questions', questions);
-        }) 
+    if (err) {
+      console.log(err);
+    } else {
+      locations.forEach(function (location) {
+        // create a room for each location (for the queue)
+        var ns = io.of('/' + location._id);
+        ns.on('connection', function (socket) {
+          Question.find({
+            location: location,
+            end: { $exists: false }
+          }, function (err, questions) {
+            console.log(questions)
+            ns.emit('questions', questions);
+          });
+        });
       });
-    });
+    }
+
   });
-    
+
 };
