@@ -1,17 +1,21 @@
-define(['backbone', 
+'use strict';
 
-    'js/collections'
+define([
+  'underscore',
+  'backbone', 
+  'js/collections'
 ], 
 
-function (Backbone, collections) {
+function (_, Backbone, collections) {
 
   var courses = collections.courses;
   var subjects = collections.subjects;
 
   var BaseStatistic = Backbone.Model.extend({
-    idAttribute: "_id",
+    idAttribute: '_id',
 
     initialize: function () {
+      var self = this;
       this.subjects = _.map(subjects.models, function (subject) {
         return _.reduce(_.pairs(self.get('questions')), function (memo, question) {
           if (courses.get(question[0]).get('subject').id === subject.id) {
@@ -25,7 +29,7 @@ function (Backbone, collections) {
   var Stat = {
     weekly: BaseStatistic.extend({
       initialize: function () {
-        this.attributes.formatted = "Week " + this.attributes.label
+        this.attributes.formatted = 'Week ' + this.attributes.label;
       }
     }),
     daily: BaseStatistic.extend({
@@ -45,9 +49,9 @@ function (Backbone, collections) {
     hourly: BaseStatistic.extend({
       initialize: function () {
         if (Number(this.attributes.label) > 12) {
-          this.attributes.formatted = (Number(this.attributes.label) - 12 ) + " P.M.";
+          this.attributes.formatted = (Number(this.attributes.label) - 12 ) + ' P.M.';
         } else {
-          this.attributes.formatted = this.attributes.label + " A.M.";
+          this.attributes.formatted = this.attributes.label + ' A.M.';
         }
       }
     })
@@ -87,7 +91,7 @@ function (Backbone, collections) {
 
     // get the n most popular subjects 
     // where n is optional
-    top: function (n) {
+    top: function () {
       var list = _.reduce(this.models, function (memo, obj) {
         _.each(_.keys(obj.get('questions')), function (i) {
           if (!!memo[i]) {
@@ -100,12 +104,12 @@ function (Backbone, collections) {
       }, {});
       
       list = _.map(list, function (value, key) {
-        var course = courses.findWhere({"_id": key});
+        var course = courses.findWhere({'_id': key});
         return {
-          "course": key,
-          "title": course.get('title'),
-          "label": course.get('label'),
-          "count": value
+          'course': key,
+          'title': course.get('title'),
+          'label': course.get('label'),
+          'count': value
         };
       });
 
@@ -117,8 +121,8 @@ function (Backbone, collections) {
     // generate totals as tsv
     tsv: function () {
       return _.reduce(this.getTotals(), function (memo, obj) {
-        return memo + obj.join("\t") + "\n";
-      }, "");
+        return memo + obj.join('\t') + '\n';
+      }, '');
     },
 
     // download data as tsv

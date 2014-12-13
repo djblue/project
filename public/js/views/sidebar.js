@@ -1,4 +1,11 @@
-define([ 'jquery', 'underscore', 'backbone', 'hammer',
+'use strict';
+
+define([
+  
+  'jquery',
+  'underscore',
+  'backbone',
+  'hammer',
 
   'js/views/time_view',
   'js/collections',
@@ -22,64 +29,64 @@ function ($, _, Backbone, Hammer, TimeView, collections, template) {
     },
 
     completed: function (e) {
-      var id = $(e.currentTarget).data(id)
+      var id = $(e.currentTarget).data(id);
       collections.questions.complete(id);
     },
 
     cancel: function (e) {
       var id = $(e.currentTarget).data(id);
-      if (confirm("Are you sure you want to remove the question from the queue?")) {
+      if (confirm('Are you sure you want to remove the question from the queue?')) {
         collections.questions.cancel(id);
       }
     },
 
     dragstart: function (e) {
-        // Begin a dragging event.
-        this.drag_el = $(e.currentTarget);
+      // Begin a dragging event.
+      this.drag = $(e.currentTarget);
 
-        if (this.drag_el === undefined) return;
-        
-        this.x = this.drag_el.offset().left;  
+      if (this.drag !== undefined) {
+        this.x = this.drag.offset().left;  
+      }
     },
 
     drag: function (e) {
       // Prevent default browser response.
-      if (this.drag_el === undefined) return; 
-      if (e.gesture === undefined) return;
+      if (this.drag === undefined) { return; }
+      if (e.gesture === undefined) { return; }
 
       e.gesture.preventDefault();
 
-      if (this.drag_el.html() != e.currentTarget) {
+      if (this.drag.html() !== e.currentTarget) {
         if (e.gesture.deltaX > 0) {
-          this.drag_el.offset({
+          this.drag.offset({
             left: this.x + e.gesture.deltaX
           });
         }
       } else {
-        this.drag_el.animate({left: this.x}, 'fast');
+        this.drag.animate({left: this.x}, 'fast');
       }
     },
 
     dragend: function (e) {
 
-      if (this.drag_el === undefined) return;
-      if (e.gesture === undefined) return;
+      if (this.drag === undefined) { return; }
+      if (e.gesture === undefined) { return; }
 
       e.gesture.stopDetect();
 
       // Reset object if threshold has not been met.
-      if (this.drag_el.offset().left < this.drag_el.width()) {
+      if (this.drag.offset().left < this.drag.width()) {
         
         // Restore element to its initial position.
-        this.drag_el.animate({left: 0}, 'fast');
+        this.drag.animate({left: 0}, 'fast');
 
       } else {
 
         // Trigger completed event.
-        this.drag_el.trigger('completed'); 
+        this.drag.trigger('completed'); 
       }
 
-      delete this.drag_el;
+      delete this.drag;
     },
     
     template: _.template(template),
@@ -116,7 +123,7 @@ function ($, _, Backbone, Hammer, TimeView, collections, template) {
 
     // allow users to re-ask recently asked questions
     addRecent: function (e) {
-      var id = $(e.currentTarget).data('id')
+      var id = $(e.currentTarget).data('id');
       collections.questions.ask(id);
     }
 

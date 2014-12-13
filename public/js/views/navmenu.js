@@ -1,3 +1,5 @@
+'use strict';
+
 // A basic widget for managing student requests.  Users will be able to
 // navigate different subjects and request aid for specific classes.
 
@@ -76,7 +78,7 @@ function ($, _, Backbone, hammer, collections, subjects, courses, helptext) {
         $(e.currentTarget).append(helptext);
         this.helpstate = true;
       } else {
-        $(e.currentTarget).html("?");
+        $(e.currentTarget).html('?');
         this.helpstate = false;
       }
     }

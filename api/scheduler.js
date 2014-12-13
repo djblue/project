@@ -1,3 +1,5 @@
+'use strict';
+
 // make api requests to the scheduler api
 // helps with integration!
 

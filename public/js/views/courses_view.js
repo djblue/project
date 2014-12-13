@@ -1,9 +1,15 @@
-define(['jquery', 'underscore', 'backbone', 
+'use strict';
 
+define([
+
+  'jquery',
+  'underscore',
+  'backbone', 
   'js/courses'
+
 ], 
 
-function ($, _, Backbone, courses, main_menu, sub_menu) {
+function ($, _, Backbone, courses) {
 
   return Backbone.View.extend({
 

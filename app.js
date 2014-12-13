@@ -1,17 +1,14 @@
-/**
- * Module dependencies.
- */
+'use strict';
 
-var util                = require('util')
-  , express             = require('express')
+// setup express application
+var express             = require('express')
   , app                 = express()
   , server              = require('http').createServer(app)
   , io                  = require('socket.io').listen(server)
   , path                = require('path')
-  , ejs                 = require('ejs')
 
   , compression         = require('compression')
-  , morgan              = require('morgan')   
+  //, morgan              = require('morgan')   
   , bodyParser          = require('body-parser')
   , session             = require('express-session')
   , MongoStore          = require('connect-mongo')(session)
@@ -27,7 +24,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.use(morgan('tiny'));
+//app.use(morgan('tiny'));
 app.use(compression());
 
 app.use(bodyParser.json());
@@ -42,7 +39,7 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-if ('development' == app.get('env')) {
+if (app.get('env') === 'development') {
 }
 
 app.get('/queue', function (req, res) {
@@ -60,6 +57,11 @@ questions.setup(app, io);
 scheduler.setup(app);
 statistics.setup(app);
 
-server.listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+// finally export application to be run as server or testing.
+exports.app = app;
+
+exports.listen = function () {
+  server.listen(app.get('port'), function () {
+    console.log('Express server listening on port ' + app.get('port'));
+  });
+};

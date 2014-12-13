@@ -1,68 +1,80 @@
-var q = require('../questions.js'); 
+'use strict';
 
-describe("The questions route", function () {
+var request = require('supertest')
+  , app = require('../../app').app
+  ;
 
-    var req, res = null;
+describe('Questions API', function () {
 
-    beforeEach(function () {
+  describe('without a session', function () {
 
-        // clear array before each run
-        q.clear();
-
-        req = {
-            params: { id: 0  },
-            session: { id: 0 },
-            body: { course_id: 0, table_id: 0 }
-        };
-
-        res = {
-            json: function (o) {},
-            end: function (o) {},
-            send: function (o) {}
-        };
-
-        spyOn(res, 'json');
-        spyOn(res, 'end');
-        spyOn(res, 'send');
-
+    it('should not post without registering', function (done) {
+      request(app)
+        .post('/api/questions')
+        .end(function (err, res) {
+          if (err) {
+            done(err);
+          } else {
+            // unauthorized
+            expect(res.status).toBe(403);
+            expect(res.body.message).toBe('please authenticate');
+            done();
+          }
+        });
     });
 
-    it('should return an id when a question is added', function (){
-        q.add(req, res);
-        expect(q.getQueue().length).toBe(1);  
-        expect(res.json).toHaveBeenCalledWith({ _id: 0 });
+  });
+
+  describe('with session', function () {
+
+    var agent, q;
+
+    beforeEach(function (done) {
+      agent = request.agent(app);
+      agent
+        .post('/api/session')
+        .send({ password: 'password', table: 1, location: 0 })
+        .end(function (err, res) {
+          if (err) {
+            done(err);
+          } else {
+            expect(err).toBe(null);
+            expect(res.body.table).toBe(1);
+            expect(res.body.location).toBe(0);
+            expect(res.status).toBe(201);
+            done();
+          }
+        });
+    });
+  
+    it('should post a question after login', function (done) {
+      agent
+        .post('/api/questions')
+        .send({})
+        .end(function (err, res) {
+          if (err) {
+            done(err);
+          } else {
+            q = res.body;
+            expect(res.status).toBe(201);
+            done();
+          }
+        });
     });
 
-    it('should be able to return questions based on session', function (){
-        q.add(req, res);
-        q.getBySession(req, res);
-        expect(res.json).toHaveBeenCalledWith(
-            [{ _id: 0, course_id: 0, table_id: 0 }]);
+    it('should post a question after login', function (done) {
+      agent
+        .delete('/api/questions/' + q._id)
+        .end(function (err, res) {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.status).toBe(200);
+            done();
+          }
+        });
     });
 
-    it('should be able to confirm added questions', function () {
-        q.add(req, res);
-        q.confirm(req, res);
-        expect(q.getQueue().length).toBe(0);  
-        expect(res.end).toHaveBeenCalled();
-    });
-
-    it('should only be able to confirm added questions', function () {
-        q.confirm(req, res);
-        expect(res.send).toHaveBeenCalledWith(404);
-    });
-
-    it('should be able to delete added questions', function () {
-        q.add(req, res);
-        q.delete(req, res);
-        expect(q.getQueue().length).toBe(0);  
-        expect(res.end).toHaveBeenCalled();
-    });
-
-    it('should only be able to delete added questions', function () {
-        q.delete(req, res);
-        expect(q.getQueue().length).toBe(0);  
-        expect(res.send).toHaveBeenCalledWith(404);
-    });
+  });
 
 });

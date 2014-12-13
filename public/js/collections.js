@@ -3,7 +3,7 @@ define(['backbone'], function (Backbone) {
   'use strict';
 
   var Subject = Backbone.Model.extend({
-      idAttribute: "_id",
+      idAttribute: '_id',
       initialize: function () {}
   });
 
@@ -23,7 +23,7 @@ define(['backbone'], function (Backbone) {
 
   var Course = Backbone.Model.extend({
 
-    idAttribute: "_id",
+    idAttribute: '_id',
 
     initialize: function () {
 
@@ -53,7 +53,7 @@ define(['backbone'], function (Backbone) {
 
   var Question = Backbone.Model.extend({
 
-    idAttribute: "_id",
+    idAttribute: '_id',
 
     initialize: function () {
       var course = courses.get(this.get('course'));
@@ -65,9 +65,9 @@ define(['backbone'], function (Backbone) {
 
     isEqual: function (question) {
       if (question === undefined) {
-        return false
+        return false;
       } else {
-        return question.get('title') == this.get('title');
+        return question.get('title') === this.get('title');
       }
     }
 

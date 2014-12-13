@@ -1,7 +1,14 @@
+'use strict';
+
 // A basic widget for managing student requests.  Users will be able to
 // navigate different subjects and request aid for specific classes.
 
-define(['jquery' , 'underscore', 'backbone', 'chart',
+define([
+
+  'jquery',
+  'underscore',
+  'backbone',
+  'chart',
 
   'js/collections',
   'text!templates/statstable.html'
@@ -18,23 +25,23 @@ function ($, _, Backbone, Chart, collections, table) {
 
       this.$el.html(_.template(table, {
         path: path,
-        current: path.join('/')+"/",
+        current: path.join('/') + '/',
         subjects: collections.subjects.models,
         data: this.collection
       }));
 
-      var bar = this.$el.children('canvas').get(0).getContext("2d");
+      var bar = this.$el.children('canvas').get(0).getContext('2d');
 
-      data = {
+      var data = {
         labels: _.map(this.collection.models, function(obj) {
           return obj.get('formatted');
         }),
         datasets: [
           {
-            fillColor : "rgba(220,220,220,0.5)",
-            strokeColor : "maroon",
-            pointColor : "rgba(220,220,220,1)",
-            pointStrokeColor : "#fff",
+            fillColor : 'rgba(220,220,220,0.5)',
+            strokeColor : 'maroon',
+            pointColor : 'rgba(220,220,220,1)',
+            pointStrokeColor : '#fff',
             data : _.map(this.collection.models, function(obj) {
               return obj.get('total');
             })

@@ -1,22 +1,11 @@
+'use strict';
+
 // the question queue api
 
-var _           = require('underscore')
-  , scheduler   = require('./scheduler')
-  , sessions    = require('./sessions')
-
+var scheduler = require('./scheduler')
+  , sessions  = require('./sessions')
   , mongoose  = require('mongoose')
-  , Schema    = mongoose.Schema
-
-    // the question queue and id generator
-  , questions = []
-  , tables = {} // hash of sessions
-  , tableIds = []
-  , idGen = 0
   ;
-
-for (var i = 0; i < 20; i++) {
-    tableIds.push(i+1);
-}
 
 mongoose.connect('mongodb://localhost/questions');
 
@@ -43,15 +32,6 @@ var Question = exports.Question = mongoose.model('Question', {
   completed: Boolean,
 });
 
-
-exports.clear = function () {
-  questions = [];
-  idGen = 0;
-};
-
-// get the current question queue
-var getQueue = function () { return questions; };
-
 // return questions to user based on their session table
 var getBySession = function (req, res) {
 
@@ -74,7 +54,6 @@ var add = function (req, res, next) {
 
     var q = req.body;
 
-    //q._id = idGen;
     q.begin = Date.now();
     q.user = req.session.id;
 
@@ -86,14 +65,14 @@ var add = function (req, res, next) {
       if (err) {
         res.status(500).json(err);
       } else {
-        res.json({ _id: model._id });
+        res.status(201).json({ _id: model._id });
         next();
       }
     });
 
   } else {
     res.status(403).json({
-      message: "please authenticate"
+      message: 'please authenticate'
     });
   }
 };
@@ -103,7 +82,7 @@ var confirm = function (req, res, next) {
   var q = {};
   q.end = Date.now(); // update end tag
   q.completed = true;
-  q.$unset = { user: "", title: "", label: "", table: ""  };
+  q.$unset = { user: '', title: '', label: '', table: '' };
   Question.findByIdAndUpdate(req.params.id, q)
     .exec(function (err, model) {
       if (err) {
@@ -120,7 +99,7 @@ var del = function (req, res, next) {
   var q = {};
   q.end = Date.now(); // update end tag
   q.completed = false;
-  q.$unset = { user: "", title: "", label: "", table: ""  };
+  q.$unset = { user: '', title: '', label: '', table: '' };
   Question.findByIdAndUpdate(req.params.id, q)
     .exec(function (err, model) {
       if (err) {
@@ -145,7 +124,7 @@ exports.setup = function (app, io) {
 
   // update connected sockets
   var sockets = function (req) {
-    var location = req.session.location
+    var location = req.session.location;
     var ns = io.of('/' + location);
     Question.find({
       location: location,
@@ -168,12 +147,11 @@ exports.setup = function (app, io) {
       locations.forEach(function (location) {
         // create a room for each location (for the queue)
         var ns = io.of('/' + location._id);
-        ns.on('connection', function (socket) {
+        ns.on('connection', function () {
           Question.find({
             location: location,
             end: { $exists: false }
           }, function (err, questions) {
-            console.log(questions)
             ns.emit('questions', questions);
           });
         });

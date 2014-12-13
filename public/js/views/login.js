@@ -1,3 +1,5 @@
+'use strict';
+
 define([ 'jquery', 'underscore', 'backbone',
 
   'js/collections',
@@ -20,11 +22,8 @@ function ($, _, Backbone, collections, login) {
     initialize: function () {
       var self = this;
       $.get('/api/session')
-        .done(function (session, status) {
-        })
         .fail(function (res) {
           var error = res.responseJSON.message;
-          console.log(error)
           $.get('/api/locations', function (locations) {
             self.$el.html(_.template(login, {
               message: error,
@@ -44,9 +43,9 @@ function ($, _, Backbone, collections, login) {
         password: this.$el.find('#password').val(),
       };
       $.post('/api/session', info)
-        .then(function (s, status) {
+        .then(function (s) {
           session = s;
-          self.$el.remove()
+          self.$el.remove();
         })
         .fail(function (res) {
           var error = res.responseJSON.message;

@@ -1,3 +1,5 @@
+'use strict';
+
 // A widget for monitoring student system statistics. Users will be able
 // to navigate different stats with respect to time and subject.
 
@@ -24,11 +26,10 @@ require(['/config.js'], function () {
       },
       showhelp: function () {
         body.html(help);
-        console.log('hello')
       },
       viewstats: function (term, week, day) {
         var obj = {
-          term: (!!term)? term : "FA2013",
+          term: (!!term)? term : 'FA2013',
           week: week,
           day:  day
         }; 

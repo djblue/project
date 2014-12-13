@@ -1,11 +1,8 @@
+'use strict';
+
 // the question queue api
 
-var _           = require('underscore')
-  , scheduler   = require('./scheduler')
-
-    // the question queue and id generator
-  , tableIds = []
-  ;
+var tableIds = [];
 
 for (var i = 0; i < 20; i++) {
   tableIds.push(i+1);
@@ -19,7 +16,7 @@ var auth = exports.auth = function (req, res, next) {
     next();
   } else {
     res.status(403).json({
-      message: "please authenticate"
+      message: 'please authenticate'
     });
   }
 };
@@ -40,9 +37,17 @@ var createNewSession = function (req, res) {
       message: 'incorrect password'
     });
   // what table?
+  } else if (req.body.table === undefined) {
+    res.status(400).json({
+      message: 'missing table'
+    });
   } else if (isNaN(i)) {
     res.status(400).json({
-      message: 'table must be #'
+      message: 'table must be a number'
+    });
+  } else if (req.body.location === undefined) {
+    res.status(400).json({
+      message: 'missing location'
     });
   // table has been successfully register
   } else {
@@ -55,7 +60,7 @@ var createNewSession = function (req, res) {
   }
 };
 
-exports.setup = function (app, io) {
+exports.setup = function (app) {
   app.get('/api/session', auth, getSessionInfo);
   app.post('/api/session', createNewSession);
 };

@@ -1,5 +1,7 @@
-requirejs(['/config.js'], function () {
-  requirejs(['jquery' , 'underscore', 'backbone', 
+'use strict';
+
+require(['/config.js'], function () {
+  require(['jquery' , 'underscore', 'backbone', 
 
     'text!templates/queue.html',
     'text!templates/location.html',
@@ -19,7 +21,6 @@ requirejs(['/config.js'], function () {
         body.find('.location').click(function (e) {
           var id = $(e.currentTarget).data('id');
           body.html(template({ questions: [] }));
-          debugger
           var ns = io.connect('/' + id); // Defaults to server
           ns.on('questions', function (questions) {
             body.html(template({ questions: questions }));

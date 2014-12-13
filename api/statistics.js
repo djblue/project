@@ -1,3 +1,5 @@
+'use strict';
+
 // enables statistical tracking using mongodb
 
 // setup database client and server connections
@@ -17,11 +19,11 @@ Date.prototype.getSemester = function () {
     var semester;
 
     if (this.getMonth() <=5 && this.getDate() <= 11) {
-        semester = "SP";
+        semester = 'SP';
     } else if (this.getMonth() <=8 && this.getDate() <= 15) {
-        semester = "SU";
+        semester = 'SU';
     } else {
-        semester = "FA";
+        semester = 'FA';
     }   
 
     // append the year to approximated term
@@ -92,7 +94,7 @@ var getStats = function (req, res) {
         ret.completed = 0;
       }
       ret.questions[this.course] = 1;
-      emit(group + ':' + this.subject, ret);
+      emit(group + ':' + this.subject, ret); // jshint ignore:line
     },
     reduce: function (key, values) {
       var ret = values[0];
@@ -121,7 +123,7 @@ var getStats = function (req, res) {
       console.log(err);
       res.status(500).end();
     } else {
-      res.json(models)
+      res.json(models);
     }
   });
 };

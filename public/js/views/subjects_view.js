@@ -1,6 +1,10 @@
-define(['jquery', 'underscore', 'backbone', 
+'use strict';
 
-    'js/subjects'
+define([
+  'jquery',
+  'underscore',
+  'backbone',
+  'js/subjects'
 ], 
 
 function ($, _, Backbone, subjects) {

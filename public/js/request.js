@@ -1,3 +1,5 @@
+'use strict';
+
 // A basic widget for managing student requests. Users 
 // will be able to navigate different subjects and request aid 
 // for specific classes.
