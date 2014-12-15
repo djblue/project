@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
 * {
   margin: 0; padding: 0;
   box-sizing: border-box;
@@ -6,7 +8,9 @@
     display: none; 
 }
 body {
-    background: rgb(255,255,255); 
+  background: rgb(255,255,255); 
+  font-size: 16px;
+  font-family: 'Lato', sans-serif;
 }
 button {
     cursor: pointer;
@@ -45,21 +49,22 @@ li {
     padding: 10px;
 }
 
-.slim-panel {
-    width: 400px;
-    margin: 10px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
+.panel {
+  margin: 10px auto;
+  background: white;
+  padding: 40px 0;
 }
 
-.login input,
-.login select,
-.login button
-{
-    display: block;
-    width: 100%;
-    padding: 5px;
+.slim {
+  max-width: 400px;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+.upcase {
+  text-transform: uppercase;
 }
 
 .modal {
@@ -78,6 +83,8 @@ li {
   vertical-align: middle;
 }
 
+/* animations */
+
 @-webkit-keyframes slidedown {
   from {
     top: -960px;
@@ -87,7 +94,38 @@ li {
   }
 }
 
-.modal .slidedown {
+.slidedown {
   position: relative;
   -webkit-animation: slidedown 0.3s;
+}
+
+/* inputs */
+.input,
+.select,
+.btn {
+  outline: 0;
+  border: 1px solid maroon;
+  color: maroon;
+  background: white;   
+  border-radius: 3px;
+  padding: 5px 8px;
+  font-size: 100%;
+}
+
+.block {
+  width: 100%;
+  display: block;
+}
+
+
+.btn-red {
+}
+
+.btn-red:hover {
+  color: white;
+  background: maroon;   
+}
+
+.text-red {
+  color: maroon;
 }

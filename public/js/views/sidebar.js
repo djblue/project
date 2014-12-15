@@ -9,11 +9,12 @@ define([
 
   'js/views/time_view',
   'js/collections',
+  'js/views/confirm',
   'text!templates/sidebar.html'
 
 ], 
 
-function ($, _, Backbone, Hammer, TimeView, collections, template) {
+function ($, _, Backbone, Hammer, TimeView, collections, confirm, template) {
 
   return Backbone.View.extend({
 
@@ -35,9 +36,11 @@ function ($, _, Backbone, Hammer, TimeView, collections, template) {
 
     cancel: function (e) {
       var id = $(e.currentTarget).data(id);
-      if (confirm('Are you sure you want to remove the question from the queue?')) {
-        collections.questions.cancel(id);
-      }
+      confirm('Are you sure you?', function (yes) {
+        if (yes) {
+          collections.questions.cancel(id);
+        }
+      });
     },
 
     dragstart: function (e) {

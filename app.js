@@ -8,7 +8,7 @@ var express             = require('express')
   , path                = require('path')
 
   , compression         = require('compression')
-  //, morgan              = require('morgan')   
+  , morgan              = require('morgan')
   , bodyParser          = require('body-parser')
   , session             = require('express-session')
   , MongoStore          = require('connect-mongo')(session)
@@ -24,7 +24,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-//app.use(morgan('tiny'));
+app.use(morgan('tiny'));
 app.use(compression());
 
 app.use(bodyParser.json());

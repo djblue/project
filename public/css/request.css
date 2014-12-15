@@ -1,10 +1,8 @@
 html, body {
-    font-family: sans-serif;
-    height: 100%;
-    overflow: hidden;
+  height: 100%;
+  overflow: hidden;
 }
 
-h1, h2, h3 { font-family: serif; }
 
 h1 { font-size: 34px; }
 h2 { font-size: 20px; }
@@ -100,15 +98,6 @@ h2 { font-size: 20px; }
 #questions {
     color: maroon;
     margin: 20px -10px;
-}
-
-#questions button {
-    border-radius: 5px;
-    border: 0;
-    color: #ffffff;
-    background-color: maroon;
-    padding: 5px 10px;
-    font-size: 14pt;
 }
 
 .question {
