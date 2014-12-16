@@ -45,7 +45,9 @@ module.exports = function(grunt) {
       },
       dev: {
         options: {
-          script: 'server.js'
+          script: 'server.js',
+          // jshint camelcase: false
+          node_env: 'development',
         }
       },
       prod: {

@@ -3,11 +3,9 @@
 // the question queue api
 
 var scheduler = require('./scheduler')
-  , sessions  = require('./sessions')
+  , tokens    = require('./tokens')
   , mongoose  = require('mongoose')
   ;
-
-mongoose.connect('mongodb://localhost/questions');
 
 // Setup the use model.
 var Question = exports.Question = mongoose.model('Question', {
@@ -18,9 +16,8 @@ var Question = exports.Question = mongoose.model('Question', {
   title: String,
   label: String,
 
-  user: String,
-  table: Number,
 
+  table: Number,
   // for what location was the question asked
   location: String,
 
@@ -33,11 +30,11 @@ var Question = exports.Question = mongoose.model('Question', {
 });
 
 // return questions to user based on their session table
-var getBySession = function (req, res) {
+var getByTable = function (req, res) {
 
   // get questions that have not been completed
   Question.find({
-    table: req.session.table,
+    table: req.token.table,
     end: { $exists: false }
   }).exec(function (err, questions) {
     if (err) {
@@ -50,15 +47,12 @@ var getBySession = function (req, res) {
 
 // add a question to the end of the queue
 var add = function (req, res, next) {
-  if (req.session.table !== undefined) {
+  if (req.token.table !== undefined) {
 
     var q = req.body;
 
-    q.begin = Date.now();
-    q.user = req.session.id;
-
-    q.table = req.session.table;
-    q.location = req.session.location;
+    q.table = req.token.table;
+    q.location = req.token.location;
 
     var question = new Question(q);
     question.save(function (err, model) {
@@ -124,7 +118,7 @@ exports.setup = function (app, io) {
 
   // update connected sockets
   var sockets = function (req) {
-    var location = req.session.location;
+    var location = req.token.location;
     var ns = io.of('/' + location);
     Question.find({
       location: location,
@@ -134,11 +128,11 @@ exports.setup = function (app, io) {
     });
   };
 
-  app.get('/api/questions', getBySession);
+  app.get('/api/questions', tokens.decode, getByTable);
 
-  app.post('/api/questions', sessions.auth, add, sockets);
-  app.put('/api/questions/:id', sessions.auth, confirm, sockets);
-  app.delete('/api/questions/:id', sessions.auth, del, sockets);
+  app.post('/api/questions', tokens.decode, add, sockets);
+  app.put('/api/questions/:id', tokens.decode, confirm, sockets);
+  app.delete('/api/questions/:id', tokens.decode, del, sockets);
 
   scheduler.getLocations(function (err, locations) {
     if (err) {

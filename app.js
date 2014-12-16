@@ -6,35 +6,43 @@ var express             = require('express')
   , server              = require('http').createServer(app)
   , io                  = require('socket.io').listen(server)
   , path                = require('path')
+  , mongoose            = require('mongoose')
 
   , compression         = require('compression')
   , morgan              = require('morgan')
   , bodyParser          = require('body-parser')
-  , session             = require('express-session')
-  , MongoStore          = require('connect-mongo')(session)
-
-  , scheduler           = require('./api/scheduler')
-  , sessions            = require('./api/sessions')
-  , questions           = require('./api/questions')
-  , statistics          = require('./api/statistics')
+  //, session             = require('express-session')
+  //, MongoStore          = require('connect-mongo')(session)
   ;
+
+// setup database connection
+mongoose.connect('mongodb://localhost/questions');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.use(morgan('tiny'));
+if (process.env.NODE_ENV === 'production') {
+  app.use(morgan('common'));
+}
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('tiny'));
+}
+
 app.use(compression());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+/*
 app.use(session({
   resave: false,
   secret:'97e0089deda4f396f7e3a85c8aa62e37',
+  cookie: { maxAge: null },
   store: new MongoStore({ db: 'sessions' })
-}));
+}));*/
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -52,10 +60,18 @@ app.get('/queue', function (req, res) {
   });
 });
 
-sessions.setup(app);
-questions.setup(app, io);
-scheduler.setup(app);
-statistics.setup(app);
+
+// synchronously load all api end points in api directory
+require('fs').readdirSync('./api').forEach(function (file) {
+  // check file is javascript file
+  if (file.match(/\.js$/)) {
+    var api = require('./api/' + file);
+    if (typeof api.setup === 'function') {
+      console.log('> exports.setup() in api/' + file);
+      api.setup(app, io);
+    }
+  }
+});
 
 // finally export application to be run as server or testing.
 exports.app = app;
