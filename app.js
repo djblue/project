@@ -45,6 +45,7 @@ app.use(session({
 }));*/
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('/admin', path.join(__dirname, 'public/admin')));
 
 // development only
 if (app.get('env') === 'development') {

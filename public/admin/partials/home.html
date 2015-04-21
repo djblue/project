@@ -1,0 +1,16 @@
+<h1>Admin Dashboard</h1>
+
+<h2>Passcode</h2>
+<button ng-click="genPasscode()">Passcode</button>
+<div ng-show="passcode !== undefined">
+  <div>code: {{ passcode.code }}</div>
+  <div>generated: {{ passcode.generated | date:'medium' }}</div>
+  <div>expires: {{ passcode.expires | date:'medium' }}</div>
+</div>
+
+<h2>Stats</h2>
+<ul>
+  <li ng-repeat="location in locations">
+    <a href="#/stats/{{ location._id }}">{{ location.title }}</a>
+  </li>
+</ul>

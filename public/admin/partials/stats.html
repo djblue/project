@@ -1,0 +1,14 @@
+<h1>Stats</h1>
+<a href="#/">Home</a>
+<h2>Table</h2>
+<table>
+  <tr ng-repeat="row in stats">
+    <td></td>
+  </tr>
+</table>
+<div ng-init="showJSON=false">
+<h2>Raw JSON
+<button ng-click="showJSON=!showJSON">toggle</button>
+</h2>
+<pre ng-if="showJSON">{{ stats | json}}</pre>
+</div>
