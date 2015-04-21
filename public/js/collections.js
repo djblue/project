@@ -1,6 +1,9 @@
-define(['backbone'], function (Backbone) {
+'use strict';
 
-  'use strict';
+define(['backbone', 'js/tablet'],
+
+function (Backbone, tablet) {
+
 
   var Subject = Backbone.Model.extend({
       idAttribute: '_id',
@@ -10,8 +13,11 @@ define(['backbone'], function (Backbone) {
 
   var Subjects = Backbone.Collection.extend({
     initialize: function () {
-      // Ensure data is avaliable before leaving module.
-      this.fetch({ async: false });
+      this.fetch({
+        success: function () {
+          this.trigger('change');
+        }.bind(this)
+      });
     },
     url: '/api/subjects',
     model: Subject
@@ -37,8 +43,11 @@ define(['backbone'], function (Backbone) {
 
   var Courses = Backbone.Collection.extend({
     initialize: function () {
-      // Ensure data is avaliable before leaving module.
-      this.fetch({ async: false });
+      this.fetch({
+        success: function () {
+          this.trigger('change');
+        }.bind(this)
+      });
     },
     url: '/api/courses',
     model: Course,
@@ -57,10 +66,12 @@ define(['backbone'], function (Backbone) {
 
     initialize: function () {
       var course = courses.get(this.get('course'));
-      this.set('subject', course.get('subject'));
-      this.set('title', course.get('title'));
-      this.set('label', course.get('label'));
-      this.set('color', course.get('color'));
+      if (course !== undefined) {
+        this.set('subject', course.get('subject'));
+        this.set('title', course.get('title'));
+        this.set('label', course.get('label'));
+        this.set('color', course.get('color'));
+      }
     },
 
     isEqual: function (question) {
@@ -76,12 +87,18 @@ define(['backbone'], function (Backbone) {
   var Questions =  Backbone.Collection.extend({
     initialize: function () {
       // go grab some data!
-      var that = this;
-      this.fetch({
-        success: function () {
-          that.trigger('change');
-        }
-      });
+      tablet.getToken(function (token) {
+        $.ajaxSetup({
+          headers: {
+            Authorization: 'Bearer ' + token
+          }
+        });
+        this.fetch({
+          success: function () {
+            this.trigger('change');
+          }.bind(this)
+        });
+      }.bind(this));
       // the recent questions that have been asked
       this.recent = [];
       // the maximum number of questions
@@ -137,6 +154,14 @@ define(['backbone'], function (Backbone) {
 
 
   });
+
+  var getCollection = function (name) {
+    return function (done) {
+      $.get('/api/subjects', function (subjects) {
+        debugger
+      });
+    };
+  };
 
   return {
     subjects: subjects,

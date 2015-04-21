@@ -9,14 +9,12 @@ require(['/config.js'], function () {
     'jquery',
     'js/views/navmenu',
     'js/views/sidebar',
-    'js/views/login'
   ],
 
-  function ($, Menu, Sidebar, Login) {
+  function ($, Menu, Sidebar) {
     $('#body')
       .append(new Sidebar().$el)
       .append(new Menu().$el)
-      .append(new Login().$el)
       ;
   });
 

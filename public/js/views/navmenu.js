@@ -36,6 +36,7 @@ function ($, _, Backbone, hammer, collections, subjects, courses, helptext) {
 
       // render the subjects menu
       this.rendersubjects();
+      collections.subjects.on('change', this.rendersubjects, this);
 
       // help menu state
       this.helpstate = false;

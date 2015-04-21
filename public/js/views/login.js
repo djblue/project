@@ -9,50 +9,56 @@ define([ 'jquery', 'underscore', 'backbone',
 
 function ($, _, Backbone, collections, login) {
 
-  var session = null;
-  
-  return Backbone.View.extend({
+  return function (done) {
 
-    id: 'login',
-    
-    events: {
-      'click .register': 'register'
-    },
+    var Login = Backbone.View.extend({
 
-    initialize: function () {
-      var self = this;
-      $.get('/api/session')
-        .fail(function (res) {
-          var error = res.responseJSON.message;
-          $.get('/api/locations', function (locations) {
-            self.$el.html(_.template(login, {
-              message: error,
-              locations: locations,
-              available: [1,2,3,4,5]
-            }));
+      id: 'login',
+      
+      events: {
+        'click .register': 'register'
+      },
+
+      initialize: function () {
+        var self = this;
+        $.get('/api/locations', function (locations) {
+          self.$el.html(_.template(login, {
+            message: 'please authenticate',
+            locations: locations,
+            available: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+          }));
+        });
+      },
+
+      register: function () {
+        var self = this;
+        var $message = $(this.$el.find('#message'));
+        var info = {
+          table: this.$el.find('#table').val(),
+          location: this.$el.find('#location').val(),
+          code: this.$el.find('#passcode').val(),
+        };
+        $.post('/api/tablets', info)
+          .then(function (token) {
+            if (typeof done === 'function') {
+              delete info.code;
+              info.token = token;
+              done(info);
+            }
+            self.$el.remove();
+          })
+          .fail(function (res) {
+            var error = res.responseJSON.message;
+            var message = '<span class="shake">' + error + '</span>';
+            $message.html(message);
           });
-        });
-    },
+      }
 
-    register: function () {
-      var self = this;
-      var $message = $(this.$el.find('#message'));
-      var info = {
-        table: this.$el.find('#table').val(),
-        location: this.$el.find('#location').val(),
-        password: this.$el.find('#password').val(),
-      };
-      $.post('/api/session', info)
-        .then(function (s) {
-          session = s;
-          self.$el.remove();
-        })
-        .fail(function (res) {
-          var error = res.responseJSON.message;
-          $message.html(error);
-        });
-    }
+    });
 
-  });
+    var l = new Login();
+    l.$el.appendTo('body');
+
+  }
 
 });

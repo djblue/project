@@ -12,6 +12,7 @@ function ($, _, Backbone, subjects) {
   return Backbone.View.extend({
 
     initialize: function () {
+      subjects.on('change', render, this);
     },
 
     collection: subjects,
