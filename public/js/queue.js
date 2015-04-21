@@ -21,7 +21,7 @@ require(['/config.js'], function () {
         body.find('.location').click(function (e) {
           var id = $(e.currentTarget).data('id');
           body.html(template({ questions: [] }));
-          var ns = io.connect('/' + id); // Defaults to server
+          var ns = io.connect(window.location.origin + '/' + id); // Defaults to server
           ns.on('questions', function (questions) {
             body.html(template({ questions: questions }));
           });
