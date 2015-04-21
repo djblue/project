@@ -9,6 +9,8 @@ define([ 'jquery', 'underscore', 'backbone',
 
 function ($, _, Backbone, collections, login) {
 
+  var locs = {};
+
   return function (done) {
 
     var Login = Backbone.View.extend({
@@ -22,6 +24,9 @@ function ($, _, Backbone, collections, login) {
       initialize: function () {
         var self = this;
         $.get('/api/locations', function (locations) {
+          locations.forEach(function (l) {
+            locs[l._id] = l.title;
+          });
           self.$el.html(_.template(login, {
             message: 'please authenticate',
             locations: locations,
@@ -38,11 +43,16 @@ function ($, _, Backbone, collections, login) {
           location: this.$el.find('#location').val(),
           code: this.$el.find('#passcode').val(),
         };
+        debugger
         $.post('/api/tablets', info)
           .then(function (token) {
             if (typeof done === 'function') {
               delete info.code;
               info.token = token;
+              info.location = {
+                _id: info.location,
+                title: locs[info.location]
+              };
               done(info);
             }
             self.$el.remove();

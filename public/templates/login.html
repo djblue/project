@@ -17,7 +17,9 @@
           <td>
           <select class="select block" id="location">
             <% for (var i = 0; i < locations.length; i++) { %>
-            <option value="<%= locations[i]._id %>" ><%= locations[i].title %></option>
+            <option value="<%= locations[i]._id %>">
+              <%= locations[i].title %>
+            </option>
             <% } %>
           </select>
           </td>

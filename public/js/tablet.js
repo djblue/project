@@ -11,6 +11,7 @@ define([
   // get client info
   // may already be present in local storage, or 
   // the user might have to prompted
+  var fns = [];
   var getInfo = function (key) {
     return function (done) {
       var info = JSON.parse(localStorage.getItem('info'));
@@ -18,15 +19,22 @@ define([
         dispatcher.trigger('info:table', info.table);
         dispatcher.trigger('info:location', info.location);
         dispatcher.trigger('info:token', info.token);
-        done(info[key]);
+        done((key !== undefined)? info[key] : info);
       } else {
-        login(function (info) {
-          localStorage.setItem('info', JSON.stringify(info));
-          dispatcher.trigger('info:table', info.table);
-          dispatcher.trigger('info:location', info.location);
-          dispatcher.trigger('info:token', info.token);
-          done(info[key]);
-        });
+        if (fns.length === 0) {
+          fns.push(done);
+          login(function (info) {
+            localStorage.setItem('info', JSON.stringify(info));
+            dispatcher.trigger('info:table', info.table);
+            dispatcher.trigger('info:location', info.location);
+            dispatcher.trigger('info:token', info.token);
+            while (fns.length !== 0) {
+              fns.pop()((key !== undefined)? info[key] : info);
+            }
+          });
+        } else {
+          fns.push(done);
+        }
       }
     };
   }
@@ -57,6 +65,7 @@ define([
     getTable: getInfo('table'),
     getLocation: getInfo('location'),
     getToken: getInfo('token'),
+    getInfo: getInfo(),
 
     // clear info, useful when using a token that has expired
     // and you want the client to reenter credentials

@@ -10,11 +10,12 @@ define([
   'js/views/time_view',
   'js/collections',
   'js/views/confirm',
+  'js/tablet',
   'text!templates/sidebar.html'
 
 ], 
 
-function ($, _, Backbone, Hammer, TimeView, collections, confirm, template) {
+function ($, _, Backbone, Hammer, TimeView, collections, confirm, tablet, template) {
 
   return Backbone.View.extend({
 
@@ -112,10 +113,14 @@ function ($, _, Backbone, Hammer, TimeView, collections, confirm, template) {
     },
 
     render: function () {
-      this.area.html( this.template({
-        questions: collections.questions.models,
-        recent: collections.questions.recent
-      }));
+      var self = this;
+      tablet.getInfo(function (info) {
+        self.area.html(self.template({
+          info: info,
+          questions: collections.questions.models,
+          recent: collections.questions.recent
+        }));
+      });
     },
 
     // let the user know that they have already asked 
