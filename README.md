@@ -61,6 +61,6 @@ API page are listed below for quick reference.
 - [jquery](http://api.jquery.com/) for DOM manipulation.
 - [backbone](http://backbonejs.org/) for client-side mvc.
 - [requirejs](http://requirejs.org/docs/api.html) for client-side asynchronous module loading.
-- [jasmine](http://pivotal.github.io/jasmine/) for testing.
+- [jasmine](https://jasmine.github.io/) for testing.
 - [d3](https://github.com/mbostock/d3/wiki/API-Reference) for data visualization.
 - [hammer](https://github.com/EightMedia/hammer.js/wiki) for multi-touch gestures.
